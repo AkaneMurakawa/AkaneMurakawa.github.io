@@ -11,7 +11,7 @@
 	<link rel="preconnect" href="//9qpuwspm.api.lncld.net">
 	<link rel="preconnect" href="//gravatar.loli.net">
 
-	<title>IntelliJ IDEA | Akane Murakawa's Home</title>
+	<title>Maven | Akane Murakawa's Home</title>
 
 	<meta name="HandheldFriendly" content="True">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -37,7 +37,7 @@
 
 	<meta property="og:site_name" content="Akane Murakawa's Home">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="IntelliJ IDEA | Akane Murakawa's Home">
+	<meta property="og:title" content="Maven | Akane Murakawa's Home">
 	<meta property="og:description" content>
 	<meta property="og:url" content="http://yuumasan.com/2019/09/14/13/">
 
@@ -141,90 +141,102 @@
     <div class="inner">
         <header class="post-full-header">
             <div class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-09-14T07:11:00.000Z">
+                <time class="post-full-meta-date" datetime="2019-09-14T07:17:00.000Z">
                     2019-09-14
                 </time>
                 
                 <span class="date-divider">/</span>
                 
-                <a href="/categories/tools/">tools</a>  
+                <a href="/categories/%E6%9C%AA%E5%AE%9A%E4%B9%89/">未定义</a>  
                 
                 
             </div>
-            <h1 class="post-full-title">IntelliJ IDEA</h1>
+            <h1 class="post-full-title">Maven</h1>
         </header>
         <div class="post-full no-image">
             
             <div class="post-full-content">
                 <article id="photoswipe" class="markdown-body">
                     <p><Excerpt in index | 首页摘要></p>
-<p>这一篇里主要是总结一下我在IDEA中的一些基本使用。</p>
+<p>Maven的简单使用</p>
 <a id="more"></a>
 <p><The rest of contents | 余下全文></p>
-<p>在使用之前，我都会习惯性的设置一下编码为UTF-8，并且设置一下字体。</p>
-<p>编码设置：Setttings——Editor——Encodings(注意下面有个properties文件的默认编码设置，这里也需要设置一下)</p>
-<p>字体设置：Setttings——Editor——Fonts(我习惯用的是Source Code Pro和Consolas)</p>
-<p>背景设置(可选)：Setttings——Appearance —— Background Image(IDEA比Eclipse友好的地方之一，IDEA可以轻松的设置背景图片，这样我们写代码也有动力，并且透明的背景对我来说比较舒服。)</p>
-<hr>
-<h3 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h3><p>Setttings——Editor——General下有几个不错的设置</p>
-<ul>
-<li>Setttings——Editor——General——Change font size(Zoom)  with Ctrl+Mouse Wheel (通过Ctrl+鼠标控制字体大小，这样当我们通过IDEA给别人演示的时候，就可以很方便调整字体大小</li>
-<li>Setttings——Editor——General——Appearance——Show method separator一个让我觉得很舒服的设置，这个设置是给方法进行添加一条分割线，不占用行数。</li>
-<li>Setttings——Editor——General——Auto Import——然后勾选Add unambiguous imports on the fly以及Optimize imports on the fly(快速导入和删除无用的包)</li>
-</ul>
-<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><p>一些简单的复制粘贴就不介绍了，下面是一些我用的比较多，也比较好用的快捷键。快捷键无非就是按键的组合，一般是CTRL、Alt、SHIFT和其他按键的组合。</p>
-<p>Ctrl + B    进入光标所在的方法</p>
-<p>Ctrl + Alt + B    在某个调用的方法名上使用会跳到具体的实现处，可以跳过接口</p>
-<p>Ctrl + D    复制光标所在行 或 复制选择内容</p>
-<p>Ctrl + E    显示最近打开的文件记录列表 </p>
-<p>Ctrl + F    在当前文件进行文本查找</p>
-<p>Ctrl + Shift + F    根据输入内容查找整个项目 或 指定目录内文件</p>
-<p>Ctrl + G    在当前文件跳转到指定行处</p>
-<p>Ctrl + H    调用层次</p>
-<p>Ctrl + I    选择可继承的方法</p>
-<p>Ctrl + O    选择可重写的方法</p>
-<p>Ctrl + R    在当前文件进行文本替换</p>
-<p>Ctrl + Shift + R    根据输入内容替换对应内容，范围为整个项目 或 指定目录内文件</p>
-<p>Ctrl + Y    删除光标所在行 或 删除选中的行，这是和Eclipse不太一样的</p>
-<p>Ctrl + +    展开代码</p>
-<p>Ctrl + -    折叠代码</p>
-<p>Ctrl + /    注释光标所在行代码，会根据当前不同文件类型使用不同的注释符号 </p>
-<p>Ctrl + Shift + /    代码块注释 </p>
-<p>Alt + Enter    IntelliJ IDEA 根据光标所在问题，提供快速修复选择，光标放在的位置不同提示的结果也不同</p>
-<p>Alt + Insert    代码自动生成，如生成对象的 set / get 方法，构造函数，toString() 等</p>
-<p>Shift + 左键单击    在打开的文件名上按此快捷键，可以关闭当前打开文件 </p>
-<p>Ctrl + Shift + Alt + C 复制参考信息，IDEA中复制整个类的路径</p>
-<p>Ctrl + Shift + Alt + V    无格式黏贴 </p>
-<p>Ctrl + 左方向键    光标跳转到当前单词 / 中文句的左侧开头位置</p>
-<p>Ctrl + 右方向键    光标跳转到当前单词 / 中文句的右侧开头位置</p>
-<p>Ctrl + 前方向键    等效于鼠标滚轮向前效果</p>
-<p>Ctrl + 后方向键    等效于鼠标滚轮向后效果 </p>
-<p>Alt + 左方向键    用此快捷键就可以在子视图中切换</p>
-<p>Alt + 右方向键    用此快捷键就可以在子视图中切换</p>
-<p>Ctrl + Alt + 左方向键    退回到上一个操作的地方</p>
-<p>Ctrl + Alt + 右方向键    前进到上一个操作的地方</p>
-<p>Ctrl + Shift + 左方向键    标跳转到当前单词 / 中文句的左侧开头位置，同时选中该单词 / 中文句</p>
-<p>Ctrl + Shift + 右方向键    光标跳转到当前单词 / 中文句的右侧开头位置，同时选中该单词 / 中文句 </p>
-<p>Shift + 滚轮前后滚动    当前文件的横向滚动轴滚动(用鼠标的时候也可以很骚)</p>
-<h4 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h4><p>F7    在 Debug 模式下，进入下一步，如果当前行断点是一个方法，则进入当前方法体内，如果该方法体还有方法，则不会进入该内嵌的方法中</p>
-<p>F8    在 Debug 模式下，进入下一步，如果当前行断点是一个方法，则不进入当前方法体内</p>
-<p>F9    在 Debug 模式下，恢复程序运行，但是如果该断点下面代码还有断点则停在下一个断点上</p>
-<p>(Tip：在debug模式下Debugger栏目下有个像计算器的图标，那就是<code>Evaluate Expression</code>，一个可以动态执行代码的工具，我基本上用来查看变量)</p>
-<p>另外在debug模式下，还可以动态改值。</p>
-<p>推荐文章<a href="https://blog.csdn.net/qwfys200/article/details/81835845" target="_blank" rel="noopener">IntelliJ IDEA Windows And Linux Keymap简体中文</a></p>
-<h3 id="IDEA-Plugins"><a href="#IDEA-Plugins" class="headerlink" title="IDEA Plugins"></a>IDEA Plugins</h3><p>Alibaba Java Coding Guidelines 代码规范</p>
-<p>Grep Console 控制台多彩</p>
-<p>Lombok</p>
-<p>MyBatisCodeHelperPro</p>
-<p>RestfulToolkit 可以根据URL跳转到对应的方法(全局快捷搜索：<em>Ctrl  \</em> )</p>
-<p>SonarLint </p>
+<h3 id="Maven生命周期"><a href="#Maven生命周期" class="headerlink" title="Maven生命周期"></a>Maven生命周期</h3><p><img alt="maven生命周期" class="post-img b-lazy" data-img="https://www.runoob.com/wp-content/uploads/2018/09/7642256-c967b2c1faeba9ce.png" data-index="0" data-src="https://www.runoob.com/wp-content/uploads/2018/09/7642256-c967b2c1faeba9ce.png"></p>
+<table>
+<thead>
+<tr>
+<th align="left">阶段</th>
+<th align="left">处理</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">验证 validate</td>
+<td align="left">验证项目</td>
+<td align="left">验证项目是否正确且所有必须信息是可用的</td>
+</tr>
+<tr>
+<td align="left">编译 compile</td>
+<td align="left">执行编译</td>
+<td align="left">源代码编译在此阶段完成</td>
+</tr>
+<tr>
+<td align="left">测试 Test</td>
+<td align="left">测试</td>
+<td align="left">使用适当的单元测试框架（例如JUnit）运行测试。</td>
+</tr>
+<tr>
+<td align="left">包装 package</td>
+<td align="left">打包</td>
+<td align="left">创建JAR/WAR包如在 pom.xml 中定义提及的包</td>
+</tr>
+<tr>
+<td align="left">检查 verify</td>
+<td align="left">检查</td>
+<td align="left">对集成测试的结果进行检查，以保证质量达标</td>
+</tr>
+<tr>
+<td align="left">安装 install</td>
+<td align="left">安装</td>
+<td align="left">安装打包的项目到本地仓库，以供其他项目使用</td>
+</tr>
+<tr>
+<td align="left">部署 deploy</td>
+<td align="left">部署</td>
+<td align="left">拷贝最终的工程包到远程仓库中，以共享给其他开发人员和工程</td>
+</tr>
+</tbody></table>
+<h3 id="GAV"><a href="#GAV" class="headerlink" title="GAV"></a>GAV</h3><p>初次看到这个简称的时候还以为我看错了，确定不是Gay？</p>
+<p>其实GAV指的是groupId、artifactId、version</p>
+<p>groupId：公司或者组织的唯一标志</p>
+<p>artifactId：项目的唯一ID，项目的模块</p>
+<p>version：版本号</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag"><<span class="name">parent</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">artifactId</span>></span>maven-parent<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">groupId</span>></span>com.archon.example<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">version</span>></span>0.1<span class="tag"></<span class="name">version</span>></span></span><br><span class="line"><span class="tag"></<span class="name">parent</span>></span></span><br><span class="line"><span class="tag"><<span class="name">artifactId</span>></span>maven-plugin<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line"><span class="tag"><<span class="name">packaging</span>></span>jar<span class="tag"></<span class="name">packaging</span>></span></span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<blockquote>
+<p>一般<code>artifact</code>（依赖包）的版本信息全部在<code>maven-parent</code>中声明</p>
+</blockquote>
+<h3 id="排除重复GAV"><a href="#排除重复GAV" class="headerlink" title="排除重复GAV"></a>排除重复GAV</h3><p>查找冲突：</p>
+<p>一种是pom文件目录下运行mvn dependency:tree，查看依赖关系树形结构。</p>
+<p>另一种是使用maven插件Maven Enforcer Plugin，执行maven命令 “validate”会打出日志告诉我们哪些jar包冲突。</p>
+<p>解决冲突：<br>exclusions</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag"><<span class="name">exclusions</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">exclusion</span>></span></span><br><span class="line">        <span class="tag"><<span class="name">artifactId</span>></span>spring-boot-starter-logging<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">        <span class="tag"><<span class="name">groupId</span>></span>org.springframework.boot<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">exclusion</span>></span></span><br><span class="line"><span class="tag"></<span class="name">exclusions</span>></span></span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="构建jar"><a href="#构建jar" class="headerlink" title="构建jar"></a>构建jar</h3><p>mvn package</p>
+<h3 id="跳过单元测试"><a href="#跳过单元测试" class="headerlink" title="跳过单元测试"></a>跳过单元测试</h3><p>-DskipTests，不执行测试用例，但编译测试用例类生成相应的class文件至target/test-classes下。</p>
+<p><strong>-Dmaven.test.skip=true，不但跳过单元测试的运行，也跳过测试代码的编译。。</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install -Dmaven.test.skip=true</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="使用Nexus搭建maven私有仓库"><a href="#使用Nexus搭建maven私有仓库" class="headerlink" title="使用Nexus搭建maven私有仓库"></a>使用Nexus搭建maven私有仓库</h3><p><a href="https://www.jianshu.com/p/9740778b154f" target="_blank" rel="noopener">搭建私有仓库</a></p>
 
                 </article>
                 <ul class="tags-postTags">
-                    
-                    <li>
-                        <a href="/tags/IDEA/" rel="tag"># IDEA</a>
-                    </li>
                     
                 </ul>
             </div>
@@ -234,14 +246,10 @@
     
     <nav id="gobottom" class="pagination">
         
-        <a class="prev-post" title="Linux" href="/2019/09/14/14/">
-            ← Linux
-        </a>
-        
         <span class="prev-next-post">·</span>
         
-        <a class="next-post" title="tools" href="/2019/09/14/12/">
-            tools →
+        <a class="next-post" title="Linux" href="/2019/09/14/12/">
+            Linux →
         </a>
         
     </nav>
@@ -267,7 +275,7 @@
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#其他设置"><span class="toc-text">其他设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快捷键"><span class="toc-text">快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Debug"><span class="toc-text">Debug</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDEA-Plugins"><span class="toc-text">IDEA Plugins</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Maven生命周期"><span class="toc-text">Maven生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GAV"><span class="toc-text">GAV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#排除重复GAV"><span class="toc-text">排除重复GAV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建jar"><span class="toc-text">构建jar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跳过单元测试"><span class="toc-text">跳过单元测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Nexus搭建maven私有仓库"><span class="toc-text">使用Nexus搭建maven私有仓库</span></a></li></ol>
     </div>
 </div>
 
@@ -369,34 +377,20 @@
       
       
       <li>
-        <a href="/2019/12/25/hello-world/">Hello World</a>
+        <a href="/2019/09/14/13/">Maven</a>
       </li>
       
       
       
       <li>
-        <a href="/2019/09/15/19/">developer note</a>
+        <a href="/2019/09/14/12/">Linux</a>
       </li>
       
       
       
       <li>
-        <a href="/2019/09/14/18/">developer</a>
+        <a href="/2019/09/14/11/">IntelliJ IDEA</a>
       </li>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       
       
       
@@ -435,24 +429,12 @@
         <h3 class="read-next-card-header-title">Categories</h3>
     </header>
     <div class="read-next-card-content">
-        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/collection/">collection</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/designer/">designer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/developer/">developer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/tools/">tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%9E%E5%BF%86%E5%BD%95/">回忆录</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%9B%9E%E5%BF%86%E5%BD%95/te/">te</a></li></ul></li></ul>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%AA%E5%AE%9A%E4%B9%89/">未定义</a></li></ul>
     </div>
 </article>
 
 
             
-            
-            
-
-<article class="read-next-card" style="background-image: url(/images/header_image.png)">
-	<header class="read-next-card-header tagcloud-card">
-		<h3 class="read-next-card-header-title">Tag Cloud</h3>
-	</header>
-	<div class="read-next-card-content-ext">
-		<a href="/tags/IDEA/" style="font-size: 14px;">IDEA</a> <a href="/tags/Linux/" style="font-size: 14px;">Linux</a> <a href="/tags/Markdown/" style="font-size: 14px;">Markdown</a> <a href="/tags/Maven/" style="font-size: 14px;">Maven</a> <a href="/tags/Python/" style="font-size: 14px;">Python</a> <a href="/tags/SVN/" style="font-size: 14px;">SVN</a> <a href="/tags/bug/" style="font-size: 14px;">bug</a>
-	</div>
-</article>
-
             
         </div>
     </div>
@@ -482,7 +464,7 @@
 			<a href="/" title="Akane Murakawa's Home">Akane Murakawa's Home © 2019</a>
 			
 				
-			        <span hidden="true" id="/2019/09/14/13/" class="leancloud-visitors" data-flag-title="IntelliJ IDEA">
+			        <span hidden="true" id="/2019/09/14/13/" class="leancloud-visitors" data-flag-title="Maven">
 			            <span>阅读量 </span>
 			            <span class="leancloud-visitors-count">0</span>
 			        </span>
@@ -555,11 +537,11 @@
     document.getElementById('valineScript').addEventListener("load", function() {
         new Valine({
             el: '#comment' ,
-            verify: false,
+            verify: true,
             notify: false,
-            appId: '',
-            appKey: '',
-            placeholder: 'Just go go',
+            appId: 'FgTia9oqrUt6omlmYNPBWiCS-gzGzoHsz',
+            appKey: 'YnkFr89Dx682KJPi8hwPgGNf',
+            placeholder: 'Leave a comment',
             pageSize: 10,
             avatar: 'mm',
             visitor: true
