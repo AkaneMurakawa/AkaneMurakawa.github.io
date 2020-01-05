@@ -172,7 +172,8 @@
 </ul>
 <h3 id="1-2-类图"><a href="#1-2-类图" class="headerlink" title="1.2 类图"></a>1.2 类图</h3><p>在学习设计模式中，我们核心使用到的是类图，类图是用于描述类与类之间的关系。下面是简单的介绍。</p>
 <p>类的基本组成：类名、成员变量、成员方法</p>
-<h4 id="1-2-1类的可访问性"><a href="#1-2-1类的可访问性" class="headerlink" title="1.2.1类的可访问性"></a>1.2.1类的可访问性</h4><table>
+<h4 id="1-2-1类的可访问性"><a href="#1-2-1类的可访问性" class="headerlink" title="1.2.1类的可访问性"></a>1.2.1类的可访问性</h4><p><img alt="类的可访问性" class="post-img b-lazy" data-img="/images/common/%E7%B1%BB%E7%9A%84%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7.png" data-index="0" data-src="/images/common/%E7%B1%BB%E7%9A%84%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7.png"></p>
+<table>
 <thead>
 <tr>
 <th><strong>Character</strong></th>
@@ -183,80 +184,67 @@
 </thead>
 <tbody><tr>
 <td><code>-</code></td>
-<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/private-field.png" data-index="0" data-src="https://s.plantuml.com/private-field.png"></td>
-<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/private-method.png" data-index="1" data-src="https://s.plantuml.com/private-method.png"></td>
+<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/private-field.png" data-index="1" data-src="https://s.plantuml.com/private-field.png"></td>
+<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/private-method.png" data-index="2" data-src="https://s.plantuml.com/private-method.png"></td>
 <td>private</td>
 </tr>
 <tr>
 <td><code>#</code></td>
-<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/protected-field.png" data-index="2" data-src="https://s.plantuml.com/protected-field.png"></td>
-<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/protected-method.png" data-index="3" data-src="https://s.plantuml.com/protected-method.png"></td>
+<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/protected-field.png" data-index="3" data-src="https://s.plantuml.com/protected-field.png"></td>
+<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/protected-method.png" data-index="4" data-src="https://s.plantuml.com/protected-method.png"></td>
 <td>protected</td>
 </tr>
 <tr>
 <td><code>~</code></td>
-<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/package-private-field.png" data-index="4" data-src="https://s.plantuml.com/package-private-field.png"></td>
-<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/package-private-method.png" data-index="5" data-src="https://s.plantuml.com/package-private-method.png"></td>
+<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/package-private-field.png" data-index="5" data-src="https://s.plantuml.com/package-private-field.png"></td>
+<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/package-private-method.png" data-index="6" data-src="https://s.plantuml.com/package-private-method.png"></td>
 <td>package private</td>
 </tr>
 <tr>
 <td><code>+</code></td>
-<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/public-field.png" data-index="6" data-src="https://s.plantuml.com/public-field.png"></td>
-<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/public-method.png" data-index="7" data-src="https://s.plantuml.com/public-method.png"></td>
+<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/public-field.png" data-index="7" data-src="https://s.plantuml.com/public-field.png"></td>
+<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/public-method.png" data-index="8" data-src="https://s.plantuml.com/public-method.png"></td>
 <td>public</td>
 </tr>
 </tbody></table>
 <h4 id="1-2-2类之间关系："><a href="#1-2-2类之间关系：" class="headerlink" title="1.2.2类之间关系："></a>1.2.2类之间关系：</h4><ul>
-<li><p>依赖(Dependency)</p>
-<font color="#e96900">
+<li>依赖(Dependency)<font color="#e96900">
 只要类中用到了另一个类，这两个类就是依赖关系(直接朋友+陌生朋友)
 </font>
+
 </li>
-<li><p>关联(Association)</p>
-<font color="#e96900">
+</ul>
+<p><img alt="Dependency" class="post-img b-lazy" data-img="/images/common/%E4%BE%9D%E8%B5%96.png" data-index="9" data-src="/images/common/%E4%BE%9D%E8%B5%96.png"></p>
+<ul>
+<li>关联(Association)<font color="#e96900">
 关联关系指的是类与类之间的联接，即我们平常说的一对一，一对多，多对多。
 关联具有导航性，即双向关系或单向关系。
 </font>
+
 </li>
-<li><p>继承(Generalization)</p>
+</ul>
+<p><img alt="Association" class="post-img b-lazy" data-img="/images/common/%E5%85%B3%E8%81%941.png" data-index="10" data-src="/images/common/%E5%85%B3%E8%81%941.png"><br><img alt="Association" class="post-img b-lazy" data-img="/images/common/%E5%85%B3%E8%81%942.png" data-index="11" data-src="/images/common/%E5%85%B3%E8%81%942.png"></p>
+<ul>
+<li><p>继承(Generalization)<br><img alt="Generalization" class="post-img b-lazy" data-img="/images/common/%E7%BB%A7%E6%89%BF.png" data-index="12" data-src="/images/common/%E7%BB%A7%E6%89%BF.png"></p>
 </li>
-<li><p>实现(Realization)</p>
+<li><p>实现(Realization)<br><img alt="Realization" class="post-img b-lazy" data-img="/images/common/%E5%AE%9E%E7%8E%B0.png" data-index="13" data-src="/images/common/%E5%AE%9E%E7%8E%B0.png"></p>
 </li>
 <li><p>聚合(Aggregation)</p>
 <font color="#e96900">
 <b>整体和部分可以分开</b>，例如：电脑和键盘，鼠标。电脑没用了鼠标和键盘但是也可以用。这里整体指的是电脑，部分指的是鼠标、键盘。
-</font></li>
-<li><p>组合/复合(Composite)</p>
-<font color="#e96900">
+</font>
+
+</li>
+</ul>
+<p><img alt="Aggregation" class="post-img b-lazy" data-img="/images/common/%E8%81%9A%E5%90%88.png" data-index="14" data-src="/images/common/%E8%81%9A%E5%90%88.png"></p>
+<ul>
+<li>组合/复合(Composite)<font color="#e96900">
 <b>整体和部分不可以分开</b>，例如：人和头。人不可以没有头。这里整体指的是人，部分指的是头。
 </font>
 
 </li>
 </ul>
-<table>
-<thead>
-<tr>
-<th><strong>Type</strong></th>
-<th><strong>Symbol</strong></th>
-<th><strong>Drawing</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Extension(扩展)</td>
-<td>`<</td>
-<td>–`</td>
-</tr>
-<tr>
-<td>Composition(组合)</td>
-<td><code>*--</code></td>
-<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/sym03.png" data-index="8" data-src="https://s.plantuml.com/sym03.png"></td>
-</tr>
-<tr>
-<td>Aggregation(聚合)</td>
-<td><code>o--</code></td>
-<td><img alt="img" class="post-img b-lazy" data-img="https://s.plantuml.com/sym01.png" data-index="9" data-src="https://s.plantuml.com/sym01.png"></td>
-</tr>
-</tbody></table>
+<p><img alt="Composite" class="post-img b-lazy" data-img="/images/common/%E7%BB%84%E5%90%88.png" data-index="15" data-src="/images/common/%E7%BB%84%E5%90%88.png"></p>
 <h3 id="1-3工具"><a href="#1-3工具" class="headerlink" title="1.3工具"></a>1.3工具</h3><p>插件工具<a href="https://plantuml.com/zh/" target="_blank" rel="noopener">PlantUML</a></p>
 <h2 id="2-七大设计原则"><a href="#2-七大设计原则" class="headerlink" title="2.七大设计原则"></a>2.七大设计原则</h2><h3 id="2-1单一职责原则-Single-Responsibility-Principle"><a href="#2-1单一职责原则-Single-Responsibility-Principle" class="headerlink" title="2.1单一职责原则(Single Responsibility Principle)"></a>2.1单一职责原则(Single Responsibility Principle)</h3><p>一个类职责不能太多太大，应降低类的复杂度，一个类只负责一项职责。<br><font color="#e96900">就像我们的电子产品分类太大了，需要继续细分。</font><br><strong>bad</strong></p>
 <figure class="highlight c#"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Person</span> {</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">single</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">jump</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rap</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">playBasketball</span>(<span class="params"></span>)</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
@@ -291,7 +279,25 @@
 <p>一个类对自己依赖的类知道的越少越好。无论被依赖的类多么复杂，<font color="#e96900">都应该将逻辑封装在方法的内部，通过public方法提供给外部</font>。这样当被依赖的类变化时，才能最小的影响该类。</p>
 </blockquote>
 <p>最少知道原则表达的是：只与直接朋友通信。<br>直接朋友：有耦合关系的类则称为朋友关系。耦合分为依赖、关联、聚合、组合等。例如一个类中<strong>成员变量、方法参数、或者方法返回值中</strong>用到了另一个类，则称这个两个类为直接朋友关系。<br>陌生朋友：不是直接朋友，也就是陌生朋友。例如一个类中的<strong>局部变量、临时变量</strong>用到了另一个类。<br><font color="#e96900"><br>迪米特法则希望我们能够尽量不要在类中的局部变量和临时变量用到另一个陌生的类，即只与直接朋友通信。这样可以降低类与类直接的<strong>耦合性</strong>。<br></font></p>
+<p><strong>bad</strong></p>
+<figure class="highlight c#"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">A</span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span>(<span class="params"></span>)</span>{</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"A"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">B</span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print1</span>(<span class="params"></span>)</span>{</span><br><span class="line">        <span class="comment">// 局部变量中用到了类A</span></span><br><span class="line">        A a = <span class="keyword">new</span> A();</span><br><span class="line">        a.print();</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>good</strong></p>
+<figure class="highlight c#"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">A</span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span>(<span class="params"></span>)</span>{</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"A"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">B</span>{</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 直接朋友，成员变量用到了类A</span></span><br><span class="line">    <span class="keyword">private</span> A a;</span><br><span class="line">    <span class="comment">// 直接朋友，方法参数用到了类A</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print1</span>(<span class="params">A a</span>)</span>{</span><br><span class="line">        a.print();</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 直接朋友，返回值用到了类A</span></span><br><span class="line">    <span class="function">A <span class="title">print2</span>(<span class="params"></span>)</span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> A();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>说明：bad示例中，在局部变量中用到了A类，这样耦合性太强了。</p>
 <h3 id="2-7合成复用原则-Composite-Aggregate-Reuse-Principle"><a href="#2-7合成复用原则-Composite-Aggregate-Reuse-Principle" class="headerlink" title="2.7合成复用原则(Composite/Aggregate Reuse Principle)"></a>2.7合成复用原则(Composite/Aggregate Reuse Principle)</h3><p><code>尽量首先使用组合/聚合的方式，而不是使用继承。</code></p>
+<p><strong>bad</strong></p>
+<figure class="highlight c#"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">A</span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span>(<span class="params"></span>)</span>{</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"A"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">work</span>(<span class="params"></span>)</span>{</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"work"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">B</span> <span class="title">extends</span> <span class="title">A</span>{</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>good</strong></p>
+<figure class="highlight c#"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">A</span>{</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span>(<span class="params"></span>)</span>{</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"A"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">work</span>(<span class="params"></span>)</span>{</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="string">"work"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title">B</span>{</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 成员变量用到了类A</span></span><br><span class="line">    <span class="keyword">private</span> A a;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">B</span>(<span class="params">A a</span>)</span>{</span><br><span class="line">        <span class="keyword">this</span>.a = a;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// or</span></span><br><span class="line">    <span class="keyword">private</span> A a1 = <span class="keyword">new</span> A();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 方法参数用到了类A</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print1</span>(<span class="params">A a</span>)</span>{</span><br><span class="line">        a.print();</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 返回值用到了类A</span></span><br><span class="line">    <span class="function">A <span class="title">print2</span>(<span class="params"></span>)</span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> A();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>说明：bad示例中，类B直接继承了类A，但是类B并不需要类A中的work()方法，这样耦合性太强了。good中改成了聚合、组合的方法，更灵活。</p>
+<h3 id="2-8总结"><a href="#2-8总结" class="headerlink" title="2.8总结"></a>2.8总结</h3><ul>
+<li>单一职责原则和接口隔离原则相似，讲究对类或接口进行细化。</li>
+<li>里氏替换原则、迪米特法则、合成复用原则相似，讲究应尽量使用组合、聚合的方式，而不是继承的方式。</li>
+<li>依赖倒置原则，讲究的面向接口和抽象编程。在变量类型声明、方法传递参数类型中应尽量使用接口或抽象类，而不是具体的类。</li>
+<li>开闭原则，是七大原则的核心。讲究对扩展开放(<strong>提供者</strong>)，对修改关闭(<strong>使用者</strong>)。</li>
+</ul>
 
                 </article>
                 <ul class="tags-postTags">
@@ -333,7 +339,7 @@
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-UML"><span class="toc-text">1.UML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-UML图分类"><span class="toc-text">1.1 UML图分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-类图"><span class="toc-text">1.2 类图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1类的可访问性"><span class="toc-text">1.2.1类的可访问性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2类之间关系："><span class="toc-text">1.2.2类之间关系：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3工具"><span class="toc-text">1.3工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-七大设计原则"><span class="toc-text">2.七大设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1单一职责原则-Single-Responsibility-Principle"><span class="toc-text">2.1单一职责原则(Single Responsibility Principle)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2接口隔离原则-Interface-Segregation-Principle"><span class="toc-text">2.2接口隔离原则(Interface Segregation Principle)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3依赖倒置原则-Dependence-Inversion-Principle"><span class="toc-text">2.3依赖倒置原则(Dependence Inversion Principle)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4里氏替换原则-Liskov-Substitution-Principle"><span class="toc-text">2.4里氏替换原则(Liskov Substitution Principle)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5开闭原则-Open-Close-Principle"><span class="toc-text">2.5开闭原则(Open Close Principle)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6迪米特法则-Demeter-Principle-最少知道原则"><span class="toc-text">2.6迪米特法则(Demeter Principle)(最少知道原则)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7合成复用原则-Composite-Aggregate-Reuse-Principle"><span class="toc-text">2.7合成复用原则(Composite/Aggregate Reuse Principle)</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-UML"><span class="toc-text">1.UML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-UML图分类"><span class="toc-text">1.1 UML图分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-类图"><span class="toc-text">1.2 类图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1类的可访问性"><span class="toc-text">1.2.1类的可访问性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2类之间关系："><span class="toc-text">1.2.2类之间关系：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3工具"><span class="toc-text">1.3工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-七大设计原则"><span class="toc-text">2.七大设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1单一职责原则-Single-Responsibility-Principle"><span class="toc-text">2.1单一职责原则(Single Responsibility Principle)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2接口隔离原则-Interface-Segregation-Principle"><span class="toc-text">2.2接口隔离原则(Interface Segregation Principle)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3依赖倒置原则-Dependence-Inversion-Principle"><span class="toc-text">2.3依赖倒置原则(Dependence Inversion Principle)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4里氏替换原则-Liskov-Substitution-Principle"><span class="toc-text">2.4里氏替换原则(Liskov Substitution Principle)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5开闭原则-Open-Close-Principle"><span class="toc-text">2.5开闭原则(Open Close Principle)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6迪米特法则-Demeter-Principle-最少知道原则"><span class="toc-text">2.6迪米特法则(Demeter Principle)(最少知道原则)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7合成复用原则-Composite-Aggregate-Reuse-Principle"><span class="toc-text">2.7合成复用原则(Composite/Aggregate Reuse Principle)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8总结"><span class="toc-text">2.8总结</span></a></li></ol></li></ol>
     </div>
 </div>
 
