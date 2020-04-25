@@ -11,7 +11,7 @@
 	<link rel="preconnect" href="//9qpuwspm.api.lncld.net">
 	<link rel="preconnect" href="//gravatar.loli.net">
 
-	<title>IntelliJ IDEA的常用设置 | ADay Studio</title>
+	<title>Linux下日志排查的常用命令 | ADay Studio</title>
 
 	<meta name="HandheldFriendly" content="True">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -37,7 +37,7 @@
 
 	<meta property="og:site_name" content="ADay Studio">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="IntelliJ IDEA的常用设置 | ADay Studio">
+	<meta property="og:title" content="Linux下日志排查的常用命令 | ADay Studio">
 	<meta property="og:description" content>
 	<meta property="og:url" content="http://yuumasan.com/2019/09/14/11/">
 
@@ -144,7 +144,7 @@
     <div class="inner">
         <header class="post-full-header">
             <div class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-09-14T07:11:00.000Z">
+                <time class="post-full-meta-date" datetime="2019-09-14T07:14:00.000Z">
                     2019-09-14
                 </time>
                 
@@ -154,73 +154,87 @@
                 
                 
             </div>
-            <h1 class="post-full-title">IntelliJ IDEA的常用设置</h1>
+            <h1 class="post-full-title">Linux下日志排查的常用命令</h1>
         </header>
         <div class="post-full no-image">
             
             <div class="post-full-content">
                 <article id="photoswipe" class="markdown-body">
                     <p><Excerpt in index | 首页摘要></p>
-<p>这一篇里主要是总结一下我在IDEA中的一些基本使用。</p>
+<p>以前学习Linux的时候都是在瞎玩，没有真正去研究一些命令和命令的参数。现在就以生产日志查询的角度去学习一些基本的命令，需要什么就学什么。</p>
 <a id="more"></a>
 <p><The rest of contents | 余下全文></p>
-<p>在使用之前，我都会习惯性的设置一下编码为UTF-8，并且设置一下字体。</p>
-<p>编码设置：Setttings——Editor——Encodings(注意下面有个properties文件的默认编码设置，这里也需要设置一下)</p>
-<p>字体设置：Setttings——Editor——Fonts(我习惯用的是Source Code Pro和Consolas)</p>
-<p>背景设置(可选)：Setttings——Appearance —— Background Image(IDEA比Eclipse友好的地方之一，IDEA可以轻松的设置背景图片，这样我们写代码也有动力，并且透明的背景对我来说比较舒服。)</p>
+<p>一般来说我们的命令都是这样的形式：command [options] [arguments]</p>
+<p>options选项，arguments参数</p>
+<p>一般来说，生产的服务器我们都是通过跳板机去连接，而不能直接连接。</p>
+<h3 id="Firtst-Step"><a href="#Firtst-Step" class="headerlink" title="Firtst Step"></a>Firtst Step</h3><p>第一步就是连接跳板机，可以用工具，也可以直接在web上去连接。</p>
+<h3 id="Start"><a href="#Start" class="headerlink" title="Start"></a>Start</h3><p>接着我们就是找到对应日志的位置。<em>如果你不知道日志存储的位置，在Java项目中，都会配置自己的日志存储路径，如果是用log4j2的话，你应该可以到对应的配置文件，找到日志存储的位置。</em></p>
+<p>如果你不懂命令，或者想了解更多，可以来这里：<a href="https://man.linuxde.net/" target="_blank" rel="noopener">Linux命令手册</a></p>
+<p>然后就是开始一顿操作了</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pwd: print working directory 首先我们可以查看自己所在的当前路径，当前目录</span><br><span class="line">whereis: 当然你也可以通过这个命令查找文件所在位置</span><br><span class="line"></span><br><span class="line">cd: change directory 接着进入到对应的目录下，在这里可以使用绝对路径|相对路径</span><br><span class="line">	options:</span><br><span class="line">		. 当前目录</span><br><span class="line">		.. 上级目录</span><br><span class="line">		~ 用户主目录</span><br><span class="line">		- 返回此目录之前的所在的目录</span><br><span class="line">		/ 根目录</span><br><span class="line">		</span><br><span class="line">ls: list directory content 如果我们不知道当前目录下有什么，我们就可以用这个命令列出</span><br><span class="line">	options:</span><br><span class="line">		-a 隐藏的文件也会列出来</span><br><span class="line">		-l 所有输出信息用单列的格式输出，而不是多列，一般我们用这个就看看文件的修改时间、大小</span><br><span class="line">		-t 最近修改的文件显示在最上面，这个还是很有用的，但文件比较多的时候好用。</span><br><span class="line">		--color=auto 列出文件并标记颜色分类</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Importance"><a href="#Importance" class="headerlink" title="Importance"></a>Importance</h3><p>当我们定位到日志目录时，这才是真正开始查询日志。vi这个是比较特殊的，所以先讲。虽然我们查询日志的时候几乎用不到这个命令，这个命令是用于编辑文件的。在linux中用的是vim，我也是用这个。</p>
+<p>要想使用vi，首先就需要了解其工作模式：命令模式、编辑模式、末行模式</p>
+<p><img alt="vim" class="post-img b-lazy" data-img="https://www.runoob.com/wp-content/uploads/2014/07/vim-vi-workmodel.png" data-index="0" data-src="https://www.runoob.com/wp-content/uploads/2014/07/vim-vi-workmodel.png"></p>
+<p>基本上了解上面的一些就ok，另外就是如何编辑和退出。当一开始进入的时候是<strong>命令模式</strong>，接着我们可以按下键盘上的<strong>iao</strong>任意一个，就会进入到编辑模式了。编辑完后，我们可以看<strong>ESC</strong>回到命令模式，最后输入<strong>：</strong>进入到末行模式，也就是上图的底线命令模式，最后输入<em>!wq!*</em>保存退出即可。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">:! 强制</span><br><span class="line">:w 保存</span><br><span class="line">:q 退出</span><br><span class="line">:q!强制退出</span><br><span class="line">:wq!</span><br></pre></td></tr></tbody></table></figure>
+
+
+
 <hr>
-<h3 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h3><p>Setttings——Editor——General下有几个不错的设置</p>
-<ul>
-<li>Setttings——Editor——General——Change font size(Zoom)  with Ctrl+Mouse Wheel (通过Ctrl+鼠标控制字体大小，这样当我们通过IDEA给别人演示的时候，就可以很方便调整字体大小</li>
-<li>Setttings——Editor——General——Appearance——Show method separator一个让我觉得很舒服的设置，这个设置是给方法进行添加一条分割线，不占用行数。</li>
-<li>Setttings——Editor——General——Auto Import——然后勾选Add unambiguous imports on the fly以及Optimize imports on the fly(快速导入和删除无用的包)</li>
-</ul>
-<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><p>一些简单的复制粘贴就不介绍了，下面是一些我用的比较多，也比较好用的快捷键。快捷键无非就是按键的组合，一般是CTRL、Alt、SHIFT和其他按键的组合。</p>
-<p>Ctrl + B    进入光标所在的方法</p>
-<p>Ctrl + Alt + B    在某个调用的方法名上使用会跳到具体的实现处，可以跳过接口</p>
-<p>Ctrl + D    复制光标所在行 或 复制选择内容</p>
-<p>Ctrl + E    显示最近打开的文件记录列表 </p>
-<p>Ctrl + F    在当前文件进行文本查找</p>
-<p>Ctrl + Shift + F    根据输入内容查找整个项目 或 指定目录内文件</p>
-<p>Ctrl + G    在当前文件跳转到指定行处</p>
-<p>Ctrl + H    调用层次</p>
-<p>Ctrl + I    选择可继承的方法</p>
-<p>Ctrl + O    选择可重写的方法</p>
-<p>Ctrl + R    在当前文件进行文本替换</p>
-<p>Ctrl + Shift + R    根据输入内容替换对应内容，范围为整个项目 或 指定目录内文件</p>
-<p>Ctrl + Y    删除光标所在行 或 删除选中的行，这是和Eclipse不太一样的</p>
-<p>Ctrl + +    展开代码</p>
-<p>Ctrl + -    折叠代码</p>
-<p>Ctrl + /    注释光标所在行代码，会根据当前不同文件类型使用不同的注释符号 </p>
-<p>Ctrl + Shift + /    代码块注释 </p>
-<p>Alt + Enter    IntelliJ IDEA 根据光标所在问题，提供快速修复选择，光标放在的位置不同提示的结果也不同</p>
-<p>Alt + Insert    代码自动生成，如生成对象的 set / get 方法，构造函数，toString() 等</p>
-<p>Shift + 左键单击    在打开的文件名上按此快捷键，可以关闭当前打开文件 </p>
-<p>Ctrl + Shift + Alt + C 复制参考信息，IDEA中复制整个类的路径</p>
-<p>Ctrl + Shift + Alt + V    无格式黏贴 </p>
-<p>Ctrl + 左方向键    光标跳转到当前单词 / 中文句的左侧开头位置</p>
-<p>Ctrl + 右方向键    光标跳转到当前单词 / 中文句的右侧开头位置</p>
-<p>Ctrl + 前方向键    等效于鼠标滚轮向前效果</p>
-<p>Ctrl + 后方向键    等效于鼠标滚轮向后效果 </p>
-<p>Alt + 左方向键    用此快捷键就可以在子视图中切换</p>
-<p>Alt + 右方向键    用此快捷键就可以在子视图中切换</p>
-<p>Ctrl + Alt + 左方向键    退回到上一个操作的地方</p>
-<p>Ctrl + Alt + 右方向键    前进到上一个操作的地方</p>
-<p>Ctrl + Shift + 左方向键    标跳转到当前单词 / 中文句的左侧开头位置，同时选中该单词 / 中文句</p>
-<p>Ctrl + Shift + 右方向键    光标跳转到当前单词 / 中文句的右侧开头位置，同时选中该单词 / 中文句 </p>
-<p>Shift + 滚轮前后滚动    当前文件的横向滚动轴滚动(用鼠标的时候也可以很骚)</p>
-<h4 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h4><p>F7    在 Debug 模式下，进入下一步，如果当前行断点是一个方法，则进入当前方法体内，如果该方法体还有方法，则不会进入该内嵌的方法中</p>
-<p>F8    在 Debug 模式下，进入下一步，如果当前行断点是一个方法，则不进入当前方法体内</p>
-<p>F9    在 Debug 模式下，恢复程序运行，但是如果该断点下面代码还有断点则停在下一个断点上</p>
-<p>(Tip：在debug模式下Debugger栏目下有个像计算器的图标，那就是<code>Evaluate Expression</code>，一个可以动态执行代码的工具，我基本上用来查看变量)</p>
-<p>另外在debug模式下，还可以动态改值。</p>
-<p>推荐文章<a href="https://blog.csdn.net/qwfys200/article/details/81835845" target="_blank" rel="noopener">IntelliJ IDEA Windows And Linux Keymap简体中文</a></p>
-<h3 id="IDEA-Plugins"><a href="#IDEA-Plugins" class="headerlink" title="IDEA Plugins"></a>IDEA Plugins</h3><p>Alibaba Java Coding Guidelines 代码规范</p>
-<p>Grep Console 控制台多彩</p>
-<p>Lombok</p>
-<p>MyBatisCodeHelperPro</p>
-<p>RestfulToolkit 可以根据URL跳转到对应的方法(全局快捷搜索：<em>Ctrl  \</em> )</p>
-<p>SonarLint </p>
+<p>上面的简单了解先即可，接下来才是我们查询日志。在linux系统终端模式下，我们是没有图形界面去给你直接点开文件，一个个去浏览的。因此我们第一个问题就是：如果查看文件内容。上诉所讲的vi也是可以的，但是对我们来说使用太不友好了。下面就是我们用到的一些用于查看的命令。在学习之前我们可以先想一下我们有什么需求：首先我们希望可以去搜索关键字，其次最好颜色也像上面一样可以标记颜色，最后可以看看查询内容的上下文。Ok，下面你的问题都将会得到解答。</p>
+<h4 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h4><p><strong>G</strong>lobal search <strong>R</strong>egular <strong>E</strong>xpression(RE) and <strong>P</strong>rint out the line(全面搜索正则表达式并把行打印出来)</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">grep/zgrep: </span><br><span class="line">grep "match_pattern" file_name 在文件中搜索一个单词</span><br><span class="line">	options:</span><br><span class="line">        --color=auto 标记匹配颜色(这个很舒服啊，这样我们就能快速找到我们要查询的内容了)</span><br><span class="line">        -E 使用正则表达式(这个应该和上面的搜索单词区分)</span><br><span class="line">        -c 统计单词出现的次数</span><br><span class="line">        -n 输出匹配字符的行数(终于等到你，这个应该会很有用吧)</span><br><span class="line">        -i 忽略大小写</span><br><span class="line">        -A 除了显示符合范本样式的那一行之外，并显示该行之后的内容。</span><br><span class="line">        -B 除了显示符合范本样式的那一行之外，并显示该行之前的内容</span><br><span class="line">        -C 除了显示符合范本样式的那一行之外，并显示该行前后后的内容</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这个ABC可谓是神器，因为有时候我们不仅是想看到符合的内容，<strong>还想看到其上下文，这时候就得借助ABC选项了。</strong><br><code>例如：grep "aes-256-gcm" shadowsocks.log -A 2</code></p>
+<h4 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h4><p>​    tail file (<strong>显示文件file的最后10行</strong>)<br>​    tail +20 file (显示文件file的内容，<strong>从第20行至文件末尾</strong>)<br>​    tail -c 10 file （显示文件file的最后10个字符）</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tail:</span><br><span class="line">	options:</span><br><span class="line">		-f 显示文件最新追加的内容</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>显示文件最新追加的内容</strong>，这个选项在外面启动项目的时候很方便，因为我们启动的项目的时候日志是一点点打印的，这个时候我们就看到日志一点点输出，不用每次tail查看后面的10行。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tail:</span><br><span class="line">	options:</span><br><span class="line">		-n 输出文件的尾部N（N位数字）行内容</span><br></pre></td></tr></tbody></table></figure>
+
+<p>有时候我们并不想从第几行开始到尾部，也不下追加内容显示，我们只想显示后面的多少行内容。那么这个选项就很好的满足了你的需求。</p>
+<h4 id="head"><a href="#head" class="headerlink" title="head"></a>head</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">head:</span><br><span class="line">	options:</span><br><span class="line">		-n 输出文件的头部N（N位数字）行内容</span><br></pre></td></tr></tbody></table></figure>
+
+<p>其实-n的这个选项，基本上就是用来代码<code>行</code>的，在tail和head命令中我们发现他们是一样的效果。</p>
+<h4 id="cat-zcat"><a href="#cat-zcat" class="headerlink" title="cat/zcat"></a>cat/zcat</h4><p>为了控制滚屏，可以按Ctrl+S键，停止滚屏；按Ctrl+Q键可以恢复滚屏。按Ctrl+C（中断）键可以终止该命令的执行，并且返回Shell提示符状态。</p>
+<p>管道： | </p>
+<h4 id="more"><a href="#more" class="headerlink" title="more"></a>more</h4><blockquote>
+<p> <strong>more命令</strong>是一个基于<a href="http://man.linuxde.net/vi" target="_blank" rel="noopener">vi</a>编辑器文本过滤器，它以全屏幕的方式按页显示文本文件的内容，支持vi中的关键字定位操作。more名单中内置了若干快捷键，常用的有H（获得帮助信息），<strong>Enter（向下翻滚一行），空格（向下滚动一屏）</strong>，Q（退出命令）。</p>
+</blockquote>
+<p>基本上上面所列出的命令已经足够我们查看日志了。</p>
+<hr>
+<p>当然除了查看文件，我们可能还需要看一些进程</p>
+<h4 id="top"><a href="#top" class="headerlink" title="top"></a>top</h4><p>实时查看系统运行状态</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">-b：以批处理模式操作</span><br><span class="line">-c：显示完整的治命令</span><br><span class="line">-d：屏幕刷新间隔时间</span><br><span class="line">-I：忽略失效过程</span><br><span class="line">-s：保密模式</span><br><span class="line">-S：累积模式</span><br><span class="line">-i<时间>：设置间隔时间</span><br><span class="line">-u<用户名>：指定用户名</span><br><span class="line">-p<进程号>：指定进程(必备)</span><br><span class="line">-n<次数>：循环显示的次数</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在top命令执行过程中可以使用的一些交互命令。这些命令都是单字母的，如果在命令行中使用了-s选项， 其中一些命令可能会被屏蔽。</p>
+<p>输入top，然后按对应的键即可。<strong>Ctrl+C停止太low了，试试按q直接退出。</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">h：显示帮助画面，给出一些简短的命令总结说明</span><br><span class="line">k：终止一个进程</span><br><span class="line">i：忽略闲置和僵死进程，这是一个开关式命令</span><br><span class="line">q：退出程序</span><br><span class="line">r：重新安排一个进程的优先级别</span><br><span class="line">S：切换到累计模式</span><br><span class="line">s：改变两次刷新之间的延迟时间（单位为s），如果有小数，就换算成ms。输入0值则系统将不断刷新，默认值是5s</span><br><span class="line">f或者F：从当前显示中添加或者删除项目</span><br><span class="line">o或者O：改变显示项目的顺序</span><br><span class="line">l：切换显示平均负载和启动时间信息</span><br><span class="line">m：切换显示内存信息</span><br><span class="line">t：切换显示进程和CPU状态信息</span><br><span class="line">c：切换显示命令名称和完整命令行</span><br><span class="line">M：根据驻留内存大小进行排序</span><br><span class="line">P：根据CPU使用百分比大小进行排序</span><br><span class="line">T：根据时间/累计时间进行排序</span><br><span class="line">w：将当前设置写入~/.toprc文件中</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ps -aux是以BSD方式列出当前全部运行的进程</span><br><span class="line"></span><br><span class="line">ps -ef是以system v方式列出当前全部运行的进程</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上面两个命令虽然显示的都是当前全部运行进程，但是ps -aux列出的条目更多</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">ps -axj 列出守护进程</span><br><span class="line"></span><br><span class="line">ps -ef | grep init 查找当前运行进程中的的init进程</span><br><span class="line"></span><br><span class="line">ps -l 列出ps中的进程操作命令及编号，例如kill等</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>ps -ef | grep init 查找当前运行进程中的的init进程</strong></p>
+<h4 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h4><p>用来删除执行中的程序或工作，生产上要是删除了，怕是要跑路了？</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-a：当处理当前进程时，不限制命令名和进程号的对应关系；</span><br><span class="line">-l <信息编号>：若不加<信息编号>选项，则-l参数会列出全部的信息名称；</span><br><span class="line">-p：指定kill 命令只打印相关进程的进程号，而不发送任何信号；</span><br><span class="line">-s <信息名称或编号>：指定要送出的信息；</span><br><span class="line">-u：指定用户。</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="上传下载文件"><a href="#上传下载文件" class="headerlink" title="上传下载文件"></a>上传下载文件</h4><p>有时候你也可能需要下载文件，可以用下面两个命令。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rz 上传文件命令</span><br><span class="line">sz 下载文件到本地</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>上面的命令只是帮助我们查询，一般来说，我们去查询的时候，先定位一下是哪一个服务器上出了问题，连接上对应服务器，找到对应的日志存储位置。</p>
+<p><strong>接着通过唯一的id去查找，找到对应的id相关信息之后，通过该id所在的线程id去查找。</strong></p>
+<p>日志的打印格式(<strong>Pattern</strong>)可以在log4j2.xml配置文件下找</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2019-08-31 00:00:00.414 ERROR [SimpleAsyncTaskExecutor-1] 1e1111c8-1bf4-4e2c-af43-db0bda2ba85c 后面的没有列出来</span><br><span class="line"></span><br><span class="line">日期——线程名——线程ID</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>在这里要看是异步线程，还是同步线程，还是多线程，不然你可能通过该线程id找不到对应的日志错误信息。如果没有线程id，那就只能通过线程名称了</strong></p>
+<p>其次，如果是mq的消息，你可以先找到mq消费的<strong>messageId</strong>，接着通过该messageId找到更多的信息。</p>
+<p>log4j2.xml日志文件大小达到一定的数量，你就只能到压缩文件查看了，用<code>zgrep</code>命令。不然你可能一直很奇怪为什么查不到信息。</p>
+<p><strong>坑：当遇到一个错误信息的时候，你可以看看代码，然后通过版本控制器看看是不是最近有人改了代码，然后找出来暴打问一顿。（笑）</strong></p>
 
                 </article>
                 <ul class="tags-postTags">
@@ -233,14 +247,14 @@
     
     <nav id="gobottom" class="pagination">
         
-        <a class="prev-post" title="Linux下日志排查的常用命令" href="/2019/09/14/12/">
-            ← Linux下日志排查的常用命令
+        <a class="prev-post" title="Maven基础知识" href="/2019/09/14/12/">
+            ← Maven基础知识
         </a>
         
         <span class="prev-next-post">·</span>
         
-        <a class="next-post" title="收藏爱好者-Don't repeat yourself" href="/2019/09/14/10/">
-            收藏爱好者-Don't repeat yourself →
+        <a class="next-post" title="IntelliJ IDEA的常用设置" href="/2019/09/14/10/">
+            IntelliJ IDEA的常用设置 →
         </a>
         
     </nav>
@@ -266,7 +280,7 @@
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#其他设置"><span class="toc-text">其他设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快捷键"><span class="toc-text">快捷键</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Debug"><span class="toc-text">Debug</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDEA-Plugins"><span class="toc-text">IDEA Plugins</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Firtst-Step"><span class="toc-text">Firtst Step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Start"><span class="toc-text">Start</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Importance"><span class="toc-text">Importance</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#grep"><span class="toc-text">grep</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tail"><span class="toc-text">tail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#head"><span class="toc-text">head</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cat-zcat"><span class="toc-text">cat/zcat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#more"><span class="toc-text">more</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#top"><span class="toc-text">top</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ps"><span class="toc-text">ps</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#kill"><span class="toc-text">kill</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上传下载文件"><span class="toc-text">上传下载文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
     </div>
 </div>
 
@@ -416,12 +430,6 @@
       
       
       
-      
-      
-      
-      
-      
-      
     </ul>
   </div>
   <footer class="read-next-card-footer">
@@ -474,7 +482,7 @@
 			<a href="/" title="ADay Studio">ADay Studio © 2020</a>
 			
 				
-			        <span hidden="true" id="/2019/09/14/11/" class="leancloud-visitors" data-flag-title="IntelliJ IDEA的常用设置">
+			        <span hidden="true" id="/2019/09/14/11/" class="leancloud-visitors" data-flag-title="Linux下日志排查的常用命令">
 			            <span>阅读量 </span>
 			            <span class="leancloud-visitors-count">0</span>
 			        </span>
