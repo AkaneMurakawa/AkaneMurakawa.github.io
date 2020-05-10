@@ -1,0 +1,620 @@
+<!DOCTYPE html><html lang="en"><head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="preconnect" href="//www.googletagmanager.com">
+	<link rel="preconnect" href="//zz.bdstatic.com">
+	<link rel="preconnect" href="//sp0.baidu.com">
+	<link rel="preconnect" href="//www.google-analytics.com">
+	<link rel="preconnect" href="//cdn1.lncld.net">
+	<link rel="preconnect" href="//unpkg.com">
+	<link rel="preconnect" href="//app-router.leancloud.cn">
+	<link rel="preconnect" href="//9qpuwspm.api.lncld.net">
+	<link rel="preconnect" href="//gravatar.loli.net">
+
+	<title>排序算法总结二 | Akane's Note</title>
+
+	<meta name="HandheldFriendly" content="True">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+	<meta name="generator" content="hexo">
+	<meta name="author" content="むらかわ あかね">
+	<meta name="description" content>
+
+	
+
+	
+	<link rel="shortcut icon" href="/images/avatar.png">
+	<link rel="apple-touch-icon" href="/images/avatar.png">
+	
+
+	
+	<meta name="theme-color" content="#3c484e">
+	<meta name="msapplication-TileColor" content="#3c484e">
+	
+
+	
+
+	
+
+	<meta property="og:site_name" content="Akane's Note">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="排序算法总结二 | Akane's Note">
+	<meta property="og:description" content>
+	<meta property="og:url" content="http://yuumasan.com/2018/03/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%AC%AC5%E7%AB%A0/">
+
+	
+	<meta property="article:published_time" content="2018-03-11T16:03:00+08:00"> 
+	<meta property="article:author" content="むらかわ あかね">
+	<meta property="article:published_first" content="Akane's Note, /2018/03/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%AC%AC5%E7%AB%A0/">
+	
+
+	
+	
+	
+<link rel="stylesheet" href="/css/allinonecss.min.css">
+
+
+	
+	
+	
+</head>
+<body class="post-template">
+	<div class="site-wrapper">
+		
+
+
+
+
+<header class="site-header post-site-header outer">
+    <div class="inner">
+        
+<nav class="site-nav"> 
+    <div class="site-nav-left">
+        <ul class="nav">
+            <li>
+                
+                
+                
+                <a href="/" class="site-nav-logo" style="color:#fff; font-weight: 700; opacity:1;">ADay Studio</a>
+                
+                
+            </li>
+            
+            
+            <li>
+                <a href="/" title="主页">主页</a>
+            </li>
+            
+            <li>
+                <a href="/categories/从零开始设计模式" title="从零开始设计模式">从零开始设计模式</a>
+            </li>
+            
+            <li>
+                <a href="/categories/千纱镇辉夜小屋" title="千纱镇辉夜小屋">千纱镇辉夜小屋</a>
+            </li>
+            
+            <li>
+                <a href="/categories/笔记" title="笔记">笔记</a>
+            </li>
+            
+            <li>
+                <a href="/archives" title="归档">归档</a>
+            </li>
+            
+            <li>
+                <a href="/links" title="友链">友链</a>
+            </li>
+            
+            <li>
+                <a href="/about" title="关于">关于</a>
+            </li>
+            
+            
+        </ul> 
+    </div>
+    
+    <div class="search-button-area">
+        <a href="#search" class="search-button">Search ...</a>
+    </div>
+     
+    <div class="site-nav-right">
+        
+        <a href="#search" class="search-button">Search ...</a>
+         
+        
+<div class="social-links">
+    
+    
+    <a class="social-link" title="github" href="https://github.com/AkaneMurakawa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 1049 1024" xmlns="http://www.w3.org/2000/svg"><path d="M524.979332 0C234.676191 0 0 234.676191 0 524.979332c0 232.068678 150.366597 428.501342 358.967656 498.035028 26.075132 5.215026 35.636014-11.299224 35.636014-25.205961 0-12.168395-0.869171-53.888607-0.869171-97.347161-146.020741 31.290159-176.441729-62.580318-176.441729-62.580318-23.467619-60.841976-58.234462-76.487055-58.234463-76.487055-47.804409-32.15933 3.476684-32.15933 3.476685-32.15933 53.019436 3.476684 80.83291 53.888607 80.83291 53.888607 46.935238 79.963739 122.553122 57.365291 152.97411 43.458554 4.345855-33.897672 18.252593-57.365291 33.028501-70.402857-116.468925-12.168395-239.022047-57.365291-239.022047-259.012982 0-57.365291 20.860106-104.300529 53.888607-140.805715-5.215026-13.037566-23.467619-66.926173 5.215027-139.067372 0 0 44.327725-13.906737 144.282399 53.888607 41.720212-11.299224 86.917108-17.383422 131.244833-17.383422s89.524621 6.084198 131.244833 17.383422C756.178839 203.386032 800.506564 217.29277 800.506564 217.29277c28.682646 72.1412 10.430053 126.029806 5.215026 139.067372 33.897672 36.505185 53.888607 83.440424 53.888607 140.805715 0 201.64769-122.553122 245.975415-239.891218 259.012982 19.121764 16.514251 35.636014 47.804409 35.636015 97.347161 0 70.402857-0.869171 126.898978-0.869172 144.282399 0 13.906737 9.560882 30.420988 35.636015 25.205961 208.601059-69.533686 358.967656-265.96635 358.967655-498.035028C1049.958663 234.676191 814.413301 0 524.979332 0z"/></svg>
+    </a>
+    
+    
+    
+    
+    
+    <a class="social-link" title="bilibili" href="https://space.bilibili.com/4907076" target="_blank" rel="noopener">
+        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M360.896 183.968l-90.912-88.096s-14.208-17.472 9.824-37.248c24.16-19.648 25.376-10.912 33.504-5.472s135.2 130.816 135.2 130.816zm301.952 3.264l90.912-88.096s14.208-17.472-9.824-37.248c-24.032-19.648-25.376-10.912-33.504-5.472s-135.2 130.816-135.2 130.816zM1004 350.336c-3.264-137.984-123.168-164.192-123.168-164.192s-614.336-4.96-742.496 0C10.176 222.304 20 350.336 20 350.336s1.696 274.272-.128 413.12c13.824 138.848 120.864 160.928 120.864 160.928s42.72.864 73.92.864c3.264 8.992 5.696 52.544 54.24 52.544 48.416 0 54.24-52.544 54.24-52.544s354.88-1.696 384.352-1.696c1.696 14.816 8.992 54.976 57.536 54.24 48.416-.864 51.712-57.536 51.712-57.536s16.384-1.696 65.664 0C997.344 898.88 1004 764.192 1004 764.192s-1.568-275.872 0-413.856zm-98.912 439.232c0 21.728-17.248 39.456-38.464 39.456H167.2c-21.248 0-38.464-17.6-38.464-39.456V326.336c0-21.728 17.248-39.456 38.464-39.456h699.424c21.248 0 38.464 17.6 38.464 39.456zM202.4 457.152l205.344-39.456 15.52 77.184-203.648 39.456zm638.976 0l-205.344-39.456-15.648 77.184 203.776 39.456zm-418.08 191.392s45.152 81.312 95.264-26.336c48.416 105.088 101.824 27.904 101.824 27.904l30.336 19.776s-56.672 91.136-131.424 22.208c-63.232 68.928-129.728-21.952-129.728-21.952z"/></svg>
+    </a>
+    
+    
+</div>
+    </div>
+</nav>
+    </div>
+</header>
+
+
+<div id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+        <header class="post-full-header">
+            <div class="post-full-meta">
+                <time class="post-full-meta-date" datetime="2018-03-11T08:27:00.000Z">
+                    2018-03-11
+                </time>
+                
+                <span class="date-divider">/</span>
+                
+                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>  
+                
+                
+            </div>
+            <h1 class="post-full-title">排序算法总结二</h1>
+        </header>
+        <div class="post-full no-image">
+            
+            <div class="post-full-content">
+                <article id="photoswipe" class="markdown-body">
+                    <p><strong>这是排序算法总结的第二篇文章，在本文章中涉及的内容为归并排序，计数排序，基数排序，桶排<br>序，其他排序内容请参看排序算法总结一</strong></p>
+<h3 id="二路归并排序-Merge-Sort"><a href="#二路归并排序-Merge-Sort" class="headerlink" title="二路归并排序(Merge Sort)"></a><font color="#d9534f">二路归并排序(Merge Sort)</font></h3><p><strong>1.基本思想</strong><br>归并排序属于比较类非线性时间排序，号称比较类排序中性能最佳者，在数据中应用中较广。<br>归并排序是分治法(Divide and Conquer)的一个典型的应用。将已有序的子序列合并，得到完全有序的序列。<br><strong>即先使每个子序列有序，再使子序列段间有序</strong>。若将两个有序表合并成一个有序表，称为二路归并。<br><img alt class="post-img b-lazy" data-img="/images/mergesort.png" data-index="0" data-src="/images/mergesort.png"><br><strong>2.特点</strong><br>稳定排序、Out-place sort</p>
+<p><strong>3.时间复杂度</strong><br>最好情况：O(nlog₂n)<br>最坏情况：O(nlog₂n)<br>空间复杂度：O(n)</p>
+<p><strong>4.代码实现</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">参考思想</span><br><span class="line">/**</span><br><span class="line"> * 二路归并排序(Merge Sort)</span><br><span class="line"> * 将有序数组A[]和B[]合并到C[]中</span><br><span class="line"> * @param arraysA</span><br><span class="line"> * @param arraysB</span><br><span class="line"> * @param arraysC</span><br><span class="line"> */</span><br><span class="line">public static void MergeArray(int arraysA[], int arraysB[], int arraysC[]){</span><br><span class="line">	/*主要思想：比较两个数组中的数，谁小就先取出谁*/</span><br><span class="line">	int i = 0;//A[]的开始下标</span><br><span class="line">	int j = 0;//B[]的开始下标</span><br><span class="line">	int k = 0;//C[]的开始下标</span><br><span class="line">	while(i < arraysA.length && j < arraysB.length){</span><br><span class="line">		/*判断谁小，然后放入，k++， i/j++ */</span><br><span class="line">		if(arraysA[i] < arraysB[j]){</span><br><span class="line">			arraysC[k] = arraysA[i];</span><br><span class="line">			k++;</span><br><span class="line">			i++;</span><br><span class="line">		}else{</span><br><span class="line">			arraysC[k] = arraysB[j];</span><br><span class="line">			k++;</span><br><span class="line">			j++;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	/*如果B[]已经分配完，而A[]没有分完，那剩下的就都是A直接放入到C[]中*/</span><br><span class="line">	while(i < arraysA.length){</span><br><span class="line">		arraysC[k] = arraysA[i];</span><br><span class="line">		k++;</span><br><span class="line">		i++;</span><br><span class="line">	}</span><br><span class="line">	/*如果A[]已经分配完，而B[]没有分完，那剩下的就都是A直接放入到C[]中*/</span><br><span class="line">	while(j < arraysB.length){</span><br><span class="line">		arraysC[k] = arraysB[j];</span><br><span class="line">		k++;</span><br><span class="line">		j++;</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>二路归并排序完整代码实现如下</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 二路归并排序(Merge Sort)——第一步</span><br><span class="line"> * 将arrays[first...middle]和arrays[middle+1...end]合并</span><br><span class="line"> * @param arrays</span><br><span class="line"> * @param first</span><br><span class="line"> * @param middle</span><br><span class="line"> * @param end</span><br><span class="line"> * @param temp</span><br><span class="line"> */</span><br><span class="line">public static void MergeArray(int arrays[], int first, int middle, int end, int temp[]){</span><br><span class="line">	int i = first;//A[]开始下标</span><br><span class="line">	int m = middle;</span><br><span class="line">	int j = middle+1;//B[]开始下标</span><br><span class="line">	int n = end;</span><br><span class="line">	int k = 0;  //C[]开始下标,这里为temp[]</span><br><span class="line">	while(i <= m && j <= n){</span><br><span class="line">		/*判断谁小，然后放入，k++， i/j++ */</span><br><span class="line">		if(arrays[i] < arrays[j]){</span><br><span class="line">			temp[k] = arrays[i];</span><br><span class="line">			k++;</span><br><span class="line">			i++;</span><br><span class="line">		}else{</span><br><span class="line">			temp[k] = arrays[j];</span><br><span class="line">			k++;</span><br><span class="line">			j++;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	/*如果B[]已经分配完，而A[]没有分完，那剩下的就都是A直接放入到C[]中*/</span><br><span class="line">	while(i <= m){</span><br><span class="line">		temp[k] = arrays[i];</span><br><span class="line">		k++;</span><br><span class="line">		i++;</span><br><span class="line">	}</span><br><span class="line">	/*如果A[]已经分配完，而B[]没有分完，那剩下的就都是A直接放入到C[]中*/</span><br><span class="line">	while(j <= n){</span><br><span class="line">		temp[k] = arrays[j];</span><br><span class="line">		k++;</span><br><span class="line">		j++;</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	/*将temp[]的值赋给arrays[]，这样arrays[]得到的就是排序好的*/</span><br><span class="line">	for(i=0; i<k;i++){</span><br><span class="line">		arrays[first+i] = temp[i];</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 二路归并排序(Merge Sort)——第二步</span><br><span class="line"> * @param arrays</span><br><span class="line"> * @param first</span><br><span class="line"> * @param last</span><br><span class="line"> * @param temp</span><br><span class="line"> */</span><br><span class="line">public static void MergeSort(int[] arrays,int first, int last, int temp[]){</span><br><span class="line">	if(first < last){</span><br><span class="line">		int middle = (first+last) >> 1;</span><br><span class="line">		MergeSort(arrays, first, middle, temp);//左半部分排好序</span><br><span class="line">		MergeSort(arrays, middle+1, last, temp);//右半部分排好序</span><br><span class="line">		MergeArray(arrays, first, middle, last, temp);//合并左右部分</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="计数排序-CountingSort"><a href="#计数排序-CountingSort" class="headerlink" title="计数排序(CountingSort)"></a><font color="#d9534f">计数排序(CountingSort)</font></h3><p><strong>1.基本思想</strong><br>在待排序序列中，对于给定的输入序列中的<strong>每一个元素x</strong>，确定该序列中值<strong>小于x的元素的个数</strong><br><strong>(此处并非比较各元素的大小，而是通过对元素值的计数和计数值的累加来确定)，</strong>这样就知道了该元素的正确位置。<br>例如，对于待排序序列{10,5,3,1,9,3}，有5个数比10小，那么10就应该放在第6个位置。</p>
+<p>计数排序是一个非基于比较的排序算法，该算法于1954年由 Harold H. Seward 提出。它的优势在于<br>在对一定范围内的整数排序时，它的复杂度为Ο(n+r)其中r是整数的范围)，快于任何比较排序算法。<br>当然这是一种牺牲空间换取时间的做法，而且<strong>当O(r)>O(n*log(n))</strong>的时候其效率反而不如基于比<br>较的排序(基于比较的排序的时间复杂度在理论上的下限是O(n<em>log(n)), 如归并排序，堆排序)<br><img alt class="post-img b-lazy" data-img="/images/countingsort.png" data-index="1" data-src="/images/countingsort.png"><br>*</em>2.特点**<br>稳定排序、Out-place sort</p>
+<p><strong>3.时间复杂度</strong><br>最好情况：O(n+r)<br>最坏情况：O(n+r)<br>其中，n为排序的数的个数，r为基数</p>
+<p><strong>4.代码实现</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 计数排序(CountingSort)</span><br><span class="line"> * @param arrays</span><br><span class="line"> * @param max  待排序数组中最大的数</span><br><span class="line"> */</span><br><span class="line">public static void CountingSort(int[] arrays, int max){</span><br><span class="line">	//max:待排序数组中最大的数</span><br><span class="line">	int[] result = new int[arrays.length];//保留结果</span><br><span class="line">	int[] temp = new int[max+1];//初始化数组，默认元素为0</span><br><span class="line">	</span><br><span class="line">	for(int i=0; i<arrays.length; i++){</span><br><span class="line">		//遍历待排序的数组，计算其中的每一个元素出现的次数，比如一个key为i的元素出现了3次，那么A[i]=3</span><br><span class="line">		int value = arrays[i];</span><br><span class="line">		temp[value] += 1;  //temp[]初始化为0。 之后1，2...</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	/*对所有计数累加*/</span><br><span class="line">	for(int i=1; i<temp.length; i++){</span><br><span class="line">		temp[i] += temp[i-1];</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	for(int i = arrays.length-1; i>=0; i--){//逆向遍历源数组（保证稳定性），根据计数数组中对应的值填充到先的数组中</span><br><span class="line">		int value = arrays[i];//记录原数组的每一个数</span><br><span class="line">		int position = temp[value] - 1;//由于下标从0开始，所以这里减1</span><br><span class="line">		result[position] = value;//放入适当的位置</span><br><span class="line">		temp[value] -= 1;//放了一个就减一个</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	/*将结果赋给arrays数组*/</span><br><span class="line">	for (int i = 0; i < arrays.length; i++) {</span><br><span class="line">		arrays[i] = result[i];</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="基数排序-RadixSort"><a href="#基数排序-RadixSort" class="headerlink" title="基数排序(RadixSort)"></a><font color="#d9534f">基数排序(RadixSort)</font></h3><p><strong>1.基本思想</strong><br>1.首先根据个位数的数值，将它们分配至编号0到9的桶子中<br>接下来将这些桶子中的数值按顺序重新串接起来，<br>2.根据十位数的数值，将它们分配至编号0到9的桶子中<br>接下来将这些桶子中的数值按顺序重新串接起来，<br>以此类推…直到最高位结束。<br>3.根据最高位数的数值，将它们分配至编号0到9的桶子中，得到排序。</p>
+<p>基数排序号称线性时间排序算法中性能最好，速度最快的排序算法。<br>基数排序属于”分配式排序”(distribution sort)，是非比较类线性时间排序的一种，又称:桶子法(bucket sort)。<br>顾名思义，它是通过键值的部分信息，将要排序的元素分配至某些”桶”中，以达到排序的作用。</p>
+<p><strong>MSD：最高位优先(Most Significant Digit first)法</strong><br>先按k1排序分组，同一组中记录，关键码k1相等，再对各组按k2排序分成子组，之后，对后面的关键<br>码继续这样的排序分组，直到按最次位关键码kd对各子组排序后。再将各组连接起来，便得到一个有<br>序序列。MSD从高位开始排到低位，排完一位后不合并桶，相同的高位划分子桶继续分配，最后再合并<br><strong>LSD：最低位优先(Least Significant Digit first)法</strong><br>先从kd开始排序，再对kd-1进行排序，依次重复，直到对k1排序后便得到一个有序序列。LSD从低位<br>开始排到高位，每排一位都是把各个桶合并，再按下一位排序。</p>
+<p>基数排序的方式可以采用LSD(Least significant digital)或MSD（Most significant digital)，LSD<br>的排序方式由键值的最右边开始，而MSD则相反，由键值的最左边开始。<br><img alt class="post-img b-lazy" data-img="/images/radixsort.png" data-index="2" data-src="/images/radixsort.png"><br>例如：[520 350 72 383 15 442 352 86 158 352]排序过程<br><img alt class="post-img b-lazy" data-img="/images/radixsort2.png" data-index="3" data-src="/images/radixsort2.png"><br><strong>2.特点</strong><br>稳定排序、Out-place sort</p>
+<p><strong>3.时间复杂度</strong><br>最好情况：O(d*(n+r))<br>最坏情况：O(d*(n+r))<br>空间复杂度：O(n+r)<br>其中，d为多少位数，r为基数(盒子10，0~9)，n为待排序序列中有n个记录</p>
+<p><strong>4.代码实现</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 基数排序(RadixSort)</span><br><span class="line"> * @param arrays  待排序数组</span><br><span class="line"> * @param radix  基数 10 (任何一个阿拉伯数，它的各个位数上的基数都是以0~9来表示的。所以我们不妨把0~9视为10个桶) </span><br><span class="line"> * @param distance  待排序中的数最大的位数</span><br><span class="line"> */</span><br><span class="line">public static void RadixSort(int[] arrays, int radix, int distance){</span><br><span class="line">	int length = arrays.length;</span><br><span class="line">	int[] temp = new int[length];//临时数组，用来暂存元素</span><br><span class="line">	int[] count = new int[radix];//radix: 10 用于计数排序 盒子 0~9</span><br><span class="line">	int divide = 1;  //1  10 100</span><br><span class="line">	</span><br><span class="line">	for(int i = 0; i<distance; i++){</span><br><span class="line">		System.arraycopy(arrays, 0, temp, 0, length);</span><br><span class="line">		Arrays.fill(count, 0);//盒子清空</span><br><span class="line">		</span><br><span class="line">		/*用来把每个数的 <个十百千万...> 分开，并且使相对应号数的桶的个数增加1*/</span><br><span class="line">		for (int j = 0; j < length; j++) {</span><br><span class="line">			//divide：1 10 100</span><br><span class="line">			//radix： 基数 10</span><br><span class="line">			//取出每一个数的位。例如123：divide:1时，取出 3。divide:10时，取出2</span><br><span class="line">			int tempKey = (temp[j]/divide) % radix;</span><br><span class="line">			count[tempKey]++; //盒子中的<个 十 百...>的个数</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">		/*对所有计数累加*/</span><br><span class="line">		//radix： 基数 10</span><br><span class="line">		for (int j = 1; j < radix; j++) {</span><br><span class="line">			count[j] += count[j-1];</span><br><span class="line">		}</span><br><span class="line">		for (int j = length-1; j>=0; j--) {//逆向遍历源数组（保证稳定性），根据计数数组中对应的值填充到先的数组中</span><br><span class="line">			int tempKey = (temp[j]/divide) % radix;</span><br><span class="line">			count[tempKey]--;//由于下标从0开始，所以这里减1</span><br><span class="line">			arrays[count[tempKey]] = temp[j];</span><br><span class="line">		}</span><br><span class="line">		</span><br><span class="line">		//(temp[j]/divide) % radix</span><br><span class="line">		divide = divide * radix; //divide：1 10 100,通过distance控制</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="桶排序-BucketSort"><a href="#桶排序-BucketSort" class="headerlink" title="桶排序(BucketSort)"></a><font color="#d9534f">桶排序(BucketSort)</font></h3><p><strong>1.基本思想</strong><br><strong>桶排序，顾名思义就是运用桶的思想来将数据放到相应的桶内，再将每一个桶内的数据进行排序，<br>最后把所有桶内数据按照顺序取出来，得到的就是我们需要的有序数据</strong></p>
+<p>桶排序是分配排序的一种，但其是基于比较排序的，它是一个分布式的排序，介于MSD基数排序和<br>LSD基数排序之间。这也是与基数排序最大的区别所在。<br>桶排序算法想法类似于散列表。首先要假设待排序的元素输入符合某种均匀分布，例如数据均匀分布<br>在[ 0,1）区间上，则可将此区间划分为10个小区间，称为桶，对散布到同一个桶中的元素再排序。<br><strong>要求：待排序数长度一致。</strong></p>
+<p>1.建立一堆buckets；<br>2.遍历原始数组，并将数据放入到各自的buckets当中；<br>3.对非空的buckets进行排序；<br>4.按照顺序遍历这些buckets并放回到原始数组中即可构成排序后的数组。<br><img alt class="post-img b-lazy" data-img="/images/bucketsort.png" data-index="4" data-src="/images/bucketsort.png"><br><strong>2.特点</strong><br>稳定排序、Out-place sort</p>
+<p><strong>3.时间复杂度</strong><br>最好情况：O(nlgn)<br>最坏情况：O(n)</p>
+<p><strong>4.代码实现</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 桶排序(BucketSort)</span><br><span class="line"> * @param arrays 待排序数组</span><br><span class="line"> * @param max  最大的数</span><br><span class="line"> * @param min  最小的数</span><br><span class="line"> */</span><br><span class="line">public static void BucketSort(int[] arrays,int max, int min){</span><br><span class="line">	int bucketNum = (max - min) / arrays.length + 1;//桶数，比如10个桶</span><br><span class="line">	/*创建链表(桶)集合并初始化，结婚中的链表用于存放相应的元素*/</span><br><span class="line">	LinkedList<LinkedList<Integer>> buckets = new LinkedList<LinkedList<Integer>>();//存桶，桶集合</span><br><span class="line">	for(int i = 0; i<bucketNum; i++){</span><br><span class="line">		LinkedList<Integer> bucket = new LinkedList<Integer>();//存元素，桶</span><br><span class="line">		buckets.add(bucket);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	/*把元素放进相对应的桶中*/</span><br><span class="line">	for(int i = 0; i<arrays.length; i++){</span><br><span class="line">		int index = (arrays[i] - min) /arrays.length;//把元素放进相对应的桶中</span><br><span class="line">		buckets.get(index).add(arrays[i]);</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	/*对每个桶中的元素排序，并放进arrays[]*/</span><br><span class="line">	int index = 0;//用于排序后从每个桶中依次取出,arrays的下标</span><br><span class="line">	for(LinkedList<Integer> linkedList : buckets){</span><br><span class="line">		int size = linkedList.size(); //每个桶的长度</span><br><span class="line">		if(size == 0){</span><br><span class="line">			continue;</span><br><span class="line">		}</span><br><span class="line">		int[] temp = new int[size];</span><br><span class="line">		for(int i = 0; i<temp.length; i++){</span><br><span class="line">			temp[i] = linkedList.get(i);//将桶的数取出放进入temp[]中</span><br><span class="line">		}</span><br><span class="line">		Arrays.sort(temp);//对桶里面的数进行排序，选择一种排序方式，</span><br><span class="line"></span><br><span class="line">		/*排序后从每个桶中依次取出*/</span><br><span class="line">		for (int i = 0; i < temp.length; i++) {</span><br><span class="line">			arrays[index] = temp[i];</span><br><span class="line">			index++;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+<p>完！！！</p>
+
+                </article>
+                <ul class="tags-postTags">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+    <nav id="gobottom" class="pagination">
+        
+        <a class="prev-post" title="排序算法工具包" href="/2018/03/12/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%AC%AC6%E7%AB%A0/">
+            ← 排序算法工具包
+        </a>
+        
+        <span class="prev-next-post">·</span>
+        
+        <a class="next-post" title="排序算法总结一" href="/2018/03/10/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%AC%AC4%E7%AB%A0/">
+            排序算法总结一 →
+        </a>
+        
+    </nav>
+
+    
+</div>
+
+<div class="toc-bar">
+    <div class="toc-btn-bar">
+        <a href="#site-main" class="toc-btn">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M793.024 710.272a32 32 0 1 0 45.952-44.544l-310.304-320a32 32 0 0 0-46.4 0.48l-297.696 320a32 32 0 0 0 46.848 43.584l274.752-295.328 286.848 295.808z"/></svg>
+        </a>
+        <div class="toc-btn toc-switch">
+            <svg class="toc-open" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M779.776 480h-387.2a32 32 0 0 0 0 64h387.2a32 32 0 0 0 0-64M779.776 672h-387.2a32 32 0 0 0 0 64h387.2a32 32 0 0 0 0-64M256 288a32 32 0 1 0 0 64 32 32 0 0 0 0-64M392.576 352h387.2a32 32 0 0 0 0-64h-387.2a32 32 0 0 0 0 64M256 480a32 32 0 1 0 0 64 32 32 0 0 0 0-64M256 672a32 32 0 1 0 0 64 32 32 0 0 0 0-64"/></svg>
+            <svg class="toc-close hide" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M512 960c-247.039484 0-448-200.960516-448-448S264.960516 64 512 64 960 264.960516 960 512 759.039484 960 512 960zM512 128.287273c-211.584464 0-383.712727 172.128262-383.712727 383.712727 0 211.551781 172.128262 383.712727 383.712727 383.712727 211.551781 0 383.712727-172.159226 383.712727-383.712727C895.712727 300.415536 723.551781 128.287273 512 128.287273z"/><path d="M557.05545 513.376159l138.367639-136.864185c12.576374-12.416396 12.672705-32.671738 0.25631-45.248112s-32.704421-12.672705-45.248112-0.25631l-138.560301 137.024163-136.447897-136.864185c-12.512727-12.512727-32.735385-12.576374-45.248112-0.063647-12.512727 12.480043-12.54369 32.735385-0.063647 45.248112l136.255235 136.671523-137.376804 135.904314c-12.576374 12.447359-12.672705 32.671738-0.25631 45.248112 6.271845 6.335493 14.496116 9.504099 22.751351 9.504099 8.12794 0 16.25588-3.103239 22.496761-9.247789l137.567746-136.064292 138.687596 139.136568c6.240882 6.271845 14.432469 9.407768 22.65674 9.407768 8.191587 0 16.352211-3.135923 22.591372-9.34412 12.512727-12.480043 12.54369-32.704421 0.063647-45.248112L557.05545 513.376159z"/></svg>
+        </div>
+        <a href="#gobottom" class="toc-btn">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M231.424 346.208a32 32 0 0 0-46.848 43.584l297.696 320a32 32 0 0 0 46.4 0.48l310.304-320a32 32 0 1 0-45.952-44.544l-286.848 295.808-274.752-295.36z"/></svg>
+        </a>
+    </div>
+    <div class="toc-main">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#二路归并排序-Merge-Sort"><span class="toc-text">二路归并排序(Merge Sort)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计数排序-CountingSort"><span class="toc-text">计数排序(CountingSort)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基数排序-RadixSort"><span class="toc-text">基数排序(RadixSort)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#桶排序-BucketSort"><span class="toc-text">桶排序(BucketSort)</span></a></li></ol>
+    </div>
+</div>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+	</div>
+	
+
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+            
+
+<article class="read-next-card" style="background-image: url(/images/header_image.png)">
+  <header class="read-next-card-header">
+    <small class="read-next-card-header-sitetitle">— Akane's Note —</small>
+    <h3 class="read-next-card-header-title">Recent Posts</h3>
+  </header>
+  <div class="read-next-divider">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/>
+    </svg>
+  </div>
+  <div class="read-next-card-content">
+    <ul>
+      
+      
+      
+      <li>
+        <a href="/2020/03/21/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%AC5%E7%AB%A0/">从零开始设计模式第5章-其他模式(1种)</a>
+      </li>
+      
+      
+      
+      <li>
+        <a href="/2020/03/15/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%AC4%E7%AB%A0/">从零开始设计模式第4章-行为型模式(十一种)</a>
+      </li>
+      
+      
+      
+      <li>
+        <a href="/2020/01/12/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%AC3%E7%AB%A0/">从零开始设计模式第3章-结构型模式(七种)</a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+  <footer class="read-next-card-footer">
+    <a href="/archives">  MORE  → </a>
+  </footer>
+</article>
+
+            
+            
+            
+
+<article class="read-next-card" style="background-image: url(/images/header_image.png)">
+    <header class="read-next-card-header tagcloud-card">
+        
+        <h3 class="read-next-card-header-title"></h3>
+    </header>
+    <div class="read-next-card-content">
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-%E7%BC%96%E7%A8%8B/">C++编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E8%AF%AD%E8%A8%80%E7%BC%96%E7%A8%8B/">C语言编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%88%B6%E4%BD%9C%E6%B8%B8%E6%88%8F/">从零开始制作游戏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">从零开始设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%83%E7%BA%B1%E9%95%87%E8%BE%89%E5%A4%9C%E5%B0%8F%E5%B1%8B/">千纱镇辉夜小屋</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90%E4%B8%8E%E7%94%9F%E6%B4%BB/">音乐与生活</a></li></ul>
+    </div>
+</article>
+
+
+            
+            
+        </div>
+    </div>
+</aside>
+
+	
+
+
+
+
+<div id="search" class="search-overlay">
+    <div class="search-form">
+        
+        <div class="search-overlay-logo">
+        	<img src="/images/avatar.png" alt="Akane's Note">
+        </div>
+        
+        <input id="local-search-input" class="search-input" type="text" name="search" placeholder="Search ...">
+        <a class="search-overlay-close" href="#"></a>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+
+<footer class="site-footer outer">
+	<div class="site-footer-content inner">
+		<div class="copyright">
+			<a href="/" title="Akane's Note">Akane's Note © 2020</a>
+			
+				
+    		
+		</div>
+		<nav class="site-footer-nav">
+			
+			<a href="https://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+			<a href="https://github.com/xzhih/hexo-theme-casper" title="Casper" target="_blank" rel="noopener">Casper</a>
+		</nav>
+	</div>
+</footer>
+	
+
+
+<script>
+    if(window.navigator && navigator.serviceWorker) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for(let registration of registrations) {
+                registration.unregister()
+            }
+        })
+    }
+</script>
+
+
+<script id="scriptLoad" src="/js/allinone.min.js" async></script>
+
+
+<script>
+    document.getElementById('scriptLoad').addEventListener('load', function () {
+        
+        
+            var bLazy = new Blazy();
+        
+
+        
+        
+
+        
+        
+        
+            searchFunc("/");
+        
+        
+    })
+</script>
+
+
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+
+
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+
+
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="/node_modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"node_modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":false});</script>
+
+</body></html>

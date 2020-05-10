@@ -1,0 +1,596 @@
+<!DOCTYPE html><html lang="en"><head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="preconnect" href="//www.googletagmanager.com">
+	<link rel="preconnect" href="//zz.bdstatic.com">
+	<link rel="preconnect" href="//sp0.baidu.com">
+	<link rel="preconnect" href="//www.google-analytics.com">
+	<link rel="preconnect" href="//cdn1.lncld.net">
+	<link rel="preconnect" href="//unpkg.com">
+	<link rel="preconnect" href="//app-router.leancloud.cn">
+	<link rel="preconnect" href="//9qpuwspm.api.lncld.net">
+	<link rel="preconnect" href="//gravatar.loli.net">
+
+	<title>linux从入门到放弃——05隐私安全和群组功能 | Akane's Note</title>
+
+	<meta name="HandheldFriendly" content="True">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+	<meta name="generator" content="hexo">
+	<meta name="author" content="むらかわ あかね">
+	<meta name="description" content>
+
+	
+
+	
+	<link rel="shortcut icon" href="/images/avatar.png">
+	<link rel="apple-touch-icon" href="/images/avatar.png">
+	
+
+	
+	<meta name="theme-color" content="#3c484e">
+	<meta name="msapplication-TileColor" content="#3c484e">
+	
+
+	
+
+	
+
+	<meta property="og:site_name" content="Akane's Note">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="linux从入门到放弃——05隐私安全和群组功能 | Akane's Note">
+	<meta property="og:description" content>
+	<meta property="og:url" content="http://yuumasan.com/2017/08/10/linux%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%8305/">
+
+	
+	<meta property="article:published_time" content="2017-08-10T15:08:00+08:00"> 
+	<meta property="article:author" content="むらかわ あかね">
+	<meta property="article:published_first" content="Akane's Note, /2017/08/10/linux%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%8305/">
+	
+
+	
+	
+	
+<link rel="stylesheet" href="/css/allinonecss.min.css">
+
+
+	
+	
+	
+</head>
+<body class="post-template">
+	<div class="site-wrapper">
+		
+
+
+
+
+<header class="site-header post-site-header outer">
+    <div class="inner">
+        
+<nav class="site-nav"> 
+    <div class="site-nav-left">
+        <ul class="nav">
+            <li>
+                
+                
+                
+                <a href="/" class="site-nav-logo" style="color:#fff; font-weight: 700; opacity:1;">ADay Studio</a>
+                
+                
+            </li>
+            
+            
+            <li>
+                <a href="/" title="主页">主页</a>
+            </li>
+            
+            <li>
+                <a href="/categories/从零开始设计模式" title="从零开始设计模式">从零开始设计模式</a>
+            </li>
+            
+            <li>
+                <a href="/categories/千纱镇辉夜小屋" title="千纱镇辉夜小屋">千纱镇辉夜小屋</a>
+            </li>
+            
+            <li>
+                <a href="/categories/笔记" title="笔记">笔记</a>
+            </li>
+            
+            <li>
+                <a href="/archives" title="归档">归档</a>
+            </li>
+            
+            <li>
+                <a href="/links" title="友链">友链</a>
+            </li>
+            
+            <li>
+                <a href="/about" title="关于">关于</a>
+            </li>
+            
+            
+        </ul> 
+    </div>
+    
+    <div class="search-button-area">
+        <a href="#search" class="search-button">Search ...</a>
+    </div>
+     
+    <div class="site-nav-right">
+        
+        <a href="#search" class="search-button">Search ...</a>
+         
+        
+<div class="social-links">
+    
+    
+    <a class="social-link" title="github" href="https://github.com/AkaneMurakawa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 1049 1024" xmlns="http://www.w3.org/2000/svg"><path d="M524.979332 0C234.676191 0 0 234.676191 0 524.979332c0 232.068678 150.366597 428.501342 358.967656 498.035028 26.075132 5.215026 35.636014-11.299224 35.636014-25.205961 0-12.168395-0.869171-53.888607-0.869171-97.347161-146.020741 31.290159-176.441729-62.580318-176.441729-62.580318-23.467619-60.841976-58.234462-76.487055-58.234463-76.487055-47.804409-32.15933 3.476684-32.15933 3.476685-32.15933 53.019436 3.476684 80.83291 53.888607 80.83291 53.888607 46.935238 79.963739 122.553122 57.365291 152.97411 43.458554 4.345855-33.897672 18.252593-57.365291 33.028501-70.402857-116.468925-12.168395-239.022047-57.365291-239.022047-259.012982 0-57.365291 20.860106-104.300529 53.888607-140.805715-5.215026-13.037566-23.467619-66.926173 5.215027-139.067372 0 0 44.327725-13.906737 144.282399 53.888607 41.720212-11.299224 86.917108-17.383422 131.244833-17.383422s89.524621 6.084198 131.244833 17.383422C756.178839 203.386032 800.506564 217.29277 800.506564 217.29277c28.682646 72.1412 10.430053 126.029806 5.215026 139.067372 33.897672 36.505185 53.888607 83.440424 53.888607 140.805715 0 201.64769-122.553122 245.975415-239.891218 259.012982 19.121764 16.514251 35.636014 47.804409 35.636015 97.347161 0 70.402857-0.869171 126.898978-0.869172 144.282399 0 13.906737 9.560882 30.420988 35.636015 25.205961 208.601059-69.533686 358.967656-265.96635 358.967655-498.035028C1049.958663 234.676191 814.413301 0 524.979332 0z"/></svg>
+    </a>
+    
+    
+    
+    
+    
+    <a class="social-link" title="bilibili" href="https://space.bilibili.com/4907076" target="_blank" rel="noopener">
+        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M360.896 183.968l-90.912-88.096s-14.208-17.472 9.824-37.248c24.16-19.648 25.376-10.912 33.504-5.472s135.2 130.816 135.2 130.816zm301.952 3.264l90.912-88.096s14.208-17.472-9.824-37.248c-24.032-19.648-25.376-10.912-33.504-5.472s-135.2 130.816-135.2 130.816zM1004 350.336c-3.264-137.984-123.168-164.192-123.168-164.192s-614.336-4.96-742.496 0C10.176 222.304 20 350.336 20 350.336s1.696 274.272-.128 413.12c13.824 138.848 120.864 160.928 120.864 160.928s42.72.864 73.92.864c3.264 8.992 5.696 52.544 54.24 52.544 48.416 0 54.24-52.544 54.24-52.544s354.88-1.696 384.352-1.696c1.696 14.816 8.992 54.976 57.536 54.24 48.416-.864 51.712-57.536 51.712-57.536s16.384-1.696 65.664 0C997.344 898.88 1004 764.192 1004 764.192s-1.568-275.872 0-413.856zm-98.912 439.232c0 21.728-17.248 39.456-38.464 39.456H167.2c-21.248 0-38.464-17.6-38.464-39.456V326.336c0-21.728 17.248-39.456 38.464-39.456h699.424c21.248 0 38.464 17.6 38.464 39.456zM202.4 457.152l205.344-39.456 15.52 77.184-203.648 39.456zm638.976 0l-205.344-39.456-15.648 77.184 203.776 39.456zm-418.08 191.392s45.152 81.312 95.264-26.336c48.416 105.088 101.824 27.904 101.824 27.904l30.336 19.776s-56.672 91.136-131.424 22.208c-63.232 68.928-129.728-21.952-129.728-21.952z"/></svg>
+    </a>
+    
+    
+</div>
+    </div>
+</nav>
+    </div>
+</header>
+
+
+<div id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+        <header class="post-full-header">
+            <div class="post-full-meta">
+                <time class="post-full-meta-date" datetime="2017-08-10T07:18:43.000Z">
+                    2017-08-10
+                </time>
+                
+                <span class="date-divider">/</span>
+                
+                <a href="/categories/Linux/">Linux</a>  
+                
+                
+            </div>
+            <h1 class="post-full-title">linux从入门到放弃——05隐私安全和群组功能</h1>
+        </header>
+        <div class="post-full no-image">
+            
+            <div class="post-full-content">
+                <article id="photoswipe" class="markdown-body">
+                    <p>这一次讲一下权限的问题，还有群组的功能。无论是在linux还是在windows中，我们都有以个叫做权限的东西，比如说你如果是管理员，就拥有管理员的权限，那么这个管理员的权限又是有什么呢？在linux中，对于任何一个文件，最多被定义为几种权限，r（可读）、w（可写）、x（可执行）、-（无权限），当然你也可以说它还拥有不可读的权限，这个其实就是无权限。我们都知道当我们在windows下查看文件的属性时候，可以设置属性为只读或者隐藏，甚至有高级选项。这是在图形界面下操作，那么在linux中又是如何更改权限的呢。首先我们要知道在linux使用八进制数字4、2、1、0分别表示r（可读）、w（可写）、x（可执行）、-（无权限），这样我们就可以表示任何一个用户所拥有的权限了，比如说：只可读（4），只可写（1），可读可写（5）。你可能知道规律了，就是进行数字的加法表示。因为每一种权限都有自己独立的八进制数字。<br>然后我们现在在终端下，输入”ls -l”命令。这个时候你显然看到了前面出现了类似的详细显示</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lrwxrwxrwx 1 SnowHotarubi 197609      65 Aug 19 01:06  Templates -> /home/Templates/</span><br><span class="line">drwxr-xr-x 1 SnowHotarubi 197609       0 Aug 19 01:06  Videos/</span><br><span class="line">drwxr-xr-x 1 SnowHotarubi 197609       0 Aug 23 23:31  WebstormProjects/</span><br><span class="line">drwxr-xr-x 1 SnowHotarubi 197609       0 Aug 22 20:33  Workspaces/</span><br><span class="line">-rw-r--r-- 1 SnowHotarubi 197609     826 Aug 19 07:13  _viminfo</span><br><span class="line">drwxr-xr-x 1 SnowHotarubi 197609       0 Aug 23 19:39  eclipse/</span><br></pre></td></tr></tbody></table></figure>
+<p>首先我们来分析一下，看第一个”lrwxrwxrwx”,欸，怎么会出现这么多个？第一个l其实表示的link链接的意思，你可以看到后面有个箭头的东西，这个就相当于我们windows下的快捷方式。然后你会看到有”-“和”d”开头的，这里的d就是direcroty目录文件的意思，而-代表的是文件。后面的符号我们数一下可以发现是正好9个。在linux中有一个群组的概念，分为User，Group，Other。这里的UGO分别表示用户、所在组、和其他组用户对该文件的访问权限。所以就不难理解为什么是9个符号。rwx三个符号就可以表示一个用户拥有了所有权限。比如我们读一下”drwxr-xr-x”,这一句就是说：创建的用户对其用于可读可写可执行的权限，而所在组，即创建用户属于的那个组，就好比小明在一班，而这个一班对该文件用于的权限是”r-x”，可读和可执行。而其他组，其他班级，对该文件也是拥有可读和可执行的权限。后面我们还可以看到文件的创建者，文件大小，修改日期这些。在这里如果是绿色的一般就是可执行文件，蓝色为目录，白色的是一般文件。上面看到了用显示的时候是通过”drwxr-xr-x”这种展示给我们，如果我们修改权限的时候也这样就太麻烦，所以在linux直接用数字代替表示了。ch就是change的意思，chgrp命令就是修改文件所在的组，而chonw就是更改所属者，chmod命令就是用来修改文件的权限。例如下面：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">chgrp: change group /etc/group</span><br><span class="line">chonw: change owner /etc/passwd</span><br><span class="line">chmod : r(read) 2^2 = 4</span><br><span class="line">	   W(write) 2^1 = 2</span><br><span class="line">	   x(excure)2^0 = 1</span><br><span class="line">	   -  0</span><br><span class="line">rwx = 7</span><br><span class="line">rw- = 6</span><br><span class="line">r-x = 5</span><br><span class="line">r-- = 4</span><br><span class="line">例如：</span><br><span class="line">chgrp root testGroup</span><br><span class="line">chonw root test</span><br><span class="line">chmod 755 test</span><br><span class="line">chmod go-w test   </span><br><span class="line">chmod +x test</span><br></pre></td></tr></tbody></table></figure>
+<p>通过上面的方法，我们就可以修改一些文件权限了，而不用压缩加密。我们接着说群组功能，我们说过，在linux中有组这个概念，分别会有不同的权限。比如root组就是最大佬级别的，这个时候如果别人想用我们电脑，但是一些东西我们不想给ta看，我们通常会再建立一个普通用户给ta用。不过在windows中我们大多是建立一个管理员或者本地用户登陆，如果创建了一个普通用户，但是其实当登陆之后我们其实可以随便操作，文件也随便看，这很不安全。而linux不会这样，你如果是普通用户，你就悲催了，你很多东西用不了，修改一个基本的设置甚至都不可以，在终端里，如果没有root权限你都不能使用关机命令（shutdown），想想，如果开机的时候没有图形界面，只有一个黑框框终端，而你只有普通用户身份登陆，你都不能关机，就只能这看看那看看。说到这里，在linux有个命令级别，在/etc/inittab文件中，我们可以看到当启动的时候分为七个命令级别，通常我们用的是3、5，而5是带图形界面的，而3不带图形界面。因为图形界面很消耗内存和CPU，所以如果你是做服务器就没有必要用图形界面了。有个系统密码破解的方法，我之前试了一下并不理想。<br>步骤：<br>1、重启Linux，鼠标单击启动界面，按键盘上下键使启动界面暂停<br>2、按键盘E键，光标往下选中kernel这行，再次按E键<br>3、按空格键，然后在后面添加数字1，回车<br>4、按B键启动系统<br>5、在命令行输入 #passwd,回车，输入两遍新密码<br>6、在命令行输入 #init 5<br>就是这样，不会要求你输入原密码。所以从上面我们知道了linux是真的安全。而且linux是支持多用户多线程的，这意味着什么，在远处的一台服务器，好几个人(目前6个左右）可以通过账号远程登陆到服务器，然后同时进行操作。一般windows上我们就只能一个人使用，下一个人想用就只有等着。说起这个，linux有个叫做inode的概念，当你使用”stat 文件”命令就可以看到有个叫做inode的，linux中其实分为两个区，一个inode区，一个数据区。每一个文件都会对应一个inode，而且是不会改变的。所以当我们正在编辑一个文件的时候，其实还可以修改文件的名称，因为这个inode是不会变的吗，而在windows下就会报错。而如果linux下的inode用完的话，这时候如果即使你的数据区还有空间你也存不了东西，但是事实上好像并不会说inode用完的情况。当我们用stat查看文件信息的时候，还能看到其他信息，例如:文件创建者，文件所在组，大小，最后修改日期等。<br>补充：linux中inode是唯一的标识符，而不是文件。所以这里有软链接和硬链接的说法。如果是硬链接就是共享同一个inode。当我们访问文件的过程其实是这样的：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">filename——>inode——>data blocks</span><br></pre></td></tr></tbody></table></figure>
+<p>嗯，先写这么多。感谢大家的阅读！下一次讲一下解压缩，这个还是蛮重要的，因为如果我们传一个东西，如果你压缩之后再传，可能就会小很多。好了，下期见。</p>
+
+                </article>
+                <ul class="tags-postTags">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+    <nav id="gobottom" class="pagination">
+        
+        <a class="prev-post" title="linux从入门到放弃——06解压缩原理与使用" href="/2017/08/25/linux%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%8306/">
+            ← linux从入门到放弃——06解压缩原理与使用
+        </a>
+        
+        <span class="prev-next-post">·</span>
+        
+        <a class="next-post" title="linux从入门到放弃——04入土篇之常用命令" href="/2017/08/08/linux%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%8304/">
+            linux从入门到放弃——04入土篇之常用命令 →
+        </a>
+        
+    </nav>
+
+    
+</div>
+
+<div class="toc-bar">
+    <div class="toc-btn-bar">
+        <a href="#site-main" class="toc-btn">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M793.024 710.272a32 32 0 1 0 45.952-44.544l-310.304-320a32 32 0 0 0-46.4 0.48l-297.696 320a32 32 0 0 0 46.848 43.584l274.752-295.328 286.848 295.808z"/></svg>
+        </a>
+        <div class="toc-btn toc-switch">
+            <svg class="toc-open" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M779.776 480h-387.2a32 32 0 0 0 0 64h387.2a32 32 0 0 0 0-64M779.776 672h-387.2a32 32 0 0 0 0 64h387.2a32 32 0 0 0 0-64M256 288a32 32 0 1 0 0 64 32 32 0 0 0 0-64M392.576 352h387.2a32 32 0 0 0 0-64h-387.2a32 32 0 0 0 0 64M256 480a32 32 0 1 0 0 64 32 32 0 0 0 0-64M256 672a32 32 0 1 0 0 64 32 32 0 0 0 0-64"/></svg>
+            <svg class="toc-close hide" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M512 960c-247.039484 0-448-200.960516-448-448S264.960516 64 512 64 960 264.960516 960 512 759.039484 960 512 960zM512 128.287273c-211.584464 0-383.712727 172.128262-383.712727 383.712727 0 211.551781 172.128262 383.712727 383.712727 383.712727 211.551781 0 383.712727-172.159226 383.712727-383.712727C895.712727 300.415536 723.551781 128.287273 512 128.287273z"/><path d="M557.05545 513.376159l138.367639-136.864185c12.576374-12.416396 12.672705-32.671738 0.25631-45.248112s-32.704421-12.672705-45.248112-0.25631l-138.560301 137.024163-136.447897-136.864185c-12.512727-12.512727-32.735385-12.576374-45.248112-0.063647-12.512727 12.480043-12.54369 32.735385-0.063647 45.248112l136.255235 136.671523-137.376804 135.904314c-12.576374 12.447359-12.672705 32.671738-0.25631 45.248112 6.271845 6.335493 14.496116 9.504099 22.751351 9.504099 8.12794 0 16.25588-3.103239 22.496761-9.247789l137.567746-136.064292 138.687596 139.136568c6.240882 6.271845 14.432469 9.407768 22.65674 9.407768 8.191587 0 16.352211-3.135923 22.591372-9.34412 12.512727-12.480043 12.54369-32.704421 0.063647-45.248112L557.05545 513.376159z"/></svg>
+        </div>
+        <a href="#gobottom" class="toc-btn">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M231.424 346.208a32 32 0 0 0-46.848 43.584l297.696 320a32 32 0 0 0 46.4 0.48l310.304-320a32 32 0 1 0-45.952-44.544l-286.848 295.808-274.752-295.36z"/></svg>
+        </a>
+    </div>
+    <div class="toc-main">
+        
+    </div>
+</div>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+	</div>
+	
+
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+            
+
+<article class="read-next-card" style="background-image: url(/images/header_image.png)">
+  <header class="read-next-card-header">
+    <small class="read-next-card-header-sitetitle">— Akane's Note —</small>
+    <h3 class="read-next-card-header-title">Recent Posts</h3>
+  </header>
+  <div class="read-next-divider">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/>
+    </svg>
+  </div>
+  <div class="read-next-card-content">
+    <ul>
+      
+      
+      
+      <li>
+        <a href="/2020/03/21/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%AC5%E7%AB%A0/">从零开始设计模式第5章-其他模式(1种)</a>
+      </li>
+      
+      
+      
+      <li>
+        <a href="/2020/03/15/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%AC4%E7%AB%A0/">从零开始设计模式第4章-行为型模式(十一种)</a>
+      </li>
+      
+      
+      
+      <li>
+        <a href="/2020/01/12/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%AC3%E7%AB%A0/">从零开始设计模式第3章-结构型模式(七种)</a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+  <footer class="read-next-card-footer">
+    <a href="/archives">  MORE  → </a>
+  </footer>
+</article>
+
+            
+            
+            
+
+<article class="read-next-card" style="background-image: url(/images/header_image.png)">
+    <header class="read-next-card-header tagcloud-card">
+        
+        <h3 class="read-next-card-header-title"></h3>
+    </header>
+    <div class="read-next-card-content">
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-%E7%BC%96%E7%A8%8B/">C++编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E8%AF%AD%E8%A8%80%E7%BC%96%E7%A8%8B/">C语言编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%88%B6%E4%BD%9C%E6%B8%B8%E6%88%8F/">从零开始制作游戏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">从零开始设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%83%E7%BA%B1%E9%95%87%E8%BE%89%E5%A4%9C%E5%B0%8F%E5%B1%8B/">千纱镇辉夜小屋</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90%E4%B8%8E%E7%94%9F%E6%B4%BB/">音乐与生活</a></li></ul>
+    </div>
+</article>
+
+
+            
+            
+        </div>
+    </div>
+</aside>
+
+	
+
+
+
+
+<div id="search" class="search-overlay">
+    <div class="search-form">
+        
+        <div class="search-overlay-logo">
+        	<img src="/images/avatar.png" alt="Akane's Note">
+        </div>
+        
+        <input id="local-search-input" class="search-input" type="text" name="search" placeholder="Search ...">
+        <a class="search-overlay-close" href="#"></a>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+
+<footer class="site-footer outer">
+	<div class="site-footer-content inner">
+		<div class="copyright">
+			<a href="/" title="Akane's Note">Akane's Note © 2020</a>
+			
+				
+    		
+		</div>
+		<nav class="site-footer-nav">
+			
+			<a href="https://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+			<a href="https://github.com/xzhih/hexo-theme-casper" title="Casper" target="_blank" rel="noopener">Casper</a>
+		</nav>
+	</div>
+</footer>
+	
+
+
+<script>
+    if(window.navigator && navigator.serviceWorker) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for(let registration of registrations) {
+                registration.unregister()
+            }
+        })
+    }
+</script>
+
+
+<script id="scriptLoad" src="/js/allinone.min.js" async></script>
+
+
+<script>
+    document.getElementById('scriptLoad').addEventListener('load', function () {
+        
+        
+            var bLazy = new Blazy();
+        
+
+        
+        
+
+        
+        
+        
+            searchFunc("/");
+        
+        
+    })
+</script>
+
+
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+
+
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+
+
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="/node_modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"node_modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":false});</script>
+
+</body></html>

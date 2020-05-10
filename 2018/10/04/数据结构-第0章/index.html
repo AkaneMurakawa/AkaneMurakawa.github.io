@@ -1,0 +1,632 @@
+<!DOCTYPE html><html lang="en"><head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="preconnect" href="//www.googletagmanager.com">
+	<link rel="preconnect" href="//zz.bdstatic.com">
+	<link rel="preconnect" href="//sp0.baidu.com">
+	<link rel="preconnect" href="//www.google-analytics.com">
+	<link rel="preconnect" href="//cdn1.lncld.net">
+	<link rel="preconnect" href="//unpkg.com">
+	<link rel="preconnect" href="//app-router.leancloud.cn">
+	<link rel="preconnect" href="//9qpuwspm.api.lncld.net">
+	<link rel="preconnect" href="//gravatar.loli.net">
+
+	<title>数据结构-数组与链表 | Akane's Note</title>
+
+	<meta name="HandheldFriendly" content="True">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+	<meta name="generator" content="hexo">
+	<meta name="author" content="むらかわ あかね">
+	<meta name="description" content>
+
+	
+
+	
+	<link rel="shortcut icon" href="/images/avatar.png">
+	<link rel="apple-touch-icon" href="/images/avatar.png">
+	
+
+	
+	<meta name="theme-color" content="#3c484e">
+	<meta name="msapplication-TileColor" content="#3c484e">
+	
+
+	
+
+	
+
+	<meta property="og:site_name" content="Akane's Note">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="数据结构-数组与链表 | Akane's Note">
+	<meta property="og:description" content>
+	<meta property="og:url" content="http://yuumasan.com/2018/10/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%AC%AC0%E7%AB%A0/">
+
+	
+	<meta property="article:published_time" content="2018-10-04T03:10:00+08:00"> 
+	<meta property="article:author" content="むらかわ あかね">
+	<meta property="article:published_first" content="Akane's Note, /2018/10/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%AC%AC0%E7%AB%A0/">
+	
+
+	
+	
+	
+<link rel="stylesheet" href="/css/allinonecss.min.css">
+
+
+	
+	
+	
+</head>
+<body class="post-template">
+	<div class="site-wrapper">
+		
+
+
+
+
+<header class="site-header post-site-header outer">
+    <div class="inner">
+        
+<nav class="site-nav"> 
+    <div class="site-nav-left">
+        <ul class="nav">
+            <li>
+                
+                
+                
+                <a href="/" class="site-nav-logo" style="color:#fff; font-weight: 700; opacity:1;">ADay Studio</a>
+                
+                
+            </li>
+            
+            
+            <li>
+                <a href="/" title="主页">主页</a>
+            </li>
+            
+            <li>
+                <a href="/categories/从零开始设计模式" title="从零开始设计模式">从零开始设计模式</a>
+            </li>
+            
+            <li>
+                <a href="/categories/千纱镇辉夜小屋" title="千纱镇辉夜小屋">千纱镇辉夜小屋</a>
+            </li>
+            
+            <li>
+                <a href="/categories/笔记" title="笔记">笔记</a>
+            </li>
+            
+            <li>
+                <a href="/archives" title="归档">归档</a>
+            </li>
+            
+            <li>
+                <a href="/links" title="友链">友链</a>
+            </li>
+            
+            <li>
+                <a href="/about" title="关于">关于</a>
+            </li>
+            
+            
+        </ul> 
+    </div>
+    
+    <div class="search-button-area">
+        <a href="#search" class="search-button">Search ...</a>
+    </div>
+     
+    <div class="site-nav-right">
+        
+        <a href="#search" class="search-button">Search ...</a>
+         
+        
+<div class="social-links">
+    
+    
+    <a class="social-link" title="github" href="https://github.com/AkaneMurakawa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 1049 1024" xmlns="http://www.w3.org/2000/svg"><path d="M524.979332 0C234.676191 0 0 234.676191 0 524.979332c0 232.068678 150.366597 428.501342 358.967656 498.035028 26.075132 5.215026 35.636014-11.299224 35.636014-25.205961 0-12.168395-0.869171-53.888607-0.869171-97.347161-146.020741 31.290159-176.441729-62.580318-176.441729-62.580318-23.467619-60.841976-58.234462-76.487055-58.234463-76.487055-47.804409-32.15933 3.476684-32.15933 3.476685-32.15933 53.019436 3.476684 80.83291 53.888607 80.83291 53.888607 46.935238 79.963739 122.553122 57.365291 152.97411 43.458554 4.345855-33.897672 18.252593-57.365291 33.028501-70.402857-116.468925-12.168395-239.022047-57.365291-239.022047-259.012982 0-57.365291 20.860106-104.300529 53.888607-140.805715-5.215026-13.037566-23.467619-66.926173 5.215027-139.067372 0 0 44.327725-13.906737 144.282399 53.888607 41.720212-11.299224 86.917108-17.383422 131.244833-17.383422s89.524621 6.084198 131.244833 17.383422C756.178839 203.386032 800.506564 217.29277 800.506564 217.29277c28.682646 72.1412 10.430053 126.029806 5.215026 139.067372 33.897672 36.505185 53.888607 83.440424 53.888607 140.805715 0 201.64769-122.553122 245.975415-239.891218 259.012982 19.121764 16.514251 35.636014 47.804409 35.636015 97.347161 0 70.402857-0.869171 126.898978-0.869172 144.282399 0 13.906737 9.560882 30.420988 35.636015 25.205961 208.601059-69.533686 358.967656-265.96635 358.967655-498.035028C1049.958663 234.676191 814.413301 0 524.979332 0z"/></svg>
+    </a>
+    
+    
+    
+    
+    
+    <a class="social-link" title="bilibili" href="https://space.bilibili.com/4907076" target="_blank" rel="noopener">
+        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M360.896 183.968l-90.912-88.096s-14.208-17.472 9.824-37.248c24.16-19.648 25.376-10.912 33.504-5.472s135.2 130.816 135.2 130.816zm301.952 3.264l90.912-88.096s14.208-17.472-9.824-37.248c-24.032-19.648-25.376-10.912-33.504-5.472s-135.2 130.816-135.2 130.816zM1004 350.336c-3.264-137.984-123.168-164.192-123.168-164.192s-614.336-4.96-742.496 0C10.176 222.304 20 350.336 20 350.336s1.696 274.272-.128 413.12c13.824 138.848 120.864 160.928 120.864 160.928s42.72.864 73.92.864c3.264 8.992 5.696 52.544 54.24 52.544 48.416 0 54.24-52.544 54.24-52.544s354.88-1.696 384.352-1.696c1.696 14.816 8.992 54.976 57.536 54.24 48.416-.864 51.712-57.536 51.712-57.536s16.384-1.696 65.664 0C997.344 898.88 1004 764.192 1004 764.192s-1.568-275.872 0-413.856zm-98.912 439.232c0 21.728-17.248 39.456-38.464 39.456H167.2c-21.248 0-38.464-17.6-38.464-39.456V326.336c0-21.728 17.248-39.456 38.464-39.456h699.424c21.248 0 38.464 17.6 38.464 39.456zM202.4 457.152l205.344-39.456 15.52 77.184-203.648 39.456zm638.976 0l-205.344-39.456-15.648 77.184 203.776 39.456zm-418.08 191.392s45.152 81.312 95.264-26.336c48.416 105.088 101.824 27.904 101.824 27.904l30.336 19.776s-56.672 91.136-131.424 22.208c-63.232 68.928-129.728-21.952-129.728-21.952z"/></svg>
+    </a>
+    
+    
+</div>
+    </div>
+</nav>
+    </div>
+</header>
+
+
+<div id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+        <header class="post-full-header">
+            <div class="post-full-meta">
+                <time class="post-full-meta-date" datetime="2018-10-03T19:55:13.000Z">
+                    2018-10-4
+                </time>
+                
+                <span class="date-divider">/</span>
+                
+                <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>  
+                
+                
+            </div>
+            <h1 class="post-full-title">数据结构-数组与链表</h1>
+        </header>
+        <div class="post-full no-image">
+            
+            <div class="post-full-content">
+                <article id="photoswipe" class="markdown-body">
+                    <p>首先祝大家国庆假期愉快！在假期间，我列了我几个计划：一个就是继续看数据结构，另一个就是打算重新学习英语，了解外国的语言思维。</p>
+<p>在编程的学习过程中，有一门很重要的课程，那就是数据结构。我觉得这是我们学习编程的基础之一，但是现在随着IT技术的发展，编程技术也在一步步的发展，由原来的机器语言到汇编，再到高级语言可以说是一个非常大的变化，可能以后人人都会编程，而这些可能也越来越少人知道。但是至少在我现在还是要知道这些，数据结构在我开始学的时候非常头疼，因为你好像听懂了明白了也在纸上画出来了，但是自己又写的不完整。原因在于你还没有这种设计思维，考虑的没有这么多，而这些都是靠积累而来。所以慢慢来。</p>
+<p>数据结构如果你搜索网上的定义，会说的非常复杂。而我个人觉得其实数据结构就是研究数据元素之间的联系。而联系又分为一对一，一对多，多对一，多对一。这就是我们后来说的链表，树，图。</p>
+<h3>数组和链表</h3>
+
+<p>学习数据结构，首先要了解的就是数组和链表，这是我们学习的基础。比如我们在Java中学习的ArrayList本质上就是数组，HashTable本质上就是链表，只不过别人已经写好了相应的方法。</p>
+<p>关于数组和链表的区别也是一个非常经典的问题。数组的存储是地址是连续的，因此查询的时候通过地址偏移很快就能找到该值，但是当要删除或者插入的时候，需要对地址进行移动效率就低于链表了。而链表只能通过一个节点找到下一个节点，因此查询的效率比较慢。而如果要删除或者插入的时候只需要重新指向就可以了，效率非常的高。</p>
+<p>而对于(离散存储)链表：链表的存储地址就不要求是连续的了，而是通过指针(地址)相连，就是在存储数据的时候里面存一个地址。每一个首节点都有唯一的前驱节点和唯一的后续节点。首节点没有前驱节点，尾节点没有后续节点。</p>
+<h3>自定义实现集合</h3>
+
+<p>下面是简单模仿集合的一个实现过程，进而更深的理解。就拿ArrayList好了。下面写的纯属瞎玩，代码要保证鲁棒性需要考虑的东西还很多，下面只是简单的实现一些方法。<br><strong>注意：在ArrayList中可以一直添加，这里呢就限制一下，初始化的时候限制长度，但是要实现也是可以的，当要添加的时候判断是否为满，如果满了而扩充数组的长度，而这个长度我们称之为增长因子。因为我们不可能频繁的扩充，而是一次性的扩充一部分</strong><br>1.数组的定义</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ListStruct</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">    <span class="keyword">int</span>* pBase; <span class="comment">// 数据域，数组的首地址</span></span><br><span class="line">    <span class="keyword">int</span> iLength; <span class="comment">// 数组的长度</span></span><br><span class="line">    <span class="keyword">int</span> iCurrentNum; <span class="comment">// 当前元素有效的个数</span></span><br><span class="line">}List, *ListNode;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>2.数组初始化</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(ListNode pArray, <span class="keyword">int</span> iLength)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    pArray->pBase = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(List));</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == pArray->pBase)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"数组初始化失败！\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    }</span><br><span class="line">    pArray->iLength = iLength;</span><br><span class="line">    pArray->iCurrentNum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>当我们在new一个集合的时候，就是创建并初始化的过程，只不过我们这里是要确定一个数组的长度。我们结构体存储的是数组的首地址，<strong>当我们试图要访问一个越界的下标的时候，编译器往往提示我们索引超出了，这里也可以自己判断。如果超出的话系统会随机分配一个值，而这个值不是我们能掌控当然也没有意义了。</strong></p>
+<p>当创建好了之后，我们就需要往里面添加元素了。<br>3.数组的添加和插入</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">append</span><span class="params">(ListNode pArray, <span class="keyword">int</span> iVal)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">if</span> (isFull(pArray))</span><br><span class="line">    {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 添加元素</span></span><br><span class="line">    (pArray->iCurrentNum)++;</span><br><span class="line">    pArray->pBase[pArray->iCurrentNum<span class="number">-1</span>] = iVal;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">insert</span><span class="params">(ListNode pArray, <span class="keyword">int</span> iPost, <span class="keyword">int</span> iVal)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">if</span> (iPost < <span class="number">1</span> || iPost > pArray->iLength+<span class="number">1</span>)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"插入的位置不合法！\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (isFull(pArray))</span><br><span class="line">    {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">// 因为是在指定的位置插入，因此post位置的元素就是插入的值了，其他的元素往后移动</span></span><br><span class="line">    (pArray->iCurrentNum)++; <span class="comment">// 先增长数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = pArray->iCurrentNum - <span class="number">1</span>; i >= iPost; i--)</span><br><span class="line">    {</span><br><span class="line">        pArray->pBase[i] = pArray->pBase[i - <span class="number">1</span>];</span><br><span class="line">    }</span><br><span class="line">    pArray->pBase[iPost - <span class="number">1</span>] = iVal;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>4.接下来是删除</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">delete</span><span class="params">(ListNode pArray, <span class="keyword">int</span> iPost, <span class="keyword">int</span>* pVal)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">if</span> (iPost < <span class="number">1</span> || iPost > pArray->iLength)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"删除的位置不合法！\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> (isEmpty(pArray))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"数组为空!\n"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    *pVal = pArray->pBase[iPost - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = iPost; i < pArray->iCurrentNum; i++)</span><br><span class="line">    {</span><br><span class="line">        pArray->pBase[i<span class="number">-1</span>] = pArray->pBase[i];</span><br><span class="line">    }</span><br><span class="line">    (pArray->iCurrentNum)--;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>5.查询指定位置的元素</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(ListNode pArray, <span class="keyword">int</span> iPost)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">if</span> (iPost < <span class="number">1</span> || iPost > pArray->iLength)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"查找的位置不合法！\n"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> pArray->pBase[iPost<span class="number">-1</span>];</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>还有好多方法都可以通过自己定义去实现，你可以发现里面很多操作都是和数组的操作差不多，这也说明了<strong>我们的函数在使用数组作为参数的时候，其实传的就是我们首元素的首地址，而[]是我们下标运算符</strong>.可以看到有些人写代码是下面这样的，也就不难理解了。</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">方法一：</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AddStuMSGToLinkHead</span><span class="params">(<span class="keyword">char</span>* arrStuNum, <span class="keyword">char</span>* arrStuName, <span class="keyword">int</span> iStuScore)</span></span></span><br><span class="line">方式二：</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AddStuMSGToLinkHead</span><span class="params">(<span class="keyword">char</span> arrStuNum[<span class="number">20</span>], <span class="keyword">char</span> arrStuName[<span class="number">20</span>], <span class="keyword">int</span> iStuScore)</span></span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>当数组作为函数参数的时候，其实是作为指针传过来。因为数组的地址是连续的，我们只要把首元素的首地址传过来就行了，这样节省了很多传输消耗。</p>
+<h3>链表</h3>
+
+<p>和数组不同的是，链表定义的时候我们需要定义一个和<strong>当前数据类型一样</strong>的指针变量，这个变量指向我们下一个数据的地址。这样我们就通过指针把数据元素联系起来了。我觉得要理解链表首先就要理解其的本质思想：通过指针联系。一个是节点保存有我们的数据，而另一个是指针域存放的是我们的地址。数据域和指针域一定要分清楚。</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">NODE</span>{</span></span><br><span class="line">    <span class="keyword">int</span> data; <span class="comment">//数据域</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">NODE</span>* <span class="title">pNext</span>;</span><span class="comment">//指针域</span></span><br><span class="line">}Node, *pNode;</span><br></pre></td></tr></tbody></table></figure>
+
+<h3>认识几个专有名词</h3>
+
+<p>之前我一直以为首节点就是头节点，后面才发现是我搞错了，<strong>头节点其实是首节点前面的节点</strong><br>首节点：第一个有效节点，这个有效定义是说存放有一些有效数据。<br>尾节点：最后一个有效节点，同上。<br>头节点：第一个有效的节点之前的节点也就是首节点前面的节点，一般来说并不存储数据，这是和首节点的区别。头节点的目的在于<strong>便于通过头指针对链表进行操作</strong><br>头指针：指向头节点的指针<br>尾指针：指向尾节点的指针</p>
+<p>当我们要对链表进行操作的时候，我们往往是通过头指针去操作。</p>
+<h3>链表的分类</h3>
+
+<p>链表其实就是通过指针指向相同的数据类型联系起来，这样好玩的地方就很多了，我们就可以把生活中很多东西联系起来了，比如人与人之间的关系，就像是一个多重指针域，我认识他，也认识她，而她认识她，我就可以通过她去认识她。我们把链表进行分类一下，分为：<br>单链表，双链表：单链表也就是每个节点只有一个指针域，而双链表是每个节点有两个指针域，我们可以指向前一个，也可以指向下一个。<br>循环链表，非循环链表：如果是循环链表我们可以通过一个节点找到其他的所有节点，就是形成一个环嘛，非循环链表反之。</p>
+<p>现在仔细想一下，数组和链表设计真的很棒，能够把我们生活中的很多东西表示出来，把很多问题都交给计算机去处理，大大方便了我们的生活，所以我们处在科技发展的年代真的非常不错啊。链表的东西还有很多，下一次我们再研究吧。国庆假期愉快！</p>
+
+                </article>
+                <ul class="tags-postTags">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+    <nav id="gobottom" class="pagination">
+        
+        <a class="prev-post" title="数据结构-非循环单链表" href="/2018/10/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%AC%AC1%E7%AB%A0/">
+            ← 数据结构-非循环单链表
+        </a>
+        
+        <span class="prev-next-post">·</span>
+        
+        <a class="next-post" title="C语言编程-命令行参数" href="/2018/09/15/C%E8%AF%AD%E8%A8%80%E7%BC%96%E7%A8%8B-%E7%AC%AC9%E7%AB%A0/">
+            C语言编程-命令行参数 →
+        </a>
+        
+    </nav>
+
+    
+</div>
+
+<div class="toc-bar">
+    <div class="toc-btn-bar">
+        <a href="#site-main" class="toc-btn">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M793.024 710.272a32 32 0 1 0 45.952-44.544l-310.304-320a32 32 0 0 0-46.4 0.48l-297.696 320a32 32 0 0 0 46.848 43.584l274.752-295.328 286.848 295.808z"/></svg>
+        </a>
+        <div class="toc-btn toc-switch">
+            <svg class="toc-open" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M779.776 480h-387.2a32 32 0 0 0 0 64h387.2a32 32 0 0 0 0-64M779.776 672h-387.2a32 32 0 0 0 0 64h387.2a32 32 0 0 0 0-64M256 288a32 32 0 1 0 0 64 32 32 0 0 0 0-64M392.576 352h387.2a32 32 0 0 0 0-64h-387.2a32 32 0 0 0 0 64M256 480a32 32 0 1 0 0 64 32 32 0 0 0 0-64M256 672a32 32 0 1 0 0 64 32 32 0 0 0 0-64"/></svg>
+            <svg class="toc-close hide" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M512 960c-247.039484 0-448-200.960516-448-448S264.960516 64 512 64 960 264.960516 960 512 759.039484 960 512 960zM512 128.287273c-211.584464 0-383.712727 172.128262-383.712727 383.712727 0 211.551781 172.128262 383.712727 383.712727 383.712727 211.551781 0 383.712727-172.159226 383.712727-383.712727C895.712727 300.415536 723.551781 128.287273 512 128.287273z"/><path d="M557.05545 513.376159l138.367639-136.864185c12.576374-12.416396 12.672705-32.671738 0.25631-45.248112s-32.704421-12.672705-45.248112-0.25631l-138.560301 137.024163-136.447897-136.864185c-12.512727-12.512727-32.735385-12.576374-45.248112-0.063647-12.512727 12.480043-12.54369 32.735385-0.063647 45.248112l136.255235 136.671523-137.376804 135.904314c-12.576374 12.447359-12.672705 32.671738-0.25631 45.248112 6.271845 6.335493 14.496116 9.504099 22.751351 9.504099 8.12794 0 16.25588-3.103239 22.496761-9.247789l137.567746-136.064292 138.687596 139.136568c6.240882 6.271845 14.432469 9.407768 22.65674 9.407768 8.191587 0 16.352211-3.135923 22.591372-9.34412 12.512727-12.480043 12.54369-32.704421 0.063647-45.248112L557.05545 513.376159z"/></svg>
+        </div>
+        <a href="#gobottom" class="toc-btn">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M231.424 346.208a32 32 0 0 0-46.848 43.584l297.696 320a32 32 0 0 0 46.4 0.48l310.304-320a32 32 0 1 0-45.952-44.544l-286.848 295.808-274.752-295.36z"/></svg>
+        </a>
+    </div>
+    <div class="toc-main">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">数组和链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">自定义实现集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">链表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">认识几个专有名词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">链表的分类</span></a></li></ol>
+    </div>
+</div>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+	</div>
+	
+
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+            
+
+<article class="read-next-card" style="background-image: url(/images/header_image.png)">
+  <header class="read-next-card-header">
+    <small class="read-next-card-header-sitetitle">— Akane's Note —</small>
+    <h3 class="read-next-card-header-title">Recent Posts</h3>
+  </header>
+  <div class="read-next-divider">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/>
+    </svg>
+  </div>
+  <div class="read-next-card-content">
+    <ul>
+      
+      
+      
+      <li>
+        <a href="/2020/03/21/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%AC5%E7%AB%A0/">从零开始设计模式第5章-其他模式(1种)</a>
+      </li>
+      
+      
+      
+      <li>
+        <a href="/2020/03/15/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%AC4%E7%AB%A0/">从零开始设计模式第4章-行为型模式(十一种)</a>
+      </li>
+      
+      
+      
+      <li>
+        <a href="/2020/01/12/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%AC3%E7%AB%A0/">从零开始设计模式第3章-结构型模式(七种)</a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+  </div>
+  <footer class="read-next-card-footer">
+    <a href="/archives">  MORE  → </a>
+  </footer>
+</article>
+
+            
+            
+            
+
+<article class="read-next-card" style="background-image: url(/images/header_image.png)">
+    <header class="read-next-card-header tagcloud-card">
+        
+        <h3 class="read-next-card-header-title"></h3>
+    </header>
+    <div class="read-next-card-content">
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-%E7%BC%96%E7%A8%8B/">C++编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C%E8%AF%AD%E8%A8%80%E7%BC%96%E7%A8%8B/">C语言编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%88%B6%E4%BD%9C%E6%B8%B8%E6%88%8F/">从零开始制作游戏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">从零开始设计模式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%83%E7%BA%B1%E9%95%87%E8%BE%89%E5%A4%9C%E5%B0%8F%E5%B1%8B/">千纱镇辉夜小屋</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90%E4%B8%8E%E7%94%9F%E6%B4%BB/">音乐与生活</a></li></ul>
+    </div>
+</article>
+
+
+            
+            
+        </div>
+    </div>
+</aside>
+
+	
+
+
+
+
+<div id="search" class="search-overlay">
+    <div class="search-form">
+        
+        <div class="search-overlay-logo">
+        	<img src="/images/avatar.png" alt="Akane's Note">
+        </div>
+        
+        <input id="local-search-input" class="search-input" type="text" name="search" placeholder="Search ...">
+        <a class="search-overlay-close" href="#"></a>
+    </div>
+    <div id="local-search-result"></div>
+</div>
+
+<footer class="site-footer outer">
+	<div class="site-footer-content inner">
+		<div class="copyright">
+			<a href="/" title="Akane's Note">Akane's Note © 2020</a>
+			
+				
+    		
+		</div>
+		<nav class="site-footer-nav">
+			
+			<a href="https://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+			<a href="https://github.com/xzhih/hexo-theme-casper" title="Casper" target="_blank" rel="noopener">Casper</a>
+		</nav>
+	</div>
+</footer>
+	
+
+
+<script>
+    if(window.navigator && navigator.serviceWorker) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for(let registration of registrations) {
+                registration.unregister()
+            }
+        })
+    }
+</script>
+
+
+<script id="scriptLoad" src="/js/allinone.min.js" async></script>
+
+
+<script>
+    document.getElementById('scriptLoad').addEventListener('load', function () {
+        
+        
+            var bLazy = new Blazy();
+        
+
+        
+        
+
+        
+        
+        
+            searchFunc("/");
+        
+        
+    })
+</script>
+
+
+
+
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+
+
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+
+
+<script src="/photoswipe/photoswipe.min.js"></script>
+
+
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+
+
+
+
+
+
+
+
+<script src="/node_modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"node_modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"log":false});</script>
+
+</body></html>
