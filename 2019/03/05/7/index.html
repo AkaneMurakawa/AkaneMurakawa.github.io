@@ -11,7 +11,7 @@
 	<link rel="preconnect" href="//9qpuwspm.api.lncld.net">
 	<link rel="preconnect" href="//gravatar.loli.net">
 
-	<title>Maven基础知识 | Akane's Note</title>
+	<title>我和她 | Akane's Note</title>
 
 	<meta name="HandheldFriendly" content="True">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -37,14 +37,14 @@
 
 	<meta property="og:site_name" content="Akane's Note">
 	<meta property="og:type" content="article">
-	<meta property="og:title" content="Maven基础知识 | Akane's Note">
+	<meta property="og:title" content="我和她 | Akane's Note">
 	<meta property="og:description" content>
-	<meta property="og:url" content="http://yuumasan.com/2019/09/14/10/">
+	<meta property="og:url" content="http://yuumasan.com/2019/03/05/7/">
 
 	
-	<meta property="article:published_time" content="2019-09-14T15:09:00+08:00"> 
+	<meta property="article:published_time" content="2019-03-05T12:03:00+08:00"> 
 	<meta property="article:author" content="むらかわ あかね">
-	<meta property="article:published_first" content="Akane's Note, /2019/09/14/10/">
+	<meta property="article:published_first" content="Akane's Note, /2019/03/05/7/">
 	
 
 	
@@ -149,93 +149,81 @@
     <div class="inner">
         <header class="post-full-header">
             <div class="post-full-meta">
-                <time class="post-full-meta-date" datetime="2019-09-14T07:17:00.000Z">
-                    2019-09-14
+                <time class="post-full-meta-date" datetime="2019-03-05T04:20:00.000Z">
+                    2019-03-5
                 </time>
                 
                 <span class="date-divider">/</span>
                 
-                <a href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>  
+                <a href="/categories/%E5%8D%83%E7%BA%B1%E9%95%87%E8%BE%89%E5%A4%9C%E5%B0%8F%E5%B1%8B/">千纱镇辉夜小屋</a>  
                 
                 
             </div>
-            <h1 class="post-full-title">Maven基础知识</h1>
+            <h1 class="post-full-title">我和她</h1>
         </header>
         <div class="post-full no-image">
             
             <div class="post-full-content">
                 <article id="photoswipe" class="markdown-body">
-                    <p><Excerpt in index | 首页摘要></p>
-<p>Maven的简单使用</p>
-<a id="more"></a>
-<p><The rest of contents | 余下全文></p>
-<h3 id="Maven生命周期"><a href="#Maven生命周期" class="headerlink" title="Maven生命周期"></a>Maven生命周期</h3><p><img alt="maven生命周期" class="post-img b-lazy" data-img="https://www.runoob.com/wp-content/uploads/2018/09/7642256-c967b2c1faeba9ce.png" data-index="0" data-src="https://www.runoob.com/wp-content/uploads/2018/09/7642256-c967b2c1faeba9ce.png"></p>
-<table>
-<thead>
-<tr>
-<th align="left">阶段</th>
-<th align="left">处理</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">验证 validate</td>
-<td align="left">验证项目</td>
-<td align="left">验证项目是否正确且所有必须信息是可用的</td>
-</tr>
-<tr>
-<td align="left">编译 compile</td>
-<td align="left">执行编译</td>
-<td align="left">源代码编译在此阶段完成</td>
-</tr>
-<tr>
-<td align="left">测试 Test</td>
-<td align="left">测试</td>
-<td align="left">使用适当的单元测试框架（例如JUnit）运行测试。</td>
-</tr>
-<tr>
-<td align="left">包装 package</td>
-<td align="left">打包</td>
-<td align="left">创建JAR/WAR包如在 pom.xml 中定义提及的包</td>
-</tr>
-<tr>
-<td align="left">检查 verify</td>
-<td align="left">检查</td>
-<td align="left">对集成测试的结果进行检查，以保证质量达标</td>
-</tr>
-<tr>
-<td align="left">安装 install</td>
-<td align="left">安装</td>
-<td align="left">安装打包的项目到本地仓库，以供其他项目使用</td>
-</tr>
-<tr>
-<td align="left">部署 deploy</td>
-<td align="left">部署</td>
-<td align="left">拷贝最终的工程包到远程仓库中，以共享给其他开发人员和工程</td>
-</tr>
-</tbody></table>
-<h3 id="GAV"><a href="#GAV" class="headerlink" title="GAV"></a>GAV</h3><p>初次看到这个简称的时候还以为我看错了，确定不是Gay？</p>
-<p>其实GAV指的是groupId、artifactId、version</p>
-<p>groupId：公司或者组织的唯一标志</p>
-<p>artifactId：项目的唯一ID，项目的模块</p>
-<p>version：版本号</p>
-<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag"><<span class="name">parent</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">artifactId</span>></span>maven-parent<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">groupId</span>></span>com.archon.example<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">version</span>></span>0.1<span class="tag"></<span class="name">version</span>></span></span><br><span class="line"><span class="tag"></<span class="name">parent</span>></span></span><br><span class="line"><span class="tag"><<span class="name">artifactId</span>></span>maven-plugin<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line"><span class="tag"><<span class="name">packaging</span>></span>jar<span class="tag"></<span class="name">packaging</span>></span></span><br></pre></td></tr></tbody></table></figure>
+                    <p>原本这个网站是用来展示和宝贝一起去玩耍的照片，但是后来发现照片太多，维护起来太浪费时间了，并且访问的速度特别慢。于是决定还是用来写文章吧, 照片就存储在本地, 想看的时候用软件打开。</p>
+<h3 id="2019-3-23"><a href="#2019-3-23" class="headerlink" title="2019-3-23"></a>2019-3-23</h3><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=794134&auto=0&height=66"></iframe>
 
-<blockquote>
-<p>一般<code>artifact</code>（依赖包）的版本信息全部在<code>maven-parent</code>中声明</p>
-</blockquote>
-<h3 id="排除重复GAV"><a href="#排除重复GAV" class="headerlink" title="排除重复GAV"></a>排除重复GAV</h3><p>查找冲突：</p>
-<p>一种是pom文件目录下运行mvn dependency:tree，查看依赖关系树形结构。</p>
-<p>另一种是使用maven插件Maven Enforcer Plugin，执行maven命令 “validate”会打出日志告诉我们哪些jar包冲突。</p>
-<p>解决冲突：<br>exclusions</p>
-<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag"><<span class="name">exclusions</span>></span></span><br><span class="line">    <span class="tag"><<span class="name">exclusion</span>></span></span><br><span class="line">        <span class="tag"><<span class="name">artifactId</span>></span>spring-boot-starter-logging<span class="tag"></<span class="name">artifactId</span>></span></span><br><span class="line">        <span class="tag"><<span class="name">groupId</span>></span>org.springframework.boot<span class="tag"></<span class="name">groupId</span>></span></span><br><span class="line">    <span class="tag"></<span class="name">exclusion</span>></span></span><br><span class="line"><span class="tag"></<span class="name">exclusions</span>></span></span><br></pre></td></tr></tbody></table></figure>
+<h3 align="center"> 那一天 去了深圳湾公园</h3>
+<h3 align="center"> 一个出地铁站就能看到海的地方</h3>
+<h3 align="center"> 海的那边有风</h3>
+<h3 align="center"> 我的身边有你</h3>
 
-<h3 id="构建jar"><a href="#构建jar" class="headerlink" title="构建jar"></a>构建jar</h3><p>mvn package</p>
-<h3 id="跳过单元测试"><a href="#跳过单元测试" class="headerlink" title="跳过单元测试"></a>跳过单元测试</h3><p>-DskipTests，不执行测试用例，但编译测试用例类生成相应的class文件至target/test-classes下。</p>
-<p><strong>-Dmaven.test.skip=true，不但跳过单元测试的运行，也跳过测试代码的编译。。</strong></p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install -Dmaven.test.skip=true</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="2019-4-15"><a href="#2019-4-15" class="headerlink" title="2019-4-15"></a>2019-4-15</h3><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=785793&auto=0&height=66"></iframe>
 
-<h3 id="使用Nexus搭建maven私有仓库"><a href="#使用Nexus搭建maven私有仓库" class="headerlink" title="使用Nexus搭建maven私有仓库"></a>使用Nexus搭建maven私有仓库</h3><p><a href="https://www.jianshu.com/p/9740778b154f" target="_blank" rel="noopener">搭建私有仓库</a></p>
+<h3 align="center"> 难得的周末 一起去吃吃喝喝</h3>
+<h3 align="center"> 酸菜鱼 海底捞</h3>
+<h3 align="center"> 一个美味休闲的下午</h3>
+
+<h3 id="2019-5-15"><a href="#2019-5-15" class="headerlink" title="2019-5-15"></a>2019-5-15</h3><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=478091&auto=0&height=66"></iframe>
+
+<h3 align="center"> 五月</h3>
+<h3 align="center"> 五月的风 五月的校园</h3>
+<h3 align="center"> 五月的你 五月的我</h3>
+<h3 align="center"> 五月 与宝贝一起在校园的日子</h3>
+
+<h3 id="2019-5-20"><a href="#2019-5-20" class="headerlink" title="2019-5-20"></a>2019-5-20</h3><img alt style="width: 200px;" class="post-img b-lazy" data-img="/images/520.jpg" data-index="0" data-src="/images/520.jpg">
+<h2 align="center" style="font-size:24px; color:#fe9cd1;">宝贝，❤520快乐哦❤，我爱你，超级超级爱哦</h2>
+<h2 align="center" style="font-size:24px; color:#fe9cd1;">点我的心有惊喜🎁哦</h2>
+
+<p>景哥，你到八十岁还会这样牵着我吗？ （<em>＾-＾</em>）</p>
+<p>会啊，宝贝。等你想结婚了，我就娶你回家。 (≧∇≦)ﾉ</p>
+<p>景哥，景哥 o(<em>￣▽￣</em>)o</p>
+<p>嗯，宝贝。爱你哟 (＾Ｕ＾)ノ~ＹＯ</p>
+<p>景哥，我也爱你💗。</p>
+<p>宝贝，我们一起去看流星好不好？我带你去许愿</p>
+<p>好啊，可是哪里有流星啊？ (・∀・(・∀・(・∀・*)</p>
+<p>有啊，在我心里。哈哈~</p>
+<p>讨厌，景哥，你又撩我 (ノω<。)ノ))☆.。</p>
+<p>宝贝，抱抱。</p>
+<p>景哥，抱抱</p>
+<p>宝贝，快看，烟花诶~</p>
+<h3 id="2019-5-23"><a href="#2019-5-23" class="headerlink" title="2019-5-23"></a>2019-5-23</h3><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=33789789&auto=0&height=66"></iframe>
+<h3 align="center"> 起风了</h3>
+<h3 align="center"> 我以为什么吹进了我的心里</h3>
+<h3 align="center"> 原来是你</h3>
+
+<p>迟来的一篇更新，这两天有点事情，耽误了更新。因为修图需要不少的时间，终于在今天有了点时间修了一下</p>
+<p>与宝贝在一起的第一个她的生日</p>
+<p>我的表情好傻啊，为什么宝贝的都这么可爱</p>
+<p>今天的生日来了好多人，陌生的人一旦多就有点紧张，买了个栗子榕蛋糕，好好吃</p>
+<p>和宝贝一起打开了蛋糕，看看宝贝宠溺的样子，很可爱，超级幸福哦</p>
+<p>今天的夜空 好美</p>
+<p>宝贝，祝你生日快乐！</p>
+<br>
+
+
+
+
+
+
+
+
+
 
                 </article>
                 <ul class="tags-postTags">
@@ -248,14 +236,14 @@
     
     <nav id="gobottom" class="pagination">
         
-        <a class="prev-post" title="从零开始制作游戏-第零章" href="/2019/12/27/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%88%B6%E4%BD%9C%E6%B8%B8%E6%88%8F-%E7%AC%AC0%E7%AB%A0/">
-            ← 从零开始制作游戏-第零章
+        <a class="prev-post" title="Markdown语法测试" href="/2019/06/30/1/">
+            ← Markdown语法测试
         </a>
         
         <span class="prev-next-post">·</span>
         
-        <a class="next-post" title="Linux下如何通过日志排查问题" href="/2019/09/14/9/">
-            Linux下如何通过日志排查问题 →
+        <a class="next-post" title="入手Sony XPERIA XZ1了" href="/2018/12/05/8/">
+            入手Sony XPERIA XZ1了 →
         </a>
         
     </nav>
@@ -277,8 +265,8 @@
         </a>
     </div>
     <div class="toc-main">
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Maven生命周期"><span class="toc-text">Maven生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GAV"><span class="toc-text">GAV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#排除重复GAV"><span class="toc-text">排除重复GAV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建jar"><span class="toc-text">构建jar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#跳过单元测试"><span class="toc-text">跳过单元测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Nexus搭建maven私有仓库"><span class="toc-text">使用Nexus搭建maven私有仓库</span></a></li></ol>
-    </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#2019-3-23"><span class="toc-text">2019-3-23</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 那一天 去了深圳湾公园</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 一个出地铁站就能看到海的地方</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 海的那边有风</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 我的身边有你</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2019-4-15"><span class="toc-text">2019-4-15</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 难得的周末 一起去吃吃喝喝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 酸菜鱼 海底捞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 一个美味休闲的下午</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2019-5-15"><span class="toc-text">2019-5-15</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 五月</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 五月的风 五月的校园</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 五月的你 五月的我</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 五月 与宝贝一起在校园的日子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2019-5-20"><span class="toc-text">2019-5-20</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">宝贝，❤520快乐哦❤，我爱你，超级超级爱哦</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">点我的心有惊喜🎁哦</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2019-5-23"><span class="toc-text">2019-5-23</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 起风了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 我以为什么吹进了我的心里</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> 原来是你</span></a></li></ol>
+    </li></div>
 </div>
 
 
@@ -379,30 +367,20 @@
       
       
       <li>
-        <a href="/2019/12/27/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%88%B6%E4%BD%9C%E6%B8%B8%E6%88%8F-%E7%AC%AC0%E7%AB%A0/">从零开始制作游戏-第零章</a>
+        <a href="/2019/07/12/6/">日常吐槽 - 对初学者的一点建议</a>
       </li>
       
       
       
       <li>
-        <a href="/2019/09/14/10/">Maven基础知识</a>
+        <a href="/2019/07/09/5/">日常吐槽 - 最近在做些什么</a>
       </li>
       
       
       
       <li>
-        <a href="/2019/09/14/9/">Linux下如何通过日志排查问题</a>
+        <a href="/2019/06/30/4/">日常吐槽 - 烦恼的一天</a>
       </li>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
       
       
       
@@ -460,7 +438,7 @@
         <h3 class="read-next-card-header-title"></h3>
     </header>
     <div class="read-next-card-content">
-        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%88%B6%E4%BD%9C%E6%B8%B8%E6%88%8F/">从零开始制作游戏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%83%E7%BA%B1%E9%95%87%E8%BE%89%E5%A4%9C%E5%B0%8F%E5%B1%8B/">千纱镇辉夜小屋</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90%E4%B8%8E%E7%94%9F%E6%B4%BB/">音乐与生活</a></li></ul>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%8D%83%E7%BA%B1%E9%95%87%E8%BE%89%E5%A4%9C%E5%B0%8F%E5%B1%8B/">千纱镇辉夜小屋</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90%E4%B8%8E%E7%94%9F%E6%B4%BB/">音乐与生活</a></li></ul>
     </div>
 </article>
 
