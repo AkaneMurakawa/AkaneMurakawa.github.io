@@ -1,4 +1,4 @@
-### [Am's Blog](http://yuumasan.com/)
+### [Am's Blog](https://akanemurakawa.github.io/)
 
 喜欢计算机、游戏、音乐、动画。一个大学时期无意中接触了C语言，后来又接触了Python、C++，最后莫名其妙地走上了编程工作的Java程序员。
 
