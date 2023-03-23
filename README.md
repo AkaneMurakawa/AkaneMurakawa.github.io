@@ -1,5 +1,3 @@
-### Am's Blog
-
-Am's personal blog, just another life.
+## Am杂货店
 
 [https://akanemurakawa.github.io/](https://akanemurakawa.github.io/)

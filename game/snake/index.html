@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://github.githubassets.com/favicons/favicon.png" />
+    <title>Snake</title>
+
+    <style>
+        body {
+            background-color: #e9ddfa;
+            text-align: center;
+            color: #fff;
+            padding-top: 5%;
+            display: flex;
+            justify-content: center;
+
+            --background-color: #6999fe;
+            --container-width: 800px;
+            --container-height: 520px;
+            --nav-height: 80px;
+            --game-container-padding: 20px;
+            /* 720 + 20 + 5 border */
+            --stage-width: 745px;
+            /* 380 + 20 + 5 boder */
+            --stage-height: 405px;
+        }
+
+        #app {
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: var(--background-color);
+            border-radius: 1%;
+            width: var(--container-width);
+            height: var(--container-height);
+        }
+
+        .nav {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            padding: 0 80px;
+            height: var(--nav-height);
+        }
+
+        .nav h2 {
+            margin: 5px auto;
+        }
+
+        .nav-item {
+            display: inline-block;
+        }
+
+        .game-container {
+            border-radius: 1%;
+            padding: var(--game-container-padding);
+            padding-top: 0px;
+        }
+
+        .stage {
+            border: 5px solid #fff;
+            border-radius: 1%;
+            width: var(--stage-width);
+            height: var(--stage-height);
+            position: relative;
+        }
+
+        /* 实际尺寸 15 + 5 body */
+        #food,
+        #snake>div {
+            border: 5px solid var(--background-color);
+            border-radius: 1%;
+            width: 15px;
+            height: 15px;
+            position: absolute;
+        }
+
+        .rank-container {
+            border-radius: 1%;
+            width: 340px;
+            text-align: left;
+            padding: 0 20px;
+            background-color: #f8c6c9;
+        }
+
+        .rank-item {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 20px;
+            font-weight: 500;
+            color: #2c2a2a;
+        }
+
+        .explain {
+            font-size: 18px;
+            font-weight: normal;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="nav">
+                <div class="nav-item">
+                    <h2>SCORE</h2>
+                    <h2 id="score"></h2>
+                </div>
+                <div class="nav-item">
+                    <h2>WORLD</h2>
+                    <h2 id="world"></h2>
+                </div>
+                <div class="nav-item">
+                    <h2>TIME</h2>
+                    <h2 id="time"></h2>
+                </div>
+                <div class="nav-item">
+                    <h2>SPEED</h2>
+                    <h2 id="speed"></h2>
+                </div>
+            </div>
+            <div class="game-container">
+                <div class="stage">
+                    <div id="food">
+                        ⭐
+                    </div>
+                    <div id="snake">
+                        <div>🥷</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rank-container">
+            <h1>排行榜</h1>
+            <div id="rank">
+            </div>
+            <div class="explain">
+                <p>
+                    按空格键开始 或 暂停<br />
+                    按 ↑ ↓ ← → 进行移动
+                </p>
+            </div>
+        </div>
+
+        <script>
+            class Food {
+                constructor(p) {
+                    this.element = document.getElementById('food');
+                    this.setPostion(p);
+
+                }
+
+                show() {
+                    this.element.style.opacity = 0.9
+                    this.interval = setInterval(() => {
+                        this.element.style.opacity = -this.element.style.opacity;
+                    }, 200)
+                }
+
+                get X() {
+                    return this.element.offsetLeft;
+                }
+
+                get Y() {
+                    return this.element.offsetTop;
+                }
+
+                setPostion(p) {
+                    this.element.style.left = p.x;
+                    this.element.style.top = p.y;
+                }
+            }
+
+            class Snake {
+                constructor(p) {
+                    this.element = document.getElementById('snake');
+                    this.head = document.querySelector('#snake > div');
+                    this.body = this.element.getElementsByTagName('div');
+                    this.setPostion(p);
+                }
+
+                set X(value) {
+                    if (value < 0 || value > Control.WIDTH) {
+                        throw new Error('你的蛇撞墙了')
+                    }
+                    // 调头处理
+                    if (this.body.length > 1 && this.body[1].offsetLeft === value) {
+                        value = this.X + (this.X - value);
+                    }
+
+                    this.moveBody();
+                    this.head.style.left = value + "px";
+                    this.checkHeadBody();
+                }
+
+                set Y(value) {
+                    if (value < 0 || value > Control.HEIGTH) {
+                        throw new Error('你的蛇撞墙了')
+                    }
+                    // 调头处理
+                    if (this.body.length > 1 && this.body[1].offsetTop === value) {
+                        value = this.Y + (this.Y - value);
+                    }
+                    this.moveBody();
+                    this.head.style.top = value + "px";
+                    this.checkHeadBody();
+                }
+
+                get X() {
+                    return this.head.offsetLeft;
+                }
+
+                get Y() {
+                    return this.head.offsetTop;
+                }
+
+                setPostion(p) {
+                    this.head.style.left = p.x;
+                    this.head.style.top = p.y;
+                }
+
+                addBody() {
+                    this.element.insertAdjacentHTML('beforeend', '<div>🥷</div>');
+                }
+
+                checkHeadBody() {
+                    for (let i = 1; i < this.body.length - 1; i++) {
+                        let x = this.body[i].offsetLeft;
+                        let y = this.body[i].offsetTop;
+                        if (this.X === x && this.Y == y) {
+                            throw new Error('你吃到了自己');
+                        }
+                    }
+                }
+
+                moveBody() {
+                    // 尾节点往前移动
+                    for (let i = this.body.length - 1; i > 0; i--) {
+                        let x = this.body[i - 1].offsetLeft;
+                        let y = this.body[i - 1].offsetTop;
+                        this.body[i].style.left = x + 'px';
+                        this.body[i].style.top = y + 'px';
+                    }
+                }
+            }
+
+            class Panel {
+                constructor() {
+                    this.scoreElement = document.getElementById('score');
+                    this.worldElement = document.getElementById('world');
+                    this.timeElement = document.getElementById('time');
+                    this.speedElement = document.getElementById('speed');
+
+                    this.score = 0;
+                    this.scoreElement.innerHTML = this.padStart(this.score, 6);
+                    this.worldFirst = 1;
+                    this.worldLast = 1;
+                    this.worldElement.innerHTML = this.worldFirst + '-' + this.worldLast;
+                    this.time = 0;
+                    this.timeElement.innerHTML = this.padStart(this.time, 3);
+                    this.speed = 130;
+                    this.speedElement.innerHTML = this.speed;
+
+                    // 设置背景音乐
+                    this.bgAudio = new Audio("https://img.tukuppt.com/newpreview_music/08/98/97/5c88d1260f3ae75132.mp3");
+                    this.dieAudio = new Audio("https://img.tukuppt.com/newpreview_music/09/00/35/5c891c25e1ae638376.mp3");
+                    this.bgAudio.playbackRate = 1;
+                    this.bgAudio.loop = true;
+                    this.rank();
+                }
+
+                rank() {
+                    const data = JSON.parse(localStorage.getItem('rank'));
+                    if (data) {
+                        const rankElement = document.getElementById('rank');
+                        // 重置
+                        rankElement.innerHTML = '';
+                        const tops = ['🥷', '⭐', '⭐', '⭐', '⭐', '⭐', '🐒', '🐒', '🐒'];
+                        data.forEach((item, index) => {
+                            let top = tops[index > tops.length - 1 ? tops.length - 1 : index];
+                            let color = index < 3 ? "style='color:#b53e20;'" : null;
+                            rankElement.insertAdjacentHTML('beforeend',
+                                `
+                            <div>
+                                <div class='rank-item' ${color}>
+                                    <div>${top}Top${index + 1}</div>
+                                    <div>${item.name}</div>
+                                    <dvi>${item.score}</div>
+                                    </div>
+                            </div>
+                            `
+                            );
+                        })
+                    }
+                }
+
+                padStart(num, maxLength) {
+                    return num.toString().padStart(maxLength, '0');
+                }
+
+                count() {
+                    this.interval = setInterval(() => {
+                        this.time++;
+                        this.timeElement.innerHTML = this.padStart(this.time, 3);
+                    }, 1000);
+                }
+
+                addScore() {
+                    this.score += 100;
+                    this.scoreElement.innerHTML = this.padStart(this.score, 6);
+                    // 500 分为一个等级
+                    if (this.score % 500 === 0) {
+                        this.worldFirst++;
+                        this.worldLast = 1;
+                        this.speed = this.speed > 100 ? this.speed - 10 : 80;
+                        this.speedElement.innerHTML = this.speed;
+                        // 加快播放速度
+                        this.bgAudio.playbackRate = this.bgAudio.playbackRate == 1.5 ? 1.5 : this.bgAudio.playbackRate + 0.1;
+                    } else {
+                        this.worldLast++;
+                    }
+                    this.worldElement.innerHTML = this.worldFirst + '-' + this.worldLast;
+                }
+            }
+
+            class Control {
+                static WIDTH = 720;
+
+                static HEIGTH = 380;
+
+                static BLOCK_SIZE = 20;
+
+                constructor() {
+                    this.init();
+                }
+
+                init() {
+                    this.panel = new Panel();
+                    this.food = new Food(Control.randomPos());
+                    this.snake = new Snake(Control.randomPos());
+                    document.addEventListener('keydown', this.keyDownHandler.bind(this))
+                    this.key = '';
+                    this.direction = '';
+                    this.stop = true;
+                }
+
+                run() {
+                    // 按空格键，开始或暂停游戏
+                    if (this.key == ' ') {
+                        this.stop = !this.stop;
+                        // 暂停：重置key，启动：恢复暂停前的方向
+                        this.key = this.stop ? '' : this.direction;
+                        if (this.stop) {
+                            clearInterval(this.panel.interval);
+                            clearInterval(this.food.interval);
+                            this.panel.bgAudio.pause();
+                        } else {
+                            this.panel.bgAudio.play();
+                            this.panel.count();
+                            this.food.show();
+                        }
+                    }
+
+                    // 判断食物
+                    if (this.snake.X === this.food.X && this.snake.Y === this.food.Y) {
+                        this.panel.addScore();
+                        this.snake.addBody();
+                        this.snake.moveBody();
+                        this.food.setPostion(Control.randomPos());
+                    }
+
+                    try {
+                        // 移动
+                        if (!this.stop) {
+                            this.move();
+                        }
+                    } catch (e) {
+                        this.gameOver(e + '，游戏结束！');
+                    }
+                    setTimeout(this.run.bind(this), this.panel.speed);
+                }
+
+                gameOver(msg) {
+                    this.stop = true;
+                    this.panel.bgAudio.pause();
+                    this.panel.dieAudio.play();
+                    this.save();
+                    alert(msg);
+                    // 重置游戏
+                    location.reload();
+                }
+
+                save() {
+                    const name = prompt("请留下你的大名：") || '不愿透露姓名的高手';
+                    let newData = {
+                        name,
+                        score: this.panel.score,
+                    }
+                    let data = JSON.parse(localStorage.getItem('rank')) || [];
+                    data.push(newData);
+                    // 降序
+                    data.sort((u1, u2) => u2.score - u1.score);
+                    // 保留高手
+                    data = data.slice(0, 10);
+                    localStorage.setItem('rank', JSON.stringify(data));
+                    this.panel.rank();
+                }
+
+                move() {
+                    this.direction = this.key;
+                    if (this.direction.indexOf('Up') !== -1) {
+                        this.snake.Y -= Control.BLOCK_SIZE;
+                    } else if (this.direction.indexOf('Down') !== -1) {
+                        this.snake.Y += Control.BLOCK_SIZE;
+                    } else if (this.direction.indexOf('Left') !== -1) {
+                        this.snake.X -= Control.BLOCK_SIZE;
+                    } else if (this.direction.indexOf('Right') !== -1) {
+                        this.snake.X += Control.BLOCK_SIZE;
+                    } else {
+                        this.snake.X += Control.BLOCK_SIZE;
+                    }
+                }
+
+                keyDownHandler(event) {
+                    this.key = event.key;
+                }
+
+                static randomPos() {
+                    const x = Control.random(Control.WIDTH) + 'px';
+                    const y = Control.random(Control.HEIGTH) + 'px';
+                    return { x, y };
+                }
+
+                static random(range) {
+                    return Math.round(Math.random() * range / Control.BLOCK_SIZE) * Control.BLOCK_SIZE;
+                }
+            }
+
+            // 游戏开始
+            new Control().run();
+        </script>
+</body>
+
+</html>
