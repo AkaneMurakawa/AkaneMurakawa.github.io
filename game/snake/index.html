@@ -162,12 +162,9 @@
                     this.setPostion(p);
                 }
 
-                show() {
-                    this.element.style.opacity = 0.99
-                    // 闪烁效果
-                    this.interval = setInterval(() => {
-                        this.element.style.opacity = -this.element.style.opacity;
-                    }, 200)
+                setPostion(p) {
+                    this.element.style.left = p.x;
+                    this.element.style.top = p.y;
                 }
 
                 get X() {
@@ -178,9 +175,12 @@
                     return this.element.offsetTop;
                 }
 
-                setPostion(p) {
-                    this.element.style.left = p.x;
-                    this.element.style.top = p.y;
+                show() {
+                    this.element.style.opacity = 0.99
+                    // 闪烁效果
+                    this.interval = setInterval(() => {
+                        this.element.style.opacity = -this.element.style.opacity;
+                    }, 200)
                 }
             }
 
@@ -190,6 +190,19 @@
                     this.head = document.querySelector('#snake > div');
                     this.body = this.element.getElementsByTagName('div');
                     this.setPostion(p);
+                }
+
+                setPostion(p) {
+                    this.head.style.left = p.x;
+                    this.head.style.top = p.y;
+                }
+
+                get X() {
+                    return this.head.offsetLeft;
+                }
+
+                get Y() {
+                    return this.head.offsetTop;
                 }
 
                 set X(value) {
@@ -219,21 +232,14 @@
                     this.checkHeadBody();
                 }
 
-                get X() {
-                    return this.head.offsetLeft;
-                }
-
-                get Y() {
-                    return this.head.offsetTop;
-                }
-
-                setPostion(p) {
-                    this.head.style.left = p.x;
-                    this.head.style.top = p.y;
-                }
-
-                addBody() {
-                    this.element.insertAdjacentHTML('beforeend', '<div>🥷</div>');
+                moveBody() {
+                    // 尾节点往前移动
+                    for (let i = this.body.length - 1; i > 0; i--) {
+                        let x = this.body[i - 1].offsetLeft;
+                        let y = this.body[i - 1].offsetTop;
+                        this.body[i].style.left = x + 'px';
+                        this.body[i].style.top = y + 'px';
+                    }
                 }
 
                 checkHeadBody() {
@@ -246,14 +252,8 @@
                     }
                 }
 
-                moveBody() {
-                    // 尾节点往前移动
-                    for (let i = this.body.length - 1; i > 0; i--) {
-                        let x = this.body[i - 1].offsetLeft;
-                        let y = this.body[i - 1].offsetTop;
-                        this.body[i].style.left = x + 'px';
-                        this.body[i].style.top = y + 'px';
-                    }
+                addBody() {
+                    this.element.insertAdjacentHTML('beforeend', '<div>🥷</div>');
                 }
             }
 
@@ -291,6 +291,10 @@
                     this.rank();
                 }
 
+                padStart(num, maxLength) {
+                    return num.toString().padStart(maxLength, '0');
+                }
+
                 rank() {
                     const data = JSON.parse(localStorage.getItem('snake-rank'));
                     if (data) {
@@ -314,10 +318,6 @@
                             );
                         })
                     }
-                }
-
-                padStart(num, maxLength) {
-                    return num.toString().padStart(maxLength, '0');
                 }
 
                 count() {
@@ -363,6 +363,20 @@
                     this.stop = true;
                 }
 
+                static randomPos() {
+                    const x = Control.random(Control.WIDTH) + 'px';
+                    const y = Control.random(Control.HEIGTH) + 'px';
+                    return { x, y };
+                }
+
+                static random(range) {
+                    return Math.round(Math.random() * range / Control.BLOCK_SIZE) * Control.BLOCK_SIZE;
+                }
+
+                keyDownHandler(event) {
+                    this.key = event.key;
+                }
+
                 run() {
                     // 按空格键，开始或暂停游戏
                     if (this.key == ' ') {
@@ -402,6 +416,22 @@
                     setTimeout(this.run.bind(this), this.panel.speed);
                 }
 
+                move() {
+                    this.direction = this.key;
+                    if (this.direction.indexOf('Up') !== -1) {
+                        this.snake.Y -= Control.BLOCK_SIZE;
+                    } else if (this.direction.indexOf('Down') !== -1) {
+                        this.snake.Y += Control.BLOCK_SIZE;
+                    } else if (this.direction.indexOf('Left') !== -1) {
+                        this.snake.X -= Control.BLOCK_SIZE;
+                    } else if (this.direction.indexOf('Right') !== -1) {
+                        this.snake.X += Control.BLOCK_SIZE;
+                    } else {
+                        // 默认方向
+                        this.snake.X += Control.BLOCK_SIZE;
+                    }
+                }
+
                 gameOver(msg) {
                     this.stop = true;
                     this.panel.bgAudio.pause();
@@ -430,36 +460,6 @@
                     localStorage.setItem('snake-rank', JSON.stringify(data));
                     // 重新加载面板
                     this.panel.rank();
-                }
-
-                move() {
-                    this.direction = this.key;
-                    if (this.direction.indexOf('Up') !== -1) {
-                        this.snake.Y -= Control.BLOCK_SIZE;
-                    } else if (this.direction.indexOf('Down') !== -1) {
-                        this.snake.Y += Control.BLOCK_SIZE;
-                    } else if (this.direction.indexOf('Left') !== -1) {
-                        this.snake.X -= Control.BLOCK_SIZE;
-                    } else if (this.direction.indexOf('Right') !== -1) {
-                        this.snake.X += Control.BLOCK_SIZE;
-                    } else {
-                        // 默认方向
-                        this.snake.X += Control.BLOCK_SIZE;
-                    }
-                }
-
-                keyDownHandler(event) {
-                    this.key = event.key;
-                }
-
-                static randomPos() {
-                    const x = Control.random(Control.WIDTH) + 'px';
-                    const y = Control.random(Control.HEIGTH) + 'px';
-                    return { x, y };
-                }
-
-                static random(range) {
-                    return Math.round(Math.random() * range / Control.BLOCK_SIZE) * Control.BLOCK_SIZE;
                 }
             }
 

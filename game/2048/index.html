@@ -223,10 +223,6 @@
                     32: '#ec7b5c',
                 }
 
-                getColor(num) {
-                    return num > 4 ? '#fff' : '#766e65';
-                }
-
                 constructor(p) {
                     this.element = document.getElementById('block');
                     this.head = document.querySelector('#block > div');
@@ -235,17 +231,17 @@
                     this.setPostion(this.randomPos(Block.BLOCK_RANGE));
                 }
 
+                setPostion(p) {
+                    this.head.style.left = p.x;
+                    this.head.style.top = p.y;
+                }
+
                 get X() {
                     return this.head.offsetLeft;
                 }
 
                 get Y() {
                     return this.head.offsetTop;
-                }
-
-                setPostion(p) {
-                    this.head.style.left = p.x;
-                    this.head.style.top = p.y;
                 }
 
                 /**
@@ -278,11 +274,6 @@
                     return blockRange[Math.round(Math.random() * (blockRange.length - 1))];
                 }
 
-                getBlockRange() {
-                    // 去除已占用的位置
-                    return Block.BLOCK_RANGE.filter(i => !this.markBlockRange.includes(i));
-                }
-
                 addBody() {
                     if (this.body.length >= 16) {
                         throw new Error('');
@@ -301,6 +292,80 @@
                     );
                 }
 
+                getColor(num) {
+                    return num > 4 ? '#fff' : '#766e65';
+                }
+
+                getBlockRange() {
+                    // 去除已占用的位置
+                    return Block.BLOCK_RANGE.filter(i => !this.markBlockRange.includes(i));
+                }
+
+                /**
+                 * 移动
+                 * @param isRow 是否水平移动
+                 * @param isNear 是否靠近(0, 0)坐标
+                 */
+                moveBody(isRow, isNear) {
+                    // 左右移动时，top一样的为一组；上下移动时，left为一组。
+                    let groupFn = isRow ? item => item.offsetTop : item => item.offsetLeft;
+                    const minPos = Block.OFFSET_RANGE[0];
+                    const maxPos = Block.OFFSET_RANGE[Block.OFFSET_RANGE.length - 1];
+
+                    let bodyGroup = this.groupBy([...this.body], groupFn);
+                    // 重置
+                    this.element.innerHTML = '';
+                    for (let i = 0; i < bodyGroup.length; i++) {
+                        let currentGoup = bodyGroup[i];
+                        // 只有一个元素时，直接移动坐标即可
+                        if (currentGoup.length === 1) {
+                            let currentElement = currentGoup[0];
+                            let move = (isNear ? minPos : maxPos) + 'px';
+                            if (isRow) {
+                                currentElement.style.left = move;
+                            } else {
+                                currentElement.style.top = move;
+                            }
+                            this.element.appendChild(currentElement);
+                            continue;
+                        }
+
+                        // 距离升序处理，便于 判断相邻内容是否可以合并 和 重新设置位置
+                        // 注意当isRow的时候，说明是同一行的数据，那就是Left排序
+                        let sortFn = isRow ?
+                            (div1, div2) => div1.offsetLeft - div2.offsetLeft :
+                            (div1, div2) => div1.offsetTop - div2.offsetTop;
+                        this.mergeGroup(currentGoup.sort(sortFn));
+
+                        // 重新设置位置
+                        let groupLen = currentGoup.length;
+                        for (let g = 0; g < groupLen; g++) {
+                            let currentElement = currentGoup[g];
+                            // 1 2 3 4
+                            // 1 2 3
+                            //   1 2 3
+                            if (isRow) {
+                                if (isNear) {
+                                    // 左 直接就是按顺序
+                                    currentElement.style.left = Block.OFFSET_RANGE[g] + 'px';
+                                } else {
+                                    // 右 初始偏移 + g
+                                    currentElement.style.left = Block.OFFSET_RANGE[Block.OFFSET_RANGE.length - groupLen + g] + 'px';
+                                }
+                            } else {
+                                if (isNear) {
+                                    // 上 直接就是按顺序
+                                    currentElement.style.top = Block.OFFSET_RANGE[g] + 'px';
+                                } else {
+                                    // 下 初始偏移 + g
+                                    currentElement.style.top = Block.OFFSET_RANGE[Block.OFFSET_RANGE.length - groupLen + g] + 'px';
+                                }
+                            }
+                            this.element.appendChild(currentElement);
+                        }
+                    }
+                }
+
                 groupBy(arr, fn) {
                     const obj = {};
                     arr.forEach(item => {
@@ -313,58 +378,32 @@
                     })
                 }
 
-                /**
-                 * 移动
-                 * @param isRow 是否水平移动
-                 * @param isNear 是否靠近(0, 0)坐标
-                 */
-                moveBody(isRow, isNear) {
-                    // 左右移动时，top一样的为一组；上下移动时，left为一组。
-                    let groupFn = isRow ? item => item.offsetTop : item => item.offsetLeft;
-                    // 靠近(0, 0)坐标时，倒序；远离时，顺序
-                    let sortFn = isNear ?
-                        (div1, div2) => Number(div2.innerHTML) - Number(div1.innerHTML)
-                        : (div1, div2) => Number(div1.innerHTML) - Number(div2.innerHTML);
+                mergeGroup(currentGoup, length) {
+                    for (let j = 0; j < currentGoup.length - 1; j++) {
+                        let currentElement = currentGoup[j];
+                        let nextElement = currentGoup[j + 1];
+                        // 数值相等时合并内容
+                        if (currentElement.innerHTML == nextElement.innerHTML) {
+                            let num = Number(nextElement.innerHTML) * 2
+                            nextElement.innerHTML = num;
+                            nextElement.style['background-color'] = Block.BG_COLOR[num];
+                            nextElement.style.color = this.getColor(num);
+                            // 标记，后续清空
+                            currentGoup[j] = null;
+                        }
+                    }
+                    // 移除已合并的元素
+                    currentGoup = currentGoup.filter(item => item != null);
 
-                    let bodyGroup = this.groupBy([...this.body], groupFn);
-                    // 重置
-                    this.element.innerHTML = '';
-                    for (let i = 0; i < bodyGroup.length; i++) {
-                        // 只有一个元素时，直接移动坐标即可
-                        if (bodyGroup[i].length === 1) {
-                            let currentElement = bodyGroup[i][0];
-                            const minPos = Block.OFFSET_RANGE[0];
-                            const maxPos = Block.OFFSET_RANGE[Block.OFFSET_RANGE.length - 1];
-                            let move = (isNear ? minPos : maxPos) + 'px';
-                            if (isRow) {
-                                currentElement.style.left = move;
-                            } else {
-                                currentElement.style.top = move;
-                            }
-                            this.element.appendChild(currentElement);
-                            continue;
+                    // 尝试第二次合并
+                    if (!length) {
+                        this.mergeGroup(currentGoup, currentGoup.length);
+                    } else {
+                        // 尝试第三次合并，如果还有内容重复的递归处理
+                        let hasRepeat = currentGoup.length !== length;
+                        if (hasRepeat) {
+                            this.mergeGroup(currentGoup, currentGoup.length);
                         }
-                        bodyGroup[i].sort(sortFn);
-                        for (let j = 0; j < bodyGroup[i].length; j++) {
-                            let currentElement = bodyGroup[i][j];
-                            // 数值相等时合并内容
-                            if ((j + 1 < bodyGroup[i].length) && (currentElement.innerHTML == bodyGroup[i][j + 1].innerHTML)) {
-                                let element = bodyGroup[i][j + 1];
-                                let num = Number(element.innerHTML) * 2
-                                element.innerHTML = num;
-                                element.style['background-color'] = Block.BG_COLOR[num];
-                                element.style.color = this.getColor(num);
-                                // TODO 需要重新设置位置
-                                // element.style.offsetLeft = '0px';
-                                // element.style.offsetTop = '0px';
-                                // 移除元素
-                                // bodyGroup[i].shift();
-                                this.element.appendChild(element);
-                            } else {
-                                this.element.appendChild(currentElement);
-                            }
-                        }
-                        // TODO 位置变化
                     }
                 }
             }
@@ -389,6 +428,10 @@
 
                     this.rank();
                     this.count();
+                }
+
+                padStart(num, maxLength) {
+                    return num.toString().padStart(maxLength, '0');
                 }
 
                 rank() {
@@ -416,10 +459,6 @@
                     }
                 }
 
-                padStart(num, maxLength) {
-                    return num.toString().padStart(maxLength, '0');
-                }
-
                 count() {
                     // 计时
                     this.interval = setInterval(() => {
@@ -444,20 +483,45 @@
                     this.stop = true;
                 }
 
+                keyDownHandler(event) {
+                    this.direction = event.key;
+                }
+
                 run() {
                     try {
                         // 移动
-                        if (this.direction) {
-                            this.move();
-                            this.block.addBody();
+                        if (this.direction && this.move()) {
                             // 简单版，移动就增加分数
                             this.panel.addScore();
+                            this.block.addBody();
                             this.direction = null;
                         }
                     } catch (e) {
                         this.gameOver(e.message + ' 游戏结束！');
                     }
                     setTimeout(this.run.bind(this), 300);
+                }
+
+                move() {
+                    let isRow, isNear;
+                    if (this.direction.indexOf('Up') !== -1) {
+                        isRow = false;
+                        isNear = true;
+                    } else if (this.direction.indexOf('Down') !== -1) {
+                        isRow = false;
+                        isNear = false;
+                    } else if (this.direction.indexOf('Left') !== -1) {
+                        isRow = true;
+                        isNear = true;
+                    } else if (this.direction.indexOf('Right') !== -1) {
+                        isRow = true;
+                        isNear = false;
+                    } else {
+                        return false;
+                    }
+
+                    this.block.moveBody(isRow, isNear);
+                    return true;
                 }
 
                 gameOver(msg) {
@@ -487,29 +551,6 @@
                     localStorage.setItem('2048-rank', JSON.stringify(data));
                     // 重新加载面板
                     this.panel.rank();
-                }
-
-                move() {
-                    let isRow, isNear;
-                    if (this.direction.indexOf('Up') !== -1) {
-                        isRow = false;
-                        isNear = true;
-                    } else if (this.direction.indexOf('Down') !== -1) {
-                        isRow = false;
-                        isNear = false;
-                    } else if (this.direction.indexOf('Left') !== -1) {
-                        isRow = true;
-                        isNear = true;
-                    } else if (this.direction.indexOf('Right') !== -1) {
-                        isRow = true;
-                        isNear = false;
-                    }
-
-                    this.block.moveBody(isRow, isNear);
-                }
-
-                keyDownHandler(event) {
-                    this.direction = event.key;
                 }
             }
 
