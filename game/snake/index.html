@@ -28,6 +28,10 @@
             --stage-height: 405px;
         }
 
+        .text-center {
+            text-align: center;
+        }
+
         #app {
             display: flex;
             justify-content: center;
@@ -70,7 +74,7 @@
             position: relative;
         }
 
-        /* 实际尺寸 15 + 5 body */
+        /* 实际尺寸 15 + 5 border */
         #food,
         #snake>div {
             border: 5px solid var(--background-color);
@@ -139,7 +143,7 @@
             </div>
         </div>
         <div class="rank-container">
-            <h1>排行榜</h1>
+            <h1 class="text-center">排行榜</h1>
             <div id="rank">
             </div>
             <div class="explain">
@@ -155,11 +159,11 @@
                 constructor(p) {
                     this.element = document.getElementById('food');
                     this.setPostion(p);
-
                 }
 
                 show() {
-                    this.element.style.opacity = 0.9
+                    this.element.style.opacity = 0.99
+                    // 闪烁效果
                     this.interval = setInterval(() => {
                         this.element.style.opacity = -this.element.style.opacity;
                     }, 200)
@@ -253,6 +257,11 @@
             }
 
             class Panel {
+
+                static MAX_SPEED = 80;
+
+                static MAX_PLAY_BACK_RATE = 1.4;
+
                 constructor() {
                     this.scoreElement = document.getElementById('score');
                     this.worldElement = document.getElementById('world');
@@ -261,11 +270,14 @@
 
                     this.score = 0;
                     this.scoreElement.innerHTML = this.padStart(this.score, 6);
+
                     this.worldFirst = 1;
                     this.worldLast = 1;
                     this.worldElement.innerHTML = this.worldFirst + '-' + this.worldLast;
+
                     this.time = 0;
                     this.timeElement.innerHTML = this.padStart(this.time, 3);
+
                     this.speed = 130;
                     this.speedElement.innerHTML = this.speed;
 
@@ -274,6 +286,7 @@
                     this.dieAudio = new Audio("https://img.tukuppt.com/newpreview_music/09/00/35/5c891c25e1ae638376.mp3");
                     this.bgAudio.playbackRate = 1;
                     this.bgAudio.loop = true;
+
                     this.rank();
                 }
 
@@ -307,6 +320,7 @@
                 }
 
                 count() {
+                    // 计时
                     this.interval = setInterval(() => {
                         this.time++;
                         this.timeElement.innerHTML = this.padStart(this.time, 3);
@@ -320,10 +334,10 @@
                     if (this.score % 500 === 0) {
                         this.worldFirst++;
                         this.worldLast = 1;
-                        this.speed = this.speed > 100 ? this.speed - 10 : 80;
+                        this.speed = this.speed == Panel.MAX_SPEED ? Panel.MAX_SPEED : this.speed - 10;
                         this.speedElement.innerHTML = this.speed;
                         // 加快播放速度
-                        this.bgAudio.playbackRate = this.bgAudio.playbackRate == 1.5 ? 1.5 : this.bgAudio.playbackRate + 0.1;
+                        this.bgAudio.playbackRate = this.bgAudio.playbackRate == Panel.MAX_PLAY_BACK_RATE ? Panel.MAX_PLAY_BACK_RATE : this.bgAudio.playbackRate + 0.1;
                     } else {
                         this.worldLast++;
                     }
@@ -339,10 +353,6 @@
                 static BLOCK_SIZE = 20;
 
                 constructor() {
-                    this.init();
-                }
-
-                init() {
                     this.panel = new Panel();
                     this.food = new Food(Control.randomPos());
                     this.snake = new Snake(Control.randomPos());
@@ -359,6 +369,7 @@
                         // 暂停：重置key，启动：恢复暂停前的方向
                         this.key = this.stop ? '' : this.direction;
                         if (this.stop) {
+                            // 清除
                             clearInterval(this.panel.interval);
                             clearInterval(this.food.interval);
                             this.panel.bgAudio.pause();
@@ -399,7 +410,10 @@
                 }
 
                 save() {
-                    const name = prompt("请留下你的大名：") || '不愿透露姓名的高手';
+                    let name = prompt("请留下你的大名：");
+                    if (!name || name.trim() === '') {
+                        name = '不愿透露姓名的高手';
+                    }
                     let newData = {
                         name,
                         score: this.panel.score,
@@ -408,9 +422,10 @@
                     data.push(newData);
                     // 降序
                     data.sort((u1, u2) => u2.score - u1.score);
-                    // 保留高手
+                    // 保留前十高手
                     data = data.slice(0, 10);
                     localStorage.setItem('rank', JSON.stringify(data));
+                    // 重新加载面板
                     this.panel.rank();
                 }
 
@@ -425,6 +440,7 @@
                     } else if (this.direction.indexOf('Right') !== -1) {
                         this.snake.X += Control.BLOCK_SIZE;
                     } else {
+                        // 默认方向
                         this.snake.X += Control.BLOCK_SIZE;
                     }
                 }
