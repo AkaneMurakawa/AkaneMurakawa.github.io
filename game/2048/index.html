@@ -227,7 +227,6 @@
                     this.element = document.getElementById('block');
                     this.head = document.querySelector('#block > div');
                     this.body = this.element.getElementsByTagName('div');
-                    this.markBlockRange = [];
                     this.setPostion(this.randomPos(Block.BLOCK_RANGE));
                 }
 
@@ -252,20 +251,16 @@
                  */
                 randomPos(blockRange) {
                     // blockRange是可用块位置，1-16，注意坐标只随机一次
-                    const blockIndex = this.random(blockRange);
+                    let blockIndex = this.random(blockRange);
 
                     // -1是索引从0开始， ceil向上取整，不能等于0
                     let xi = Math.ceil(blockIndex / Block.OFFSET_RANGE.length) - 1;
-                    const x = Block.OFFSET_RANGE[xi] + 'px';
+                    let x = Block.OFFSET_RANGE[xi] + 'px';
 
                     let yi = blockIndex % Block.OFFSET_RANGE.length - 1;
                     // 第一行时为0，特殊处理
                     yi = yi < 0 ? Block.OFFSET_RANGE.length - 1 : yi;
-                    const y = Block.OFFSET_RANGE[yi] + 'px';
-
-                    // 标记为已占用
-                    let markBlock = Block.BLOCK_RANGE_MATRIX[xi][yi];
-                    this.markBlockRange.push(markBlock);
+                    let y = Block.OFFSET_RANGE[yi] + 'px';
 
                     return { x, y };
                 }
@@ -279,7 +274,7 @@
                         throw new Error('');
                         return;
                     }
-                    const num = this.random(Block.NUM_RANGE);
+                    let num = this.random(Block.NUM_RANGE);
                     let bgColor = Block.BG_COLOR[num];
                     let color = this.getColor(num);
                     let blockRange = this.getBlockRange();
@@ -298,7 +293,18 @@
 
                 getBlockRange() {
                     // 去除已占用的位置
-                    return Block.BLOCK_RANGE.filter(i => !this.markBlockRange.includes(i));
+                    let markBlockRange = [];
+                    for (let i = 0; i < this.body.length; i++) {
+                        // 这里 this.body[i].offsetLeft 和 this.body[i].style.left 有偏差
+                        // this.body[i].style.left是对的 '0px'
+                        let offsetLeft = Number(this.body[i].style.left.replace('px', ''));
+                        let offsetTop = Number(this.body[i].style.top.replace('px', ''));
+                        let xi = Block.OFFSET_RANGE.indexOf(offsetLeft);
+                        let yi = Block.OFFSET_RANGE.indexOf(offsetTop);
+                        markBlockRange.push(Block.BLOCK_RANGE_MATRIX[xi][yi]);
+                    }
+
+                    return Block.BLOCK_RANGE.filter(i => !markBlockRange.includes(i));
                 }
 
                 /**
@@ -309,8 +315,8 @@
                 moveBody(isRow, isNear) {
                     // 左右移动时，top一样的为一组；上下移动时，left为一组。
                     let groupFn = isRow ? item => item.offsetTop : item => item.offsetLeft;
-                    const minPos = Block.OFFSET_RANGE[0];
-                    const maxPos = Block.OFFSET_RANGE[Block.OFFSET_RANGE.length - 1];
+                    let minPos = Block.OFFSET_RANGE[0];
+                    let maxPos = Block.OFFSET_RANGE[Block.OFFSET_RANGE.length - 1];
 
                     let bodyGroup = this.groupBy([...this.body], groupFn);
                     // 重置
@@ -335,12 +341,12 @@
                         let sortFn = isRow ?
                             (div1, div2) => div1.offsetLeft - div2.offsetLeft :
                             (div1, div2) => div1.offsetTop - div2.offsetTop;
-                        this.mergeGroup(currentGoup.sort(sortFn));
+                        let sortMergeGroup = this.mergeGroup(currentGoup.sort(sortFn));
 
                         // 重新设置位置
-                        let groupLen = currentGoup.length;
+                        let groupLen = sortMergeGroup.length;
                         for (let g = 0; g < groupLen; g++) {
-                            let currentElement = currentGoup[g];
+                            let currentElement = sortMergeGroup[g];
                             // 1 2 3 4
                             // 1 2 3
                             //   1 2 3
@@ -379,6 +385,7 @@
                 }
 
                 mergeGroup(currentGoup, length) {
+                    let result;
                     for (let j = 0; j < currentGoup.length - 1; j++) {
                         let currentElement = currentGoup[j];
                         let nextElement = currentGoup[j + 1];
@@ -393,18 +400,19 @@
                         }
                     }
                     // 移除已合并的元素
-                    currentGoup = currentGoup.filter(item => item != null);
+                    result = currentGoup.filter(item => item != null);
 
                     // 尝试第二次合并
                     if (!length) {
-                        this.mergeGroup(currentGoup, currentGoup.length);
+                        result = this.mergeGroup(result, result.length);
                     } else {
                         // 尝试第三次合并，如果还有内容重复的递归处理
-                        let hasRepeat = currentGoup.length !== length;
+                        let hasRepeat = result.length !== length;
                         if (hasRepeat) {
-                            this.mergeGroup(currentGoup, currentGoup.length);
+                            result = this.mergeGroup(result, result.length);
                         }
                     }
+                    return result;
                 }
             }
 
@@ -435,12 +443,12 @@
                 }
 
                 rank() {
-                    const data = JSON.parse(localStorage.getItem('2048-rank'));
+                    let data = JSON.parse(localStorage.getItem('2048-rank'));
                     if (data) {
-                        const rankElement = document.getElementById('rank');
+                        let rankElement = document.getElementById('rank');
                         // 重置
                         rankElement.innerHTML = '';
-                        const tops = ['🥷', '⭐', '⭐', '⭐', '⭐', '⭐', '🐒', '🐒', '🐒'];
+                        let tops = ['🥷', '⭐', '⭐', '⭐', '⭐', '⭐', '🐒', '🐒', '🐒'];
                         data.forEach((item, index) => {
                             let top = tops[index > tops.length - 1 ? tops.length - 1 : index];
                             let color = index < 3 ? "style='color:#b53e20;'" : null;
@@ -488,14 +496,15 @@
                 }
 
                 run() {
+                    // 移动
+                    if (this.direction && this.move()) {
+                        // 简单版，移动就增加分数
+                        this.panel.addScore();
+                        this.block.addBody();
+                        this.direction = null;
+                    }
                     try {
-                        // 移动
-                        if (this.direction && this.move()) {
-                            // 简单版，移动就增加分数
-                            this.panel.addScore();
-                            this.block.addBody();
-                            this.direction = null;
-                        }
+
                     } catch (e) {
                         this.gameOver(e.message + ' 游戏结束！');
                     }
