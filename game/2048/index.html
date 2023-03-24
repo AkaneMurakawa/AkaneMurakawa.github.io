@@ -236,6 +236,8 @@
                     this.head = document.querySelector('#block > div');
                     this.body = this.element.getElementsByTagName('div');
                     this.setPostion(this.randomPos(Block.BLOCK_RANGE));
+                    // 方向集
+                    this.directions = [];
                 }
 
                 setPostion(p) {
@@ -277,11 +279,20 @@
                     return blockRange[Math.round(Math.random() * (blockRange.length - 1))];
                 }
 
-                addBody() {
+                addBody(direction) {
                     if (this.body.length >= 16) {
-                        throw new Error('');
+                        // 方向集
+                        if (!this.directions.includes(direction)) {
+                            this.directions.push(direction);
+                        }
+                        // 按了四个方向都不行，就游戏结束了
+                        if (this.directions.length === 4) {
+                            throw new Error('无路可走了');
+                        }
+
                         return;
                     }
+                    this.directions = [];
                     let num = this.random(Block.NUM_RANGE);
                     let bgColor = Block.BG_COLOR[num];
                     let color = this.getColor(num);
@@ -350,7 +361,7 @@
                         let sortFn = isRow ?
                             (div1, div2) => Number(div1.style.left.replace('px', '')) - Number(div2.style.left.replace('px', '')) :
                             (div1, div2) => Number(div1.style.top.replace('px', '')) - Number(div2.style.top.replace('px', ''));
-                        let sortMergeGroup = this.mergeGroup(currentGoup.sort(sortFn));
+                        let sortMergeGroup = this.mergeGroup(currentGoup.sort(sortFn), isNear);
 
                         // 重新设置位置
                         let groupLen = sortMergeGroup.length;
@@ -396,21 +407,41 @@
                 /**
                  * 合并，只合并一次，去除递归
                  **/
-                mergeGroup(currentGoup) {
+                mergeGroup(currentGoup, isNear) {
                     let result;
-                    for (let j = 0; j < currentGoup.length - 1; j++) {
-                        let currentElement = currentGoup[j];
-                        let nextElement = currentGoup[j + 1];
-                        // 数值相等时合并内容
-                        if (currentElement.innerHTML == nextElement.innerHTML) {
-                            let num = Number(nextElement.innerHTML) * 2
-                            nextElement.innerHTML = num;
-                            nextElement.style['background-color'] = Block.BG_COLOR[num];
-                            nextElement.style.color = this.getColor(num);
-                            // 标记，后续清空
-                            currentGoup[j] = null;
+                    // 从近往远合并
+                    if (isNear) {
+                        for (let j = 0; j < currentGoup.length - 1; j++) {
+                            let currentElement = currentGoup[j];
+                            let nextElement = currentGoup[j + 1];
+                            // 数值相等时合并内容
+                            if (currentElement.innerHTML == nextElement.innerHTML) {
+                                let num = Number(nextElement.innerHTML) * 2
+                                nextElement.innerHTML = num;
+                                nextElement.style['background-color'] = Block.BG_COLOR[num];
+                                nextElement.style.color = this.getColor(num);
+                                // 标记，后续清空
+                                currentGoup[j] = null;
+                            }
+                        }
+                    } 
+                    // 从远到近合并
+                    else {
+                        for (let j = currentGoup.length - 1; j > 0; j--) {
+                            let currentElement = currentGoup[j];
+                            let nextElement = currentGoup[j - 1];
+                            // 数值相等时合并内容
+                            if (currentElement.innerHTML == nextElement.innerHTML) {
+                                let num = Number(nextElement.innerHTML) * 2
+                                nextElement.innerHTML = num;
+                                nextElement.style['background-color'] = Block.BG_COLOR[num];
+                                nextElement.style.color = this.getColor(num);
+                                // 标记，后续清空
+                                currentGoup[j] = null;
+                            }
                         }
                     }
+
 
                     // 移除已合并的元素
                     result = currentGoup.filter(item => item != null);
@@ -514,11 +545,11 @@
                         if (this.direction && this.move()) {
                             // 简单版，移动就增加分数
                             this.panel.addScore();
-                            this.block.addBody();
+                            this.block.addBody(this.direction);
                             this.direction = null;
                         }
                     } catch (e) {
-                        this.gameOver(e.message + ' 游戏结束！');
+                        this.gameOver(e.message + '，游戏结束！');
                     }
                     setTimeout(this.run.bind(this), 300);
                 }
