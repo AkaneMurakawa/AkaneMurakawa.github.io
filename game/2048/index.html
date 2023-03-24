@@ -357,7 +357,7 @@
 
                         // 距离升序处理，便于 判断相邻内容是否可以合并 和 重新设置位置
                         // 注意当isRow的时候，说明是同一行的数据，那就是Left排序
-                        // 注意这里offsetLeft、offsetTop为0，要使用style.left
+                        // 坑：注意这里offsetLeft、offsetTop为0，要使用style.left
                         let sortFn = isRow ?
                             (div1, div2) => Number(div1.style.left.replace('px', '')) - Number(div2.style.left.replace('px', '')) :
                             (div1, div2) => Number(div1.style.top.replace('px', '')) - Number(div2.style.top.replace('px', ''));
