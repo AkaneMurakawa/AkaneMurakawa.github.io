@@ -296,12 +296,12 @@
                 }
 
                 rank() {
-                    const data = JSON.parse(localStorage.getItem('snake-rank'));
+                    let data = JSON.parse(localStorage.getItem('snake-rank'));
                     if (data) {
-                        const rankElement = document.getElementById('rank');
+                        let rankElement = document.getElementById('rank');
                         // 重置
                         rankElement.innerHTML = '';
-                        const tops = ['🥷', '⭐', '⭐', '⭐', '⭐', '⭐', '🐒', '🐒', '🐒'];
+                        let tops = ['🥷', '⭐', '⭐', '⭐', '⭐', '⭐', '🐒', '🐒', '🐒'];
                         data.forEach((item, index) => {
                             let top = tops[index > tops.length - 1 ? tops.length - 1 : index];
                             let color = index < 3 ? "style='color:#b53e20;'" : null;
@@ -364,8 +364,8 @@
                 }
 
                 static randomPos() {
-                    const x = Control.random(Control.WIDTH) + 'px';
-                    const y = Control.random(Control.HEIGTH) + 'px';
+                    let x = Control.random(Control.WIDTH) + 'px';
+                    let y = Control.random(Control.HEIGTH) + 'px';
                     return { x, y };
                 }
 
