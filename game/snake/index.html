@@ -81,6 +81,7 @@
             border-radius: 1%;
             width: 15px;
             height: 15px;
+            /* 给元素开启绝对定位 */
             position: absolute;
         }
 
@@ -291,7 +292,7 @@
                 }
 
                 rank() {
-                    const data = JSON.parse(localStorage.getItem('rank'));
+                    const data = JSON.parse(localStorage.getItem('snake-rank'));
                     if (data) {
                         const rankElement = document.getElementById('rank');
                         // 重置
@@ -302,14 +303,14 @@
                             let color = index < 3 ? "style='color:#b53e20;'" : null;
                             rankElement.insertAdjacentHTML('beforeend',
                                 `
-                            <div>
-                                <div class='rank-item' ${color}>
-                                    <div>${top}Top${index + 1}</div>
-                                    <div>${item.name}</div>
-                                    <dvi>${item.score}</div>
-                                    </div>
-                            </div>
-                            `
+                                <div>
+                                    <div class='rank-item' ${color}>
+                                        <div>${top}Top${index + 1}</div>
+                                        <div>${item.name}</div>
+                                        <dvi>${item.score}</div>
+                                        </div>
+                                </div>
+                                `
                             );
                         })
                     }
@@ -394,7 +395,9 @@
                             this.move();
                         }
                     } catch (e) {
-                        this.gameOver(e + '，游戏结束！');
+                        this.gameOver(e.message + ' 游戏结束！');
+                        debugger
+
                     }
                     setTimeout(this.run.bind(this), this.panel.speed);
                 }
@@ -403,8 +406,8 @@
                     this.stop = true;
                     this.panel.bgAudio.pause();
                     this.panel.dieAudio.play();
-                    this.save();
                     alert(msg);
+                    this.save();
                     // 重置游戏
                     location.reload();
                 }
@@ -418,13 +421,13 @@
                         name,
                         score: this.panel.score,
                     }
-                    let data = JSON.parse(localStorage.getItem('rank')) || [];
+                    let data = JSON.parse(localStorage.getItem('snake-rank')) || [];
                     data.push(newData);
                     // 降序
                     data.sort((u1, u2) => u2.score - u1.score);
                     // 保留前十高手
                     data = data.slice(0, 10);
-                    localStorage.setItem('rank', JSON.stringify(data));
+                    localStorage.setItem('snake-rank', JSON.stringify(data));
                     // 重新加载面板
                     this.panel.rank();
                 }

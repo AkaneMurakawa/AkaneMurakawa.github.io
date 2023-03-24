@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://www.2048.org/favicon.ico" />
+    <title>2048</title>
+
+    <style>
+        body {
+            background-color: #faf8ef;
+            text-align: center;
+            color: #555;
+            display: flex;
+            justify-content: center;
+            padding-top: 3%;
+
+            /* container bg */
+            --background-color: #b9ada0;
+            --container-width: 475px;
+            --container-height: 485px;
+            --nav-height: 100px;
+            /* 4 * 100 + 5(间隙) * 15 */
+            --stage-width: 475px;
+            --stage-height: 475px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        #app {
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: var(--container-width);
+            height: var(--container-height);
+        }
+
+        .nav {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            height: var(--nav-height);
+            /* 设置字体高度 */
+            line-height: 20px;
+            text-align: center;
+        }
+
+        .nav>.title {
+            color: #776e65;
+            font-weight: bold;
+            font-size: 50px;
+            padding-top: 10px;
+        }
+
+        .nav-item {
+            width: 100px;
+            height: 55px;
+            margin: 0 10px;
+            display: inline-block;
+            background-color: var(--background-color);
+            border-radius: 3px;
+            color: #fff;
+        }
+
+        .nav-item>h4 {
+            margin: 5px auto;
+        }
+
+        .game-container {
+            background-color: var(--background-color);
+            border-radius: 3px;
+            width: var(--stage-width);
+            height: var(--stage-height);
+            position: relative;
+            padding-right: 15px;
+            padding-bottom: 15px;
+        }
+
+        .stage {
+            display: flex;
+            flex-flow: row wrap;
+        }
+
+        #block>div,
+        #grip>div {
+            display: inline-block;
+            /* 左上，便于后面偏移量计算 */
+            margin-left: 15px;
+            margin-top: 15px;
+
+            border-radius: 3px;
+            width: 100px;
+            height: 100px;
+        }
+
+        #grip>div {
+            background-color: #cbc1b4;
+        }
+
+        #block>div {
+            /* 给元素开启绝对定位 */
+            position: absolute;
+            background-color: #ede4da;
+        }
+
+        #block {
+            color: #766e65;
+            font-size: 40px;
+            line-height: 100px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .rank-container {
+            border-radius: 1%;
+            width: 340px;
+            text-align: left;
+            padding: 0 20px;
+        }
+
+        .rank-item {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 20px;
+            font-weight: 500;
+            color: #2c2a2a;
+        }
+
+        .explain {
+            font-size: 18px;
+            font-weight: normal;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="nav">
+                <div class="title">2048</div>
+                <div class="nav-item">
+                    <h4>SCORE</h4>
+                    <h4 id="score"></h4>
+                </div>
+                <div class="nav-item">
+                    <h4>TIME</h4>
+                    <h4 id="time"></h4>
+                </div>
+            </div>
+            <div class="game-container">
+                <div class="stage">
+                    <div id="grip">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div id="grip">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div id="grip">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div id="grip">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div id="block">
+                    <div>2</div>
+                </div>
+            </div>
+        </div>
+        <div class="rank-container">
+            <h1 class="text-center">排行榜</h1>
+            <div id="rank">
+            </div>
+            <div class="explain">
+                <p>
+                    按空格键开始 或 暂停<br />
+                    按 ↑ ↓ ← → 进行移动
+                </p>
+            </div>
+        </div>
+
+        <script>
+            class Block {
+                // 偏移量
+                static OFFSET_RANGE = [0, 120, 240, 360];
+                // 格子
+                static BLOCK_RANGE = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+                static BLOCK_RANGE_MATRIX = [
+                    [1, 2, 3, 4],
+                    [5, 6, 7, 8],
+                    [9, 10, 11, 12],
+                    [13, 14, 15, 16],
+                ]
+                // 数字内容
+                static NUM_RANGE = [2, 4, 8, 16];
+                // 背景颜色
+                static BG_COLOR = {
+                    2: '#ede4da',
+                    4: '#ebe0c8',
+                    8: '#ecb078',
+                    16: '#ed9461',
+                    32: '#ec7b5c',
+                }
+
+                getColor(num) {
+                    return num > 4 ? '#fff' : '#766e65';
+                }
+
+                constructor(p) {
+                    this.element = document.getElementById('block');
+                    this.head = document.querySelector('#block > div');
+                    this.body = this.element.getElementsByTagName('div');
+                    this.markBlockRange = [];
+                    this.setPostion(this.randomPos(Block.BLOCK_RANGE));
+                }
+
+                get X() {
+                    return this.head.offsetLeft;
+                }
+
+                get Y() {
+                    return this.head.offsetTop;
+                }
+
+                setPostion(p) {
+                    this.head.style.left = p.x;
+                    this.head.style.top = p.y;
+                }
+
+                /**
+                 * 随机生成块位置
+                 * 1. blockRange是可用块位置，1-16
+                 * 2. 随机生成数字后，解析数字为实际的坐标(x, y)
+                 * 3. 标记为已占用
+                 */
+                randomPos(blockRange) {
+                    // blockRange是可用块位置，1-16，注意坐标只随机一次
+                    const blockIndex = this.random(blockRange);
+
+                    // -1是索引从0开始， ceil向上取整，不能等于0
+                    let xi = Math.ceil(blockIndex / Block.OFFSET_RANGE.length) - 1;
+                    const x = Block.OFFSET_RANGE[xi] + 'px';
+
+                    let yi = blockIndex % Block.OFFSET_RANGE.length - 1;
+                    // 第一行时为0，特殊处理
+                    yi = yi < 0 ? Block.OFFSET_RANGE.length - 1 : yi;
+                    const y = Block.OFFSET_RANGE[yi] + 'px';
+
+                    // 标记为已占用
+                    let markBlock = Block.BLOCK_RANGE_MATRIX[xi][yi];
+                    this.markBlockRange.push(markBlock);
+
+                    return { x, y };
+                }
+
+                random(blockRange) {
+                    return blockRange[Math.round(Math.random() * (blockRange.length - 1))];
+                }
+
+                getBlockRange() {
+                    // 去除已占用的位置
+                    return Block.BLOCK_RANGE.filter(i => !this.markBlockRange.includes(i));
+                }
+
+                addBody() {
+                    if (this.body.length >= 16) {
+                        throw new Error('');
+                        return;
+                    }
+                    const num = this.random(Block.NUM_RANGE);
+                    let bgColor = Block.BG_COLOR[num];
+                    let color = this.getColor(num);
+                    let blockRange = this.getBlockRange();
+                    let pos = this.randomPos(blockRange);
+                    this.element.insertAdjacentHTML('beforeend',
+                        `
+                        <div style='background-color:${bgColor}; color:${color}; left:${pos.x}; top:${pos.y};'
+                        >${num}</div>
+                        `
+                    );
+                }
+
+                groupBy(arr, fn) {
+                    const obj = {};
+                    arr.forEach(item => {
+                        const key = JSON.stringify(fn(item));
+                        obj[key] = obj[key] || [];
+                        obj[key].push(item)
+                    });
+                    return Object.keys(obj).map(k => {
+                        return obj[k];
+                    })
+                }
+
+                /**
+                 * 移动
+                 * @param isRow 是否水平移动
+                 * @param isNear 是否靠近(0, 0)坐标
+                 */
+                moveBody(isRow, isNear) {
+                    // 左右移动时，top一样的为一组；上下移动时，left为一组。
+                    let groupFn = isRow ? item => item.offsetTop : item => item.offsetLeft;
+                    // 靠近(0, 0)坐标时，倒序；远离时，顺序
+                    let sortFn = isNear ?
+                        (div1, div2) => Number(div2.innerHTML) - Number(div1.innerHTML)
+                        : (div1, div2) => Number(div1.innerHTML) - Number(div2.innerHTML);
+
+                    let bodyGroup = this.groupBy([...this.body], groupFn);
+                    // 重置
+                    this.element.innerHTML = '';
+                    for (let i = 0; i < bodyGroup.length; i++) {
+                        // 只有一个元素时，直接移动坐标即可
+                        if (bodyGroup[i].length === 1) {
+                            let currentElement = bodyGroup[i][0];
+                            const minPos = Block.OFFSET_RANGE[0];
+                            const maxPos = Block.OFFSET_RANGE[Block.OFFSET_RANGE.length - 1];
+                            let move = (isNear ? minPos : maxPos) + 'px';
+                            if (isRow) {
+                                currentElement.style.left = move;
+                            } else {
+                                currentElement.style.top = move;
+                            }
+                            this.element.appendChild(currentElement);
+                            continue;
+                        }
+                        bodyGroup[i].sort(sortFn);
+                        for (let j = 0; j < bodyGroup[i].length; j++) {
+                            let currentElement = bodyGroup[i][j];
+                            // 数值相等时合并内容
+                            if ((j + 1 < bodyGroup[i].length) && (currentElement.innerHTML == bodyGroup[i][j + 1].innerHTML)) {
+                                let element = bodyGroup[i][j + 1];
+                                let num = Number(element.innerHTML) * 2
+                                element.innerHTML = num;
+                                element.style['background-color'] = Block.BG_COLOR[num];
+                                element.style.color = this.getColor(num);
+                                // TODO 需要重新设置位置
+                                // element.style.offsetLeft = '0px';
+                                // element.style.offsetTop = '0px';
+                                // 移除元素
+                                // bodyGroup[i].shift();
+                                this.element.appendChild(element);
+                            } else {
+                                this.element.appendChild(currentElement);
+                            }
+                        }
+                        // TODO 位置变化
+                    }
+                }
+            }
+
+            class Panel {
+
+                constructor() {
+                    this.scoreElement = document.getElementById('score');
+                    this.timeElement = document.getElementById('time');
+
+                    this.score = 0;
+                    this.scoreElement.innerHTML = this.padStart(this.score, 3);
+
+                    this.time = 0;
+                    this.timeElement.innerHTML = this.padStart(this.time, 3);
+
+                    // 设置背景音乐
+                    this.bgAudio = new Audio("https://img.tukuppt.com/newpreview_music/08/98/97/5c88d1260f3ae75132.mp3");
+                    this.dieAudio = new Audio("https://img.tukuppt.com/newpreview_music/09/00/35/5c891c25e1ae638376.mp3");
+                    this.bgAudio.playbackRate = 1;
+                    this.bgAudio.loop = true;
+
+                    this.rank();
+                    this.count();
+                }
+
+                rank() {
+                    const data = JSON.parse(localStorage.getItem('2048-rank'));
+                    if (data) {
+                        const rankElement = document.getElementById('rank');
+                        // 重置
+                        rankElement.innerHTML = '';
+                        const tops = ['🥷', '⭐', '⭐', '⭐', '⭐', '⭐', '🐒', '🐒', '🐒'];
+                        data.forEach((item, index) => {
+                            let top = tops[index > tops.length - 1 ? tops.length - 1 : index];
+                            let color = index < 3 ? "style='color:#b53e20;'" : null;
+                            rankElement.insertAdjacentHTML('beforeend',
+                                `
+                                <div>
+                                    <div class='rank-item' ${color}>
+                                        <div>${top}Top${index + 1}</div>
+                                        <div>${item.name}</div>
+                                        <dvi>${item.score}</div>
+                                        </div>
+                                </div>
+                                `
+                            );
+                        })
+                    }
+                }
+
+                padStart(num, maxLength) {
+                    return num.toString().padStart(maxLength, '0');
+                }
+
+                count() {
+                    // 计时
+                    this.interval = setInterval(() => {
+                        this.time++;
+                        this.timeElement.innerHTML = this.padStart(this.time, 3);
+                    }, 1000);
+                }
+
+                addScore() {
+                    this.score += 100;
+                    this.scoreElement.innerHTML = this.padStart(this.score, 3);
+                }
+            }
+
+            class Control {
+
+                constructor() {
+                    this.panel = new Panel();
+                    this.block = new Block();
+                    document.addEventListener('keydown', this.keyDownHandler.bind(this))
+                    this.direction;
+                    this.stop = true;
+                }
+
+                run() {
+                    try {
+                        // 移动
+                        if (this.direction) {
+                            this.move();
+                            this.block.addBody();
+                            // 简单版，移动就增加分数
+                            this.panel.addScore();
+                            this.direction = null;
+                        }
+                    } catch (e) {
+                        this.gameOver(e.message + ' 游戏结束！');
+                    }
+                    setTimeout(this.run.bind(this), 300);
+                }
+
+                gameOver(msg) {
+                    this.panel.bgAudio.pause();
+                    this.panel.dieAudio.play();
+                    alert(msg);
+                    this.save();
+                    // 重置游戏
+                    location.reload();
+                }
+
+                save() {
+                    let name = prompt("请留下你的大名：");
+                    if (!name || name.trim() === '') {
+                        name = '不愿透露姓名的高手';
+                    }
+                    let newData = {
+                        name,
+                        score: this.panel.score,
+                    }
+                    let data = JSON.parse(localStorage.getItem('2048-rank')) || [];
+                    data.push(newData);
+                    // 降序
+                    data.sort((u1, u2) => u2.score - u1.score);
+                    // 保留前十高手
+                    data = data.slice(0, 10);
+                    localStorage.setItem('2048-rank', JSON.stringify(data));
+                    // 重新加载面板
+                    this.panel.rank();
+                }
+
+                move() {
+                    let isRow, isNear;
+                    if (this.direction.indexOf('Up') !== -1) {
+                        isRow = false;
+                        isNear = true;
+                    } else if (this.direction.indexOf('Down') !== -1) {
+                        isRow = false;
+                        isNear = false;
+                    } else if (this.direction.indexOf('Left') !== -1) {
+                        isRow = true;
+                        isNear = true;
+                    } else if (this.direction.indexOf('Right') !== -1) {
+                        isRow = true;
+                        isNear = false;
+                    }
+
+                    this.block.moveBody(isRow, isNear);
+                }
+
+                keyDownHandler(event) {
+                    this.direction = event.key;
+                }
+            }
+
+            // 游戏开始
+            new Control().run();
+        </script>
+</body>
+
+</html>
