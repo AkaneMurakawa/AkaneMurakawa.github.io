@@ -195,7 +195,7 @@
             </div>
             <div class="explain">
                 <p>
-                    按空格键开始 或 暂停<br />
+                    按空格键 播放 或 暂停 音乐<br />
                     按 ↑ ↓ ← → 进行移动
                 </p>
             </div>
@@ -346,9 +346,10 @@
 
                         // 距离升序处理，便于 判断相邻内容是否可以合并 和 重新设置位置
                         // 注意当isRow的时候，说明是同一行的数据，那就是Left排序
+                        // 注意这里offsetLeft、offsetTop为0，要使用style.left
                         let sortFn = isRow ?
-                            (div1, div2) => div1.offsetLeft - div2.offsetLeft :
-                            (div1, div2) => div1.offsetTop - div2.offsetTop;
+                            (div1, div2) => Number(div1.style.left.replace('px', '')) - Number(div2.style.left.replace('px', '')) :
+                            (div1, div2) => Number(div1.style.top.replace('px', '')) - Number(div2.style.top.replace('px', ''));
                         let sortMergeGroup = this.mergeGroup(currentGoup.sort(sortFn));
 
                         // 重新设置位置
@@ -392,7 +393,10 @@
                     })
                 }
 
-                mergeGroup(currentGoup, length) {
+                /**
+                 * 合并，只合并一次，去除递归
+                 **/
+                mergeGroup(currentGoup) {
                     let result;
                     for (let j = 0; j < currentGoup.length - 1; j++) {
                         let currentElement = currentGoup[j];
@@ -407,19 +411,9 @@
                             currentGoup[j] = null;
                         }
                     }
+
                     // 移除已合并的元素
                     result = currentGoup.filter(item => item != null);
-
-                    // 尝试第二次合并
-                    if (!length) {
-                        result = this.mergeGroup(result, result.length);
-                    } else {
-                        // 尝试第三次合并，如果还有内容重复的递归处理
-                        let hasRepeat = result.length !== length;
-                        if (hasRepeat) {
-                            result = this.mergeGroup(result, result.length);
-                        }
-                    }
                     return result;
                 }
             }
@@ -504,15 +498,25 @@
                 }
 
                 run() {
-                    // 移动
-                    if (this.direction && this.move()) {
-                        // 简单版，移动就增加分数
-                        this.panel.addScore();
-                        this.block.addBody();
+                    if (this.direction == ' ') {
+                        this.stop = !this.stop;
+                        if (this.stop) {
+                            this.panel.bgAudio.pause();
+
+                        } else {
+                            this.panel.bgAudio.play();
+                        }
                         this.direction = null;
                     }
-                    try {
 
+                    try {
+                        // 移动
+                        if (this.direction && this.move()) {
+                            // 简单版，移动就增加分数
+                            this.panel.addScore();
+                            this.block.addBody();
+                            this.direction = null;
+                        }
                     } catch (e) {
                         this.gameOver(e.message + ' 游戏结束！');
                     }
