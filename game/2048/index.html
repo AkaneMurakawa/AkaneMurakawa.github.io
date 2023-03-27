@@ -214,7 +214,7 @@
                     [13, 14, 15, 16],
                 ]
                 // 数字内容
-                static NUM_RANGE = [2, 4, 8, 16];
+                static NUM_RANGE = [2, 4, 8];
                 // 背景颜色
                 static BG_COLOR = {
                     2: '#eee4da',
@@ -236,8 +236,8 @@
                     this.head = document.querySelector('#block > div');
                     this.body = this.element.getElementsByTagName('div');
                     this.setPostion(this.randomPos(Block.BLOCK_RANGE));
-                    // 方向集
-                    this.directions = [];
+                    // 存放块内容矩阵
+                    this.curBlockMatrix = [[], [], [], []];
                 }
 
                 setPostion(p) {
@@ -272,7 +272,7 @@
                     yi = yi < 0 ? Block.OFFSET_RANGE.length - 1 : yi;
                     let y = Block.OFFSET_RANGE[yi] + 'px';
 
-                    return { x, y };
+                    return { x, y, xi, yi };
                 }
 
                 random(blockRange) {
@@ -281,29 +281,46 @@
 
                 addBody(direction) {
                     if (this.body.length >= 16) {
-                        // 方向集
-                        if (!this.directions.includes(direction)) {
-                            this.directions.push(direction);
-                        }
-                        // 按了四个方向都不行，就游戏结束了
-                        if (this.directions.length === 4) {
-                            throw new Error('无路可走了');
-                        }
-
                         return;
                     }
-                    this.directions = [];
                     let num = this.random(Block.NUM_RANGE);
                     let bgColor = Block.BG_COLOR[num];
                     let color = this.getColor(num);
                     let blockRange = this.getBlockRange();
                     let pos = this.randomPos(blockRange);
+                    this.curBlockMatrix[pos.xi][pos.yi] = num + '';
                     this.element.insertAdjacentHTML('beforeend',
                         `
                         <div style='background-color:${bgColor}; color:${color}; left:${pos.x}; top:${pos.y};'
                         >${num}</div>
                         `
                     );
+                }
+
+                checkDie() {
+                    // 判断是否可以移动
+                    if (this.body.length >= 16) {
+                        let die = true;
+                        doubleFor:
+                        for (let i = 0; i < Block.OFFSET_RANGE.length - 1; i++) {
+                            for (let j = 0; j < Block.OFFSET_RANGE.length; j++) {
+                                // 上下一列是否相等
+                                if (this.curBlockMatrix[i][j] == this.curBlockMatrix[i + 1][j]) {
+                                    die = false;
+                                    break doubleFor;
+                                }
+                                // 左右一列是否相等
+                                if (this.curBlockMatrix[j][i] == this.curBlockMatrix[j][i + 1]) {
+                                    die = false;
+                                    break doubleFor;
+                                }
+                            }
+                        }
+
+                        if (die) {
+                            throw new Error('无路可走了');
+                        }
+                    }
                 }
 
                 getColor(num) {
@@ -313,14 +330,16 @@
                 getBlockRange() {
                     // 去除已占用的位置
                     let markBlockRange = [];
+                    this.curBlockMatrix = [[], [], [], []];
                     for (let i = 0; i < this.body.length; i++) {
-                        // 这里 this.body[i].offsetLeft 和 this.body[i].style.left 有偏差
+                        // 坑：这里 this.body[i].offsetLeft 和 this.body[i].style.left 有偏差
                         // this.body[i].style.left是对的 '0px'
-                        let offsetLeft = Number(this.body[i].style.left.replace('px', ''));
-                        let offsetTop = Number(this.body[i].style.top.replace('px', ''));
-                        let xi = Block.OFFSET_RANGE.indexOf(offsetLeft);
-                        let yi = Block.OFFSET_RANGE.indexOf(offsetTop);
+                        let left = Number(this.body[i].style.left.replace('px', ''));
+                        let top = Number(this.body[i].style.top.replace('px', ''));
+                        let xi = Block.OFFSET_RANGE.indexOf(left);
+                        let yi = Block.OFFSET_RANGE.indexOf(top);
                         markBlockRange.push(Block.BLOCK_RANGE_MATRIX[xi][yi]);
+                        this.curBlockMatrix[xi][yi] = this.body[i].innerHTML;
                     }
 
                     return Block.BLOCK_RANGE.filter(i => !markBlockRange.includes(i));
@@ -424,7 +443,7 @@
                                 currentGoup[j] = null;
                             }
                         }
-                    } 
+                    }
                     // 从远到近合并
                     else {
                         for (let j = currentGoup.length - 1; j > 0; j--) {
@@ -541,6 +560,8 @@
                     }
 
                     try {
+                        // 游戏结束监测
+                        this.block.checkDie();
                         // 移动
                         if (this.direction && this.move()) {
                             // 简单版，移动就增加分数
@@ -551,7 +572,7 @@
                     } catch (e) {
                         this.gameOver(e.message + '，游戏结束！');
                     }
-                    setTimeout(this.run.bind(this), 300);
+                    setTimeout(this.run.bind(this), 200);
                 }
 
                 move() {
