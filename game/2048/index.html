@@ -72,6 +72,11 @@
             margin: 5px auto;
         }
 
+        #addScore {
+            color: #ed9461;
+            width: 50px;
+        }
+
         .game-container {
             background-color: var(--background-color);
             border-radius: 3px;
@@ -152,6 +157,7 @@
                     <h4>SCORE</h4>
                     <h4 id="score"></h4>
                 </div>
+                <h2 id="addScore"></h2>
                 <div class="nav-item">
                     <h4>TIME</h4>
                     <h4 id="time"></h4>
@@ -238,6 +244,8 @@
                     this.setPostion(this.randomPos(Block.BLOCK_RANGE));
                     // 存放块内容矩阵
                     this.curBlockMatrix = [[], [], [], []];
+                    // 每次增加的分数
+                    this.addScore = 0;
                 }
 
                 setPostion(p) {
@@ -351,6 +359,8 @@
                  * @param isNear 是否靠近(0, 0)坐标
                  */
                 moveBody(isRow, isNear) {
+                    // 重置增加的分数
+                    this.addScore = 0;
                     // 左右移动时，top一样的为一组；上下移动时，left为一组。
                     let groupFn = isRow ? item => item.offsetTop : item => item.offsetLeft;
                     let minPos = Block.OFFSET_RANGE[0];
@@ -441,6 +451,8 @@
                                 nextElement.style.color = this.getColor(num);
                                 // 标记，后续清空
                                 currentGoup[j] = null;
+                                // 增加分数
+                                this.addScore += num;
                             }
                         }
                     }
@@ -457,10 +469,11 @@
                                 nextElement.style.color = this.getColor(num);
                                 // 标记，后续清空
                                 currentGoup[j] = null;
+                                // 增加分数
+                                this.addScore += num;
                             }
                         }
                     }
-
 
                     // 移除已合并的元素
                     result = currentGoup.filter(item => item != null);
@@ -472,6 +485,7 @@
 
                 constructor() {
                     this.scoreElement = document.getElementById('score');
+                    this.addScoreElement = document.getElementById('addScore');
                     this.timeElement = document.getElementById('time');
 
                     this.score = 0;
@@ -527,8 +541,17 @@
                     }, 1000);
                 }
 
-                addScore() {
-                    this.score += 100;
+                addScore(addScore) {
+                    this.score += addScore;
+                    if (addScore > 0) {
+                        this.addScoreElement.innerHTML = '+' + addScore;
+                        this.addScoreElement.style.opacity = 1
+                        this.addScoreElement.style.transition = 'opacity 0.5s'
+                    }
+                    setTimeout(() => {
+                        this.addScoreElement.style.opacity = 0
+                        this.addScoreElement.style.transition = 'opacity 0.5s'
+                    }, 1000)
                     this.scoreElement.innerHTML = this.padStart(this.score, 3);
                 }
             }
@@ -564,8 +587,6 @@
                         this.block.checkDie();
                         // 移动
                         if (this.direction && this.move()) {
-                            // 简单版，移动就增加分数
-                            this.panel.addScore();
                             this.block.addBody(this.direction);
                             this.direction = null;
                         }
@@ -594,6 +615,8 @@
                     }
 
                     this.block.moveBody(isRow, isNear);
+                    // 增加分数
+                    this.panel.addScore(this.block.addScore);
                     return true;
                 }
 
