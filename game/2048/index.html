@@ -220,7 +220,7 @@
                     [13, 14, 15, 16],
                 ]
                 // 数字内容
-                static NUM_RANGE = [2, 4, 8];
+                static NUM_RANGE = [2, 4];
                 // 背景颜色
                 static BG_COLOR = {
                     2: '#eee4da',
@@ -438,13 +438,15 @@
                  **/
                 mergeGroup(currentGoup, isNear) {
                     let result;
+                    // 标记已合并，只合并一次
+                    let isMerge = false;
                     // 从近往远合并
                     if (isNear) {
                         for (let j = 0; j < currentGoup.length - 1; j++) {
                             let currentElement = currentGoup[j];
                             let nextElement = currentGoup[j + 1];
                             // 数值相等时合并内容
-                            if (currentElement.innerHTML == nextElement.innerHTML) {
+                            if (currentElement.innerHTML == nextElement.innerHTML && !isMerge) {
                                 let num = Number(nextElement.innerHTML) * 2
                                 nextElement.innerHTML = num;
                                 nextElement.style['background-color'] = Block.BG_COLOR[num];
@@ -453,6 +455,7 @@
                                 currentGoup[j] = null;
                                 // 增加分数
                                 this.addScore += num;
+                                isMerge = true;
                             }
                         }
                     }
@@ -462,7 +465,7 @@
                             let currentElement = currentGoup[j];
                             let nextElement = currentGoup[j - 1];
                             // 数值相等时合并内容
-                            if (currentElement.innerHTML == nextElement.innerHTML) {
+                            if (currentElement.innerHTML == nextElement.innerHTML && !isMerge) {
                                 let num = Number(nextElement.innerHTML) * 2
                                 nextElement.innerHTML = num;
                                 nextElement.style['background-color'] = Block.BG_COLOR[num];
@@ -471,6 +474,7 @@
                                 currentGoup[j] = null;
                                 // 增加分数
                                 this.addScore += num;
+                                isMerge = true;
                             }
                         }
                     }
